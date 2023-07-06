@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +8,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --primary-color: #ed640d;
+  --form-background-color: #1c1c1c;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,4 +28,112 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+.main {
+  width: 100vw;
+  min-height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  padding: 120px 24px 160px 24px;
+  pointer-events: none;
+}
+
+.app {
+  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
+}
+
+.gradient {
+  height: fit-content;
+  z-index: 3;
+  width: 100%;
+  max-width: 640px;
+  background-image: radial-gradient(
+      at 27% 37%,
+      hsla(215, 98%, 61%, 1) 0px,
+      transparent 0%
+    ),
+    radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 1) 0px, transparent 50%),
+    radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 1) 0px, transparent 50%),
+    radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 1) 0px, transparent 50%),
+    radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%),
+    radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 1) 0px, transparent 50%);
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  filter: blur(100px) saturate(150%);
+  top: 80px;
+  opacity: 0.15;
+}
+
+.head_text {
+  @apply mt-5 text-5xl font-extrabold leading-[1.15] text-white sm:text-6xl;
+}
+
+.orange_gradient {
+  @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
+}
+
+.desc {
+  @apply mt-5 text-lg text-gray-400 sm:text-xl max-w-2xl;
+}
+
+.rounded-button {
+  @apply rounded-full border border-black py-1.5 px-5 
+  text-white transition-all hover:bg-white hover:text-black 
+  text-center text-sm font-semibold flex items-center justify-center;
+}
+
+.primary-button {
+  @apply rounded-full border border-black py-1.5 px-5 
+  text-white transition-all hover:bg-white hover:text-black 
+  text-center text-sm font-semibold flex items-center justify-center;
+  background-color: var(--primary-color);
+}
+
+.flex-center {
+  @apply flex justify-center items-center;
+}
+
+.flex-start {
+  @apply flex justify-start items-start;
+}
+
+.flex-end {
+  @apply flex justify-end items-center;
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+
+/* Navbar */
+.navbar {
+  @apply w-full py-5 px-8 gap-4;
+}
+
+/* Profile Menu */
+.profile_menu-items {
+  @apply flex-col absolute right-1/2 translate-x-1/2 mt-3 
+  p-7 sm:min-w-[300px] min-w-max rounded-xl border;
+  border-color: #1e1e1e;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(7px); /* Blurs background element */
+}
+
+.border-nav-border {
+  border-color: #1e1e1e;
+}
+
+/* Form Field */
+.form_field-input {
+  @apply w-full outline-0 rounded-xl p-4;
+  background-color: var(--form-background-color);
+}
+
+.font-pacifico {
+  font-family: Pacifico;
 }
