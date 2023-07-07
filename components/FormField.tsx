@@ -27,6 +27,7 @@ const FormField = ({
           required={isRequired}
           value={state}
           className="form_field-input"
+          rows={5}
           onChange={(e) => setState(e.target.value)}
         />
       ) : (

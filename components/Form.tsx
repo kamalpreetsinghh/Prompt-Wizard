@@ -66,32 +66,30 @@ const Form = ({ type, session, userPrompt }: FormProps) => {
   };
 
   return (
-    <section className="w-full max-w-full flex-start flex-col">
+    <section className="w-full max-w-full flex-center flex-col my-10 sm:my-6">
       <h1 className="head_text text-left">
         <span className="orange_gradient">{type} Post</span>
       </h1>
-      {type.toLowerCase() === "create" && (
-        <p className="desc text-left max-w-md">
-          Create and share amazing prompts with the world, and let your
-          imagination run wild with any AI-powered platform.
-        </p>
-      )}
+
+      <p className="desc text-left max-w-md">
+        Create and share amazing prompts with the world, and let your
+        imagination run wild with any AI-powered platform.
+      </p>
 
       <form
         onSubmit={handleSubmit}
         className="mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism"
       >
         <FormField
-          type="textarea"
           title="Your AI Prompt"
           state={prompt}
           placeholder="Type prompt here"
           setState={setPrompt}
+          isTextArea
           isRequired
         />
 
         <FormField
-          type="textarea"
           title="Field of Prompt (#product, #webdevelopment, #idea, etc.)"
           state={tag}
           placeholder="#TAG"

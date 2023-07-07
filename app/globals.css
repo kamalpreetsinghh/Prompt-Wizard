@@ -11,15 +11,19 @@
   --primary-color: #ed640d;
 
   --text-color-light: black;
+  --background-color-light: white;
+  --background-color-menu-light: rgba(252, 252, 252, 0.5);
   --text-grey-color-light: rgb(86, 86, 86);
-  --form-background-color-light: #f2f4f5;
+  --form-background-color-light: rgba(230, 230, 230, 0.5);
   --footer-background-color-light: #f6f6f8;
   --divider-color-light: rgb(235 234 234);
   --card-color-light: rgba(155, 155, 155, 0.1);
 
   --text-color-dark: white;
+  --background-color-dark: black;
+  --background-color-menu-dark: rgba(0, 0, 0, 0.5);
   --text-grey-color-dark: rgb(156 163 175);
-  --form-background-color-dark: #1c1c1c;
+  --form-background-color-dark: rgba(40, 40, 40, 0.5);
   --footer-background-color-dark: #0d0d0d;
   --divider-color-dark: #1e1e1e;
   --card-color-dark: rgba(255, 255, 255, 0.1);
@@ -35,6 +39,7 @@
 
 html.dark {
   --background-color: var(--background-color-dark);
+  --background-color-menu: var(--background-color-menu-dark);
   --text-color: var(--text-color-dark);
   --text-grey-color: var(--text-grey-color-dark);
   --footer-background-color: var(--footer-background-color-dark);
@@ -49,6 +54,7 @@ html.dark {
 
 html.light {
   --background-color: var(--background-color-light);
+  --background-color-menu: var(--background-color-menu-light);
   --text-color: var(--text-color-light);
   --text-grey-color: var(--text-grey-color-light);
   --footer-background-color: var(--footer-background-color-light);
@@ -82,7 +88,7 @@ body {
 }
 
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col mx-auto sm:px-16 px-6;
+  @apply relative z-10 flex justify-center items-center flex-col mx-auto sm:px-24 px-6;
 }
 
 .gradient {
@@ -124,20 +130,24 @@ body {
 }
 
 .primary-button {
-  @apply rounded-full py-1.5 px-5 text-white transition-all
+  @apply rounded-full py-1 px-3 sm:px-4 text-white transition-all
   text-center text-sm font-semibold flex items-center justify-center;
   background-color: var(--primary-color);
 }
 
 .primary-button:hover {
+  color: var(--background-color);
   background-color: var(--text-color);
-  color: var(--text-color);
 }
 
 .rounded-button {
-  @apply rounded-full py-1.5 px-5 
-  text-white transition-all hover:bg-white hover:text-black 
+  @apply rounded-full py-1.5 px-5 text-white transition-all  
   text-center text-sm font-semibold flex items-center justify-center;
+}
+
+.rounded-button:hover {
+  color: var(--background-color);
+  background-color: var(--text-color);
 }
 
 .flex-center {
@@ -156,17 +166,12 @@ body {
   @apply flex justify-between items-center;
 }
 
-/* Navbar */
-.navbar {
-  @apply w-full py-5 px-8 gap-4;
-}
-
 /* Profile Menu */
 .profile_menu-items {
   @apply flex-col absolute right-1/2 translate-x-1/2 mt-3 
   p-7 sm:min-w-[300px] min-w-max rounded-xl border;
   border-color: var(--divider-color);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--background-color-menu);
   backdrop-filter: blur(7px); /* Blurs background element */
 }
 
@@ -176,8 +181,9 @@ body {
 
 /* Form Field */
 .form_field-input {
-  @apply w-full outline-0 rounded-xl p-4;
+  @apply w-full border outline-0 rounded-xl p-4;
   background-color: var(--form-background-color);
+  border-color: var(--divider-color);
 }
 
 .font-pacifico {
@@ -196,13 +202,9 @@ body {
   border-color: var(--divider-color);
 }
 
-.paddings {
-  @apply lg:px-20 py-6 px-5;
-}
-
 /* Footer */
 .footer {
-  @apply flex-col paddings w-full gap-20 mt-10;
+  @apply flex-col lg:px-20 p-6 w-full gap-20 mt-10;
   background-color: var(--footer-background-color);
 }
 
@@ -252,13 +254,13 @@ input[type="checkbox"].toggle + label::after {
 }
 
 input[type="checkbox"].toggle:checked + label::before {
-  background-color: hsl(100, 70%, 90%);
+  background-color: hsl(36, 100%, 77%);
 }
 
 input[type="checkbox"].toggle:checked + label::after {
   content: "";
   transform: translateX(100%);
-  background-color: hsl(100, 70%, 60%);
+  background-color: var(--primary-color);
 }
 
 .text-grey-color {

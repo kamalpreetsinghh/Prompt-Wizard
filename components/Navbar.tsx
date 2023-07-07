@@ -9,25 +9,22 @@ const Navbar = async () => {
   const session = await getCurrentUser();
 
   return (
-    <nav className="flex-between navbar">
-      <div className="flex gap-2 flex-center">
-        <Link href="/">
-          <Image
-            src="/assets/icons/logo.svg"
-            alt="logo"
-            width={150}
-            height={40}
-          />
-        </Link>
-      </div>
+    <nav className="flex-between w-full py-5 gap-4">
+      <Link href="/">
+        <Image
+          src="/assets/icons/logo.svg"
+          alt="logo"
+          width={150}
+          height={40}
+        />
+      </Link>
 
-      {/* Desktop Navigation */}
       <div className="flex-center gap-4">
         <div className="flex-center mx-4">
           <ToggleSwitch />
           <div>
             <Image
-              src="/assets/icons/dark-theme.svg"
+              src="/assets/icons/moon.svg"
               width={25}
               height={25}
               alt="Theme"
@@ -35,7 +32,7 @@ const Navbar = async () => {
           </div>
         </div>
         {session?.user ? (
-          <div className="flex gap-3 md:gap-5">
+          <div className="flex gap-2 md:gap-6">
             <ProfileMenu session={session} />
             <Link href="/create-prompt" className="primary-button">
               Create Post
@@ -45,53 +42,6 @@ const Navbar = async () => {
           <AuthProviders />
         )}
       </div>
-
-      {/* Mobile Navigation */}
-      {/* <div className="sm:hidden flex relative">
-        {session?.user ? (
-          <div className="flex">
-            <Image
-              src={session?.user?.image ?? "/assets/images/logo.png"}
-              width={37}
-              height={37}
-              className="rounded-full"
-              alt="profile"
-              onClick={() => setToggleDropdown(!toggleDropdown)}
-            />
-
-            {toggleDropdown && (
-              <div className="dropdown">
-                <Link
-                  href="/profile"
-                  className="dropdown_link"
-                  onClick={() => setToggleDropdown(false)}
-                >
-                  My Profile
-                </Link>
-                <Link
-                  href="/create-prompt"
-                  className="dropdown_link"
-                  onClick={() => setToggleDropdown(false)}
-                >
-                  Create Prompt
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setToggleDropdown(false);
-                    signOut();
-                  }}
-                  className="mt-5 w-full black_btn"
-                >
-                  Sign Out
-                </button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <AuthProviders />
-        )}
-      </div> */}
     </nav>
   );
 };
