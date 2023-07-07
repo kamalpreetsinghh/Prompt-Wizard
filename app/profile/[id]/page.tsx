@@ -7,22 +7,20 @@ type UserProfileProps = {
 };
 
 const UserProfile = async ({ params: { id } }: UserProfileProps) => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/users/${id}/posts`, {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/users/${id}`, {
     method: "GET",
   });
 
   if (!res.ok) {
     return (
       <p>
-        There is some issue in the system. We advise you to visi this website
+        There is some issue in the system. We advise you to visit this website
         later.
       </p>
     );
   }
 
   const result = await res.json();
-  console.log("HI");
-  console.log(result);
 
   return <Profile userPosts={result} />;
 };

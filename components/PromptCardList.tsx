@@ -3,13 +3,18 @@ import { Post } from "@/common.types";
 
 type PromptCardListProps = {
   posts: Array<Post>;
+  showUserActions: boolean;
 };
 
-const PromptCardList = ({ posts }: PromptCardListProps) => {
+const PromptCardList = ({ posts, showUserActions }: PromptCardListProps) => {
   return (
     <div className="mt-16 prompt_layout">
       {posts.map((post) => (
-        <PromptCard key={post._id} post={post} />
+        <PromptCard
+          key={post._id}
+          post={post}
+          showUserActions={showUserActions}
+        />
       ))}
     </div>
   );

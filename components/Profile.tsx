@@ -13,7 +13,7 @@ const Profile = ({ userPosts }: ProfileProps) => {
       </h1>
       <p className="desc text-left">Desc</p>
 
-      <PromptCardList posts={userPosts} />
+      <PromptCardList posts={userPosts} showUserActions={true} />
     </section>
   );
 };

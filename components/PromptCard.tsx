@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import PromptActions from "./PromptActions";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import PromptCardUser from "./PromptCardUser";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
@@ -11,12 +12,15 @@ import { Post, SessionInterface, UserProfile } from "@/common.types";
 
 type PromptCardProps = {
   post: Post;
+  showUserActions: boolean;
 };
 
-const PromptCard = ({ post }: PromptCardProps) => {
+const PromptCard = ({ post, showUserActions }: PromptCardProps) => {
   const { data } = useSession();
   const session = data as SessionInterface;
   const router = useRouter();
+
+  const showActions = session?.user.id === post.creator._id && showUserActions;
 
   const [showCopyIcon, setShowCopyIcon] = useState(false);
 
@@ -39,10 +43,6 @@ const PromptCard = ({ post }: PromptCardProps) => {
     }
   };
 
-  const handleUpdate = async () => {
-    router.push(`/update-prompt/${post._id}`);
-  };
-
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
@@ -62,17 +62,25 @@ const PromptCard = ({ post }: PromptCardProps) => {
         </div>
       </div>
 
-      <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
-      <p
-        className="font-inter text-sm orange_gradient cursor-pointer"
-        onClick={() => {}}
-      >
-        #{post.tag}
-      </p>
-
-      {session?.user.id === post.creator._id && (
-        <PromptActions onUpdate={handleUpdate} onDelete={handleDelete} />
-      )}
+      <p className="my-4 text-lg">{post.prompt}</p>
+      <div className="flex flex-between">
+        <p
+          className="font-inter orange_gradient cursor-pointer"
+          onClick={() => {}}
+        >
+          #{post.tag}
+        </p>
+        {showActions && (
+          <div>
+            <Link href={`/update-prompt/${post._id}`}>
+              <EditIcon />
+            </Link>
+            <span onClick={handleDelete}>
+              <DeleteIcon />
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -17,10 +17,9 @@ const PromptCardUser = ({ userProfile }: PromptCardUserProps) => {
       />
 
       <div className="flex flex-col">
-        <h3 className="font-satoshi font-semibold text-gray-400">
+        <h3 className="font-satoshi font-semibold text-grey-color">
           {userProfile.username}
         </h3>
-        <p className="font-inter text-sm text-gray-100">{userProfile.email}</p>
       </div>
     </div>
   );

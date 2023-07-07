@@ -5,23 +5,64 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb-light: 0, 0, 0;
+  --background-start-rgb-light: rgb(214, 219, 220);
+  --background-end-rgb-light: rgb(255, 255, 255);
   --primary-color: #ed640d;
-  --form-background-color: #1c1c1c;
+
+  --text-color-light: black;
+  --text-grey-color-light: rgb(86, 86, 86);
+  --form-background-color-light: #f2f4f5;
+  --footer-background-color-light: #f6f6f8;
+  --divider-color-light: rgb(235 234 234);
+  --card-color-light: rgba(155, 155, 155, 0.1);
+
+  --text-color-dark: white;
+  --text-grey-color-dark: rgb(156 163 175);
+  --form-background-color-dark: #1c1c1c;
+  --footer-background-color-dark: #0d0d0d;
+  --divider-color-dark: #1e1e1e;
+  --card-color-dark: rgba(255, 255, 255, 0.1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb-dark: 255, 255, 255;
+    --background-start-rgb-dark: 0, 0, 0;
+    --background-end-rgb-dark: 0, 0, 0;
   }
 }
 
+html.dark {
+  --background-color: var(--background-color-dark);
+  --text-color: var(--text-color-dark);
+  --text-grey-color: var(--text-grey-color-dark);
+  --footer-background-color: var(--footer-background-color-dark);
+  --divider-color: var(--divider-color-dark);
+  --form-background-color: var(--form-background-color-dark);
+  --card-color: var(--card-color-dark);
+
+  --foreground-rgb: var(--foreground-rgb-dark);
+  --background-start-rgb: var(--background-start-rgb-dark);
+  --background-end-rgb: var(--background-end-rgb-dark);
+}
+
+html.light {
+  --background-color: var(--background-color-light);
+  --text-color: var(--text-color-light);
+  --text-grey-color: var(--text-grey-color-light);
+  --footer-background-color: var(--footer-background-color-light);
+  --divider-color: var(--divider-color-light);
+  --form-background-color: var(--form-background-color-light);
+  --card-color: var(--card-color-light);
+
+  --foreground-rgb: var(--foreground-rgb-light);
+  --background-start-rgb: var(--background-start-rgb-light);
+  --background-end-rgb: var(--background-end-rgb-light);
+}
+
 body {
-  color: rgb(var(--foreground-rgb));
+  color: rgb(var(--text-color));
   background: linear-gradient(
       to bottom,
       transparent,
@@ -41,7 +82,7 @@ body {
 }
 
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
+  @apply relative z-10 flex justify-center items-center flex-col mx-auto sm:px-16 px-6;
 }
 
 .gradient {
@@ -70,7 +111,7 @@ body {
 }
 
 .head_text {
-  @apply mt-5 text-5xl font-extrabold leading-[1.15] text-white sm:text-6xl;
+  @apply mt-5 text-5xl font-extrabold leading-[1.15] sm:text-6xl;
 }
 
 .orange_gradient {
@@ -78,24 +119,23 @@ body {
 }
 
 .desc {
-  @apply mt-5 text-lg text-gray-400 sm:text-xl max-w-2xl;
-}
-
-.rounded-button {
-  @apply rounded-full border border-black py-1.5 px-5 
-  text-white transition-all hover:bg-white hover:text-black 
-  text-center text-sm font-semibold flex items-center justify-center;
+  @apply mt-5 text-lg sm:text-xl max-w-2xl;
+  color: var(--text-grey-color);
 }
 
 .primary-button {
-  @apply rounded-full border border-black py-1.5 px-5 
-  text-white transition-all hover:bg-white hover:text-black 
+  @apply rounded-full py-1.5 px-5 text-white transition-all
   text-center text-sm font-semibold flex items-center justify-center;
   background-color: var(--primary-color);
 }
 
+.primary-button:hover {
+  background-color: var(--text-color);
+  color: var(--text-color);
+}
+
 .rounded-button {
-  @apply rounded-full border border-black py-1.5 px-5 
+  @apply rounded-full py-1.5 px-5 
   text-white transition-all hover:bg-white hover:text-black 
   text-center text-sm font-semibold flex items-center justify-center;
 }
@@ -125,13 +165,13 @@ body {
 .profile_menu-items {
   @apply flex-col absolute right-1/2 translate-x-1/2 mt-3 
   p-7 sm:min-w-[300px] min-w-max rounded-xl border;
-  border-color: #1e1e1e;
+  border-color: var(--divider-color);
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(7px); /* Blurs background element */
 }
 
 .border-nav-border {
-  border-color: #1e1e1e;
+  border-color: var(--divider-color);
 }
 
 /* Form Field */
@@ -150,7 +190,77 @@ body {
 
 /* PromptCard Component */
 .prompt_card {
-  @apply flex-1 break-inside-avoid rounded-lg border 
-  border-gray-800 bg-white/10 bg-clip-padding p-6 pb-4 
+  @apply flex-1 break-inside-avoid rounded-lg border bg-clip-padding p-6 pb-4 
   backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+  background-color: var(--card-color);
+  border-color: var(--divider-color);
+}
+
+.paddings {
+  @apply lg:px-20 py-6 px-5;
+}
+
+/* Footer */
+.footer {
+  @apply flex-col paddings w-full gap-20 mt-10;
+  background-color: var(--footer-background-color);
+}
+
+.footer_copyright {
+  @apply max-sm:flex-col w-full text-sm font-normal;
+}
+
+/* Toggle Slider */
+input[type="checkbox"].toggle {
+  opacity: 0;
+  position: absolute;
+  left: -9000px;
+  top: -9000px;
+}
+
+input[type="checkbox"].toggle + label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+input[type="checkbox"].toggle + label::before {
+  content: "";
+  width: 2em;
+  height: 1em;
+  background-color: rgb(223, 223, 223);
+  border-radius: 1em;
+  transition: background-color 200ms ease-in-out;
+}
+
+input[type="checkbox"].toggle + label::after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  content: "";
+  font-size: 0.5em;
+  height: 0.9em;
+  left: 0.2em;
+  width: 1.8em;
+  height: 1.8em;
+  background-color: black;
+  color: white;
+  border-radius: 1em;
+  transition: background-color 200ms ease-in-out, transform 200ms ease-in-out;
+}
+
+input[type="checkbox"].toggle:checked + label::before {
+  background-color: hsl(100, 70%, 90%);
+}
+
+input[type="checkbox"].toggle:checked + label::after {
+  content: "";
+  transform: translateX(100%);
+  background-color: hsl(100, 70%, 60%);
+}
+
+.text-grey-color {
+  color: var(--text-grey-color);
 }

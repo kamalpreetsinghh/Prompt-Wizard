@@ -3,6 +3,7 @@ import Link from "next/link";
 import AuthProviders from "./AuthProviders";
 import ProfileMenu from "./ProfileMenu";
 import { getCurrentUser } from "@/lib/session";
+import ToggleSwitch from "./ToggleSwitch";
 
 const Navbar = async () => {
   const session = await getCurrentUser();
@@ -22,12 +23,23 @@ const Navbar = async () => {
 
       {/* Desktop Navigation */}
       <div className="flex-center gap-4">
+        <div className="flex-center mx-4">
+          <ToggleSwitch />
+          <div>
+            <Image
+              src="/assets/icons/dark-theme.svg"
+              width={25}
+              height={25}
+              alt="Theme"
+            />
+          </div>
+        </div>
         {session?.user ? (
           <div className="flex gap-3 md:gap-5">
+            <ProfileMenu session={session} />
             <Link href="/create-prompt" className="primary-button">
               Create Post
             </Link>
-            <ProfileMenu session={session} />
           </div>
         ) : (
           <AuthProviders />

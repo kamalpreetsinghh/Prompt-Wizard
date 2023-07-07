@@ -23,9 +23,9 @@ const Feed = () => {
   return (
     <section className="feed">
       {searchText ? (
-        <PromptCardList posts={allPosts} />
+        <PromptCardList posts={allPosts} showUserActions={false} />
       ) : (
-        <PromptCardList posts={allPosts} />
+        <PromptCardList posts={allPosts} showUserActions={false} />
       )}
     </section>
   );
