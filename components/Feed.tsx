@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import PromptCardList from "./PromptCardList";
+import { useEffect, useState } from "react";
 
 const Feed = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -23,9 +23,9 @@ const Feed = () => {
   return (
     <section className="feed">
       {searchText ? (
-        <PromptCardList posts={allPosts} handleTagClick={(tag: string) => {}} />
+        <PromptCardList posts={allPosts} />
       ) : (
-        <PromptCardList posts={allPosts} handleTagClick={(tag: string) => {}} />
+        <PromptCardList posts={allPosts} />
       )}
     </section>
   );

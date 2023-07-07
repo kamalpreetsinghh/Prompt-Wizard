@@ -1,22 +1,16 @@
-import { connectToDB } from "@/lib/database";
-import Prompt from "@/models/prompt";
+import { getPromptsByUserId } from "@/lib/prompt-actions";
+import { NextRequest } from "next/server";
 
-export const GET = async (request: Request, response: Response) => {
-  console.log("hi");
-  //   const url = request.url.split("/");
-  //   console.log(url);
-  //   const id = url[url.length - 2];
-  //   console.log(id);
-
-  //   try {
-  //     await connectToDB();
-
-  //     const prompts = await Prompt.find({ creator: id }).populate("creator");
-
-  //     return new Response(JSON.stringify(prompts), { status: 200 });
-  //   } catch (error) {
-  //     return new Response("Failed to fetch prompts created by user", {
-  //       status: 500,
-  //     });
-  //   }
+export const GET = async (
+  request: NextRequest,
+  { params: { id } }: { params: { id: string } }
+) => {
+  try {
+    const prompts = await getPromptsByUserId(id);
+    return new Response(JSON.stringify(prompts), { status: 200 });
+  } catch (error) {
+    return new Response("Failed to fetch prompts created by user", {
+      status: 500,
+    });
+  }
 };

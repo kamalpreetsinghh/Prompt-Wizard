@@ -1,11 +1,8 @@
-import { connectToDB } from "@/lib/database";
-import Prompt from "@/models/prompt";
+import { getAllPrompts } from "@/lib/prompt-actions";
 
 export const GET = async (request: Request, response: Response) => {
   try {
-    await connectToDB();
-
-    const prompts = await Prompt.find({}).populate("creator");
+    const prompts = await getAllPrompts();
 
     return new Response(JSON.stringify(prompts), { status: 200 });
   } catch (error) {

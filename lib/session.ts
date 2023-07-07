@@ -1,7 +1,6 @@
-import { NextAuthOptions, getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-
 import User from "@/models/user";
+import { NextAuthOptions, getServerSession } from "next-auth";
 import { connectToDB } from "@/lib/database";
 import { SessionInterface } from "@/common.types";
 

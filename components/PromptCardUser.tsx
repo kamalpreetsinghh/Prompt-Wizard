@@ -1,22 +1,15 @@
 import Image from "next/image";
-import React from "react";
+import { UserProfile } from "@/common.types";
 
 type PromptCardUserProps = {
-  creator: {
-    email: string;
-    username: string;
-    image: string;
-  };
+  userProfile: UserProfile;
 };
 
-const PromptCardUser = ({ creator }: PromptCardUserProps) => {
+const PromptCardUser = ({ userProfile }: PromptCardUserProps) => {
   return (
-    <div
-      className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
-      onClick={() => {}}
-    >
+    <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
       <Image
-        src={creator.image}
+        src={userProfile.image}
         alt="user_image"
         width={40}
         height={40}
@@ -25,9 +18,9 @@ const PromptCardUser = ({ creator }: PromptCardUserProps) => {
 
       <div className="flex flex-col">
         <h3 className="font-satoshi font-semibold text-gray-400">
-          {creator.username}
+          {userProfile.username}
         </h3>
-        <p className="font-inter text-sm text-gray-100">{creator.email}</p>
+        <p className="font-inter text-sm text-gray-100">{userProfile.email}</p>
       </div>
     </div>
   );

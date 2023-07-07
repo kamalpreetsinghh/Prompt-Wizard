@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import AuthProviders from "./AuthProviders";
-
-import { getCurrentUser } from "@/lib/session";
 import ProfileMenu from "./ProfileMenu";
+import { getCurrentUser } from "@/lib/session";
 
 const Navbar = async () => {
   const session = await getCurrentUser();

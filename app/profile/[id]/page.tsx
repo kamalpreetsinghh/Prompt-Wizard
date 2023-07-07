@@ -7,17 +7,24 @@ type UserProfileProps = {
 };
 
 const UserProfile = async ({ params: { id } }: UserProfileProps) => {
-  console.log(id);
-  try {
-    const response = await fetch(`/api/users/${id}/posts`, { method: "GET" });
-  } catch (error) {
-    console.log(error);
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/users/${id}/posts`, {
+    method: "GET",
+  });
+
+  if (!res.ok) {
+    return (
+      <p>
+        There is some issue in the system. We advise you to visi this website
+        later.
+      </p>
+    );
   }
 
-  // console.log(result);
-  // if (!result?.user)
-  //   return <p className="no-result-text">Failed to fetch user info</p>;
-  // return <Profile />;
+  const result = await res.json();
+  console.log("HI");
+  console.log(result);
+
+  return <Profile userPosts={result} />;
 };
 
 export default UserProfile;

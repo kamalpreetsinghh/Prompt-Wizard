@@ -2,35 +2,58 @@
 
 import Link from "next/link";
 import FormField from "./FormField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SessionInterface } from "@/common.types";
 
 type FormProps = {
   type: string;
   session: SessionInterface;
+  userPrompt?: {
+    id: string;
+    prompt: string;
+    tag: string;
+  };
 };
 
-const Form = ({ type, session }: FormProps) => {
+const Form = ({ type, session, userPrompt }: FormProps) => {
   const router = useRouter();
 
   const [prompt, setPrompt] = useState("");
   const [tag, setTag] = useState("");
   const [submitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    if (userPrompt && type === "Edit") {
+      setPrompt(userPrompt.prompt);
+      setTag(userPrompt.tag);
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/prompt/new", {
-        method: "POST",
-        body: JSON.stringify({
-          prompt: prompt,
-          tag: tag,
-          userId: session?.user?.id,
-        }),
-      });
+      let response;
+      if (type === "Create") {
+        response = await fetch("/api/prompt/new", {
+          method: "POST",
+          body: JSON.stringify({
+            prompt: prompt,
+            tag: tag,
+            creator: session?.user?.id,
+          }),
+        });
+      } else {
+        response = await fetch(`/api/prompt/${userPrompt?.id}`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            prompt: prompt,
+            tag: tag,
+          }),
+        });
+      }
 
       if (response.ok) {
         router.push("/");

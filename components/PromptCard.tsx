@@ -1,25 +1,27 @@
 "use client";
 
-import { Post, SessionInterface } from "@/common.types";
-import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import React, { useState } from "react";
+import Link from "next/link";
 import PromptActions from "./PromptActions";
 import PromptCardUser from "./PromptCardUser";
+import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { Post, SessionInterface, UserProfile } from "@/common.types";
 
 type PromptCardProps = {
   post: Post;
-  handleTagClick: (tag: string) => void;
 };
 
-const PromptCard = ({ post, handleTagClick }: PromptCardProps) => {
+const PromptCard = ({ post }: PromptCardProps) => {
   const { data } = useSession();
   const session = data as SessionInterface;
-  const pathName = usePathname();
   const router = useRouter();
 
   const [showCopyIcon, setShowCopyIcon] = useState(false);
+
+  const { email, username, image } = post.creator;
+  const userProfile: UserProfile = { email, username, image };
 
   const handleCopy = () => {
     setShowCopyIcon(true);
@@ -29,7 +31,7 @@ const PromptCard = ({ post, handleTagClick }: PromptCardProps) => {
 
   const handleDelete = async () => {
     try {
-      const res = await fetch(`/api/prompt/${post._id}`, {
+      await fetch(`/api/prompt/${post._id}`, {
         method: "DELETE",
       });
     } catch (error) {
@@ -38,32 +40,24 @@ const PromptCard = ({ post, handleTagClick }: PromptCardProps) => {
   };
 
   const handleUpdate = async () => {
-    try {
-      const res = await fetch(`/api/prompt/?id=${post._id}`, {
-        method: "PATCH",
-        body: JSON.stringify({
-          prompt: post.prompt,
-          tag: post.tag,
-        }),
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    router.push(`/update-prompt/${post._id}`);
   };
 
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
-        <PromptCardUser creator={post.creator} />
+        <Link href={`/profile/${post?.creator?._id}`}>
+          <PromptCardUser userProfile={userProfile} />
+        </Link>
 
-        <div className="copy_btn" onClick={handleCopy}>
+        <div className="copy_btn cursor-pointer" onClick={handleCopy}>
           <Image
             src={
               showCopyIcon ? "/assets/icons/tick.svg" : "/assets/icons/copy.svg"
             }
             alt={showCopyIcon ? "tick_icon" : "copy_icon"}
-            width={12}
-            height={12}
+            width={18}
+            height={18}
           />
         </div>
       </div>
@@ -71,7 +65,7 @@ const PromptCard = ({ post, handleTagClick }: PromptCardProps) => {
       <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
       <p
         className="font-inter text-sm orange_gradient cursor-pointer"
-        onClick={() => handleTagClick && handleTagClick(post.tag)}
+        onClick={() => {}}
       >
         #{post.tag}
       </p>

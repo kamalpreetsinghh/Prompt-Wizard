@@ -1,20 +1,20 @@
-import Prompt from "@/models/prompt";
-import { connectToDB } from "@/lib/database";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest } from "next/server";
+import {
+  deletePrompt,
+  getPromptById,
+  updatePrompt,
+} from "@/lib/prompt-actions";
 
 export const GET = async (
-  request: NextApiRequest,
-  response: NextApiResponse
+  request: NextRequest,
+  { params: { id } }: { params: { id: string } }
 ) => {
-  const { id } = request.query;
-
+  // const url = request.url.split("/");
+  // const id = url[url.length - 1];
+  // console.log(request.url.)
   try {
-    await connectToDB();
-
-    const prompt = await Prompt.findById(id).populate("creator");
-
+    const prompt = await getPromptById(id);
     if (!prompt) return new Response("Prompt Not Found", { status: 404 });
-
     return new Response(JSON.stringify(prompt), { status: 200 });
   } catch (error) {
     return new Response("Internal Server Error", { status: 500 });
@@ -27,20 +27,14 @@ export const PATCH = async (request: Request, response: Response) => {
   const { prompt, tag } = await request.json();
 
   try {
-    await connectToDB();
-
     // Find the existing prompt by ID
-    const existingPrompt = await Prompt.findById(id);
+    const existingPrompt = await getPromptById(id);
 
     if (!existingPrompt) {
       return new Response("Prompt not found", { status: 404 });
     }
 
-    // Update the prompt with new data
-    existingPrompt.prompt = prompt;
-    existingPrompt.tag = tag;
-
-    await existingPrompt.save();
+    await updatePrompt(id, prompt, tag);
 
     return new Response("Prompt Updated successfully", { status: 200 });
   } catch (error) {
@@ -48,14 +42,12 @@ export const PATCH = async (request: Request, response: Response) => {
   }
 };
 
-export const DELETE = async (request: Request, response: Response) => {
-  const url = request.url.split("/");
-  const id = url[url.length - 1];
-
+export const DELETE = async (
+  request: NextRequest,
+  { params: { id } }: { params: { id: string } }
+) => {
   try {
-    await connectToDB();
-
-    await Prompt.findByIdAndDelete(id);
+    await deletePrompt(id);
 
     return new Response("Prompt deleted successfully", { status: 200 });
   } catch (error) {

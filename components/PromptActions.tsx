@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 
 type PromptActionsProps = {
   onUpdate: () => void;
@@ -8,18 +8,20 @@ type PromptActionsProps = {
 const PromptActions = ({ onUpdate, onDelete }: PromptActionsProps) => {
   return (
     <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
-      <p
-        className="font-inter text-sm green_gradient cursor-pointer"
+      <button
+        type="button"
+        className="font-inter text-sm px-3 py-1 bg-orange-600 rounded-full primary-button"
         onClick={onUpdate}
       >
         Edit
-      </p>
-      <p
-        className="font-inter text-sm orange_gradient cursor-pointer"
+      </button>
+      <button
+        type="button"
+        className="font-inter text-sm px-3 py-1 bg-red-700 rounded-button "
         onClick={onDelete}
       >
         Delete
-      </p>
+      </button>
     </div>
   );
 };

@@ -20,3 +20,9 @@ export type Post = {
     image: string;
   };
 };
+
+export type UserProfile = {
+  email: string;
+  username: string;
+  image: string;
+};

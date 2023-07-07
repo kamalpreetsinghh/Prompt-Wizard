@@ -1,12 +1,14 @@
 import mongoose, { Document, Schema, model, models } from "mongoose";
 
-interface Prompt extends Document {
+export interface IPrompt {
   creator: mongoose.Types.ObjectId;
   prompt: string;
   tag: string;
 }
 
-const PromptSchema = new Schema<Prompt>({
+interface IPromptDoc extends IPrompt, Document {}
+
+const PromptSchema = new Schema<IPromptDoc>({
   creator: {
     type: Schema.Types.ObjectId,
     ref: "User",
