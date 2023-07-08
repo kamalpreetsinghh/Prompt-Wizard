@@ -7,15 +7,21 @@ import EditIcon from "@mui/icons-material/Edit";
 import PromptCardUser from "./PromptCardUser";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { Post, SessionInterface, UserProfile } from "@/common.types";
+import { revalidateTag } from "next/cache";
+import { useRouter } from "next/navigation";
 
 type PromptCardProps = {
   post: Post;
   showUserActions: boolean;
+  handleTagClick?: (tag: string) => void;
 };
 
-const PromptCard = ({ post, showUserActions }: PromptCardProps) => {
+const PromptCard = ({
+  post,
+  showUserActions,
+  handleTagClick,
+}: PromptCardProps) => {
   const { data } = useSession();
   const session = data as SessionInterface;
   const router = useRouter();
@@ -24,8 +30,16 @@ const PromptCard = ({ post, showUserActions }: PromptCardProps) => {
 
   const [showCopyIcon, setShowCopyIcon] = useState(false);
 
-  const { email, username, image } = post.creator;
-  const userProfile: UserProfile = { email, username, image };
+  const { _id, email, name, username, image, description } = post.creator;
+
+  const userProfile: UserProfile = {
+    _id,
+    email,
+    name,
+    username,
+    image,
+    description,
+  };
 
   const handleCopy = () => {
     setShowCopyIcon(true);
@@ -38,6 +52,9 @@ const PromptCard = ({ post, showUserActions }: PromptCardProps) => {
       await fetch(`/api/prompt/${post._id}`, {
         method: "DELETE",
       });
+      router.refresh();
+
+      revalidateTag("userPosts");
     } catch (error) {
       console.log(error);
     }
@@ -65,18 +82,18 @@ const PromptCard = ({ post, showUserActions }: PromptCardProps) => {
       <p className="my-4 text-lg">{post.prompt}</p>
       <div className="flex flex-between">
         <p
-          className="font-inter orange_gradient cursor-pointer"
-          onClick={() => {}}
+          className="font-inter orange_gradient cursor-pointer button-hover"
+          onClick={() => handleTagClick && handleTagClick(post.tag)}
         >
           #{post.tag}
         </p>
         {showActions && (
-          <div>
+          <div className="flex gap-2">
             <Link href={`/update-prompt/${post._id}`}>
-              <EditIcon />
+              <EditIcon className="primary-color button-hover" />
             </Link>
             <span onClick={handleDelete}>
-              <DeleteIcon />
+              <DeleteIcon className="primary-color button-hover" />
             </span>
           </div>
         )}

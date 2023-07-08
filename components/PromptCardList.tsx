@@ -4,9 +4,14 @@ import { Post } from "@/common.types";
 type PromptCardListProps = {
   posts: Array<Post>;
   showUserActions: boolean;
+  handleTagClick?: (tag: string) => void;
 };
 
-const PromptCardList = ({ posts, showUserActions }: PromptCardListProps) => {
+const PromptCardList = ({
+  posts,
+  showUserActions,
+  handleTagClick,
+}: PromptCardListProps) => {
   return (
     <div className="mt-16 prompt_layout">
       {posts.map((post) => (
@@ -14,6 +19,7 @@ const PromptCardList = ({ posts, showUserActions }: PromptCardListProps) => {
           key={post._id}
           post={post}
           showUserActions={showUserActions}
+          handleTagClick={handleTagClick}
         />
       ))}
     </div>

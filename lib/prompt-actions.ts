@@ -2,7 +2,6 @@ import Prompt, { IPrompt } from "@/models/prompt";
 import { connectToDB } from "./database";
 
 export const getAllPrompts = async () => {
-  console.log("Hi There");
   await connectToDB();
 
   const prompts = await Prompt.find({}).populate("creator");

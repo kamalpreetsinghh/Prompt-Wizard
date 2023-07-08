@@ -1,10 +1,13 @@
+"use client";
+
 type FormFieldProps = {
   type?: string;
-  title: string;
+  title?: string;
   state: string;
   placeholder: string;
   isTextArea?: boolean;
   isRequired?: boolean;
+  errorMessage?: string;
   setState: (value: string) => void;
 };
 
@@ -14,12 +17,14 @@ const FormField = ({
   state,
   placeholder,
   isTextArea,
+  errorMessage,
   isRequired = false,
   setState,
 }: FormFieldProps) => {
   return (
     <div className="flex-start flex-col w-full gap-4">
-      <label className="w-full">{title}</label>
+      {title && <label className="w-full">{title}</label>}
+      {errorMessage && <span className=" text-red-600">{errorMessage}</span>}
 
       {isTextArea ? (
         <textarea

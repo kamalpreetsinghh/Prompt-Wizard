@@ -40,6 +40,7 @@ export const authOptions: NextAuthOptions = {
         if (!userExists) {
           await User.create({
             email: profile?.email as string,
+            name: profile?.name,
             username: profile?.name?.replaceAll(" ", "").toLowerCase(),
             image: user?.image as string,
           });

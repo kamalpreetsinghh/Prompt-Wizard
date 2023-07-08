@@ -15,14 +15,19 @@ export type Post = {
   tag: string;
   creator: {
     _id: string;
+    name: string;
     email: string;
     username: string;
     image: string;
+    description: string;
   };
 };
 
 export type UserProfile = {
+  _id: string;
   email: string;
+  name: string;
   username: string;
   image: string;
+  description?: string;
 };

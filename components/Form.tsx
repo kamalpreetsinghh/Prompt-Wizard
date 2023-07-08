@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import FormField from "./FormField";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -41,7 +40,7 @@ const Form = ({ type, session, userPrompt }: FormProps) => {
           method: "POST",
           body: JSON.stringify({
             prompt: prompt,
-            tag: tag,
+            tag: tag.replace(/\s/g, "").toLowerCase(),
             creator: session?.user?.id,
           }),
         });
@@ -50,19 +49,23 @@ const Form = ({ type, session, userPrompt }: FormProps) => {
           method: "PATCH",
           body: JSON.stringify({
             prompt: prompt,
-            tag: tag,
+            tag: tag.replace(/\s/g, "").toLowerCase(),
           }),
         });
       }
 
       if (response.ok) {
-        router.push("/");
+        router.back();
       }
     } catch (error) {
       console.log(error);
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleCancel = () => {
+    router.back();
   };
 
   return (
@@ -98,9 +101,13 @@ const Form = ({ type, session, userPrompt }: FormProps) => {
         />
 
         <div className="flex-end mx-3 mb-5 gap-4">
-          <Link href="/" className="rounded-button bg-red-800">
+          <button
+            type="button"
+            onClick={handleCancel}
+            className="rounded-button bg-red-800"
+          >
             Cancel
-          </Link>
+          </button>
 
           <button
             type="submit"

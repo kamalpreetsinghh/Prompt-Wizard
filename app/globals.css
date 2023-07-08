@@ -12,7 +12,7 @@
 
   --text-color-light: black;
   --background-color-light: white;
-  --background-color-menu-light: rgba(252, 252, 252, 0.5);
+  --background-color-menu-light: rgba(252, 252, 252, 0.7);
   --text-grey-color-light: rgb(86, 86, 86);
   --form-background-color-light: rgba(230, 230, 230, 0.5);
   --footer-background-color-light: #f6f6f8;
@@ -21,7 +21,7 @@
 
   --text-color-dark: white;
   --background-color-dark: black;
-  --background-color-menu-dark: rgba(0, 0, 0, 0.5);
+  --background-color-menu-dark: rgba(0, 0, 0, 0.7);
   --text-grey-color-dark: rgb(156 163 175);
   --form-background-color-dark: rgba(40, 40, 40, 0.5);
   --footer-background-color-dark: #0d0d0d;
@@ -117,7 +117,7 @@ body {
 }
 
 .head_text {
-  @apply mt-5 text-5xl font-extrabold leading-[1.15] sm:text-6xl;
+  @apply mt-5 text-4xl font-extrabold leading-[1.15] sm:text-6xl;
 }
 
 .orange_gradient {
@@ -129,22 +129,17 @@ body {
   color: var(--text-grey-color);
 }
 
-.primary-button {
-  @apply rounded-full py-1 px-3 sm:px-4 text-white transition-all
+.rounded-button {
+  @apply rounded-full py-2 px-5 text-white transition-all  
   text-center text-sm font-semibold flex items-center justify-center;
+}
+
+.primary-button {
+  @apply rounded-button;
   background-color: var(--primary-color);
 }
 
-.primary-button:hover {
-  color: var(--background-color);
-  background-color: var(--text-color);
-}
-
-.rounded-button {
-  @apply rounded-full py-1.5 px-5 text-white transition-all  
-  text-center text-sm font-semibold flex items-center justify-center;
-}
-
+.primary-button:hover,
 .rounded-button:hover {
   color: var(--background-color);
   background-color: var(--text-color);
@@ -172,7 +167,7 @@ body {
   p-7 sm:min-w-[300px] min-w-max rounded-xl border;
   border-color: var(--divider-color);
   background-color: var(--background-color-menu);
-  backdrop-filter: blur(7px); /* Blurs background element */
+  backdrop-filter: blur(8px); /* Blurs background element */
 }
 
 .border-nav-border {
@@ -186,6 +181,10 @@ body {
   border-color: var(--divider-color);
 }
 
+.form_field-input:focus {
+  border-color: var(--text-grey-color);
+}
+
 .font-pacifico {
   font-family: Pacifico;
 }
@@ -197,7 +196,7 @@ body {
 /* PromptCard Component */
 .prompt_card {
   @apply flex-1 break-inside-avoid rounded-lg border bg-clip-padding p-6 pb-4 
-  backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+  backdrop-blur-lg backdrop-filter md:w-[380px] w-full h-fit;
   background-color: var(--card-color);
   border-color: var(--divider-color);
 }
@@ -265,4 +264,17 @@ input[type="checkbox"].toggle:checked + label::after {
 
 .text-grey-color {
   color: var(--text-grey-color);
+}
+
+.primary-color {
+  color: var(--primary-color);
+}
+
+.button-hover:hover {
+  color: var(--text-color);
+}
+
+.profile-images {
+  width: 200;
+  height: 200;
 }

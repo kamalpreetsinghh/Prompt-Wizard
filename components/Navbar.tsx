@@ -19,7 +19,7 @@ const Navbar = async () => {
         />
       </Link>
 
-      <div className="flex-center gap-4">
+      <div className="flex-center gap:2 sm:gap-4">
         <div className="flex-center mx-4">
           <ToggleSwitch />
           <div>
