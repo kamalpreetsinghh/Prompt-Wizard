@@ -11,12 +11,12 @@ export const getAllPrompts = async () => {
 export const createPrompt = async (prompt: IPrompt) => {
   await connectToDB();
 
-  const newPrompt = new Prompt(prompt);
-  await newPrompt.save();
+  const createdPrompt = new Prompt(prompt);
+  await createdPrompt.save();
 
   // We can also save using create method
   // const savedPrompt = await Prompt.create({creator: userId, prompt, tag})
-  return newPrompt;
+  return createdPrompt;
 };
 
 export const deletePrompt = async (id: string) => {
@@ -35,12 +35,14 @@ export const getPromptById = async (id: string) => {
 
 export const updatePrompt = async (
   id: string,
-  newPrompt: string,
-  newTag: string
+  updatedPrompt: string,
+  updatedTag: string
 ) => {
+  await connectToDB();
+
   const prompt = await Prompt.findById(id).populate("creator");
-  prompt.prompt = newPrompt;
-  prompt.tag = newTag;
+  prompt.prompt = updatedPrompt;
+  prompt.tag = updatedTag;
   const result = await prompt.save();
   return result;
 };

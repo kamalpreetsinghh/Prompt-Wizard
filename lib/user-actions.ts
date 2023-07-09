@@ -12,20 +12,24 @@ export const checkIfUsernameExists = async (
   id: string,
   username: string
 ): Promise<boolean> => {
-  const result = await User.exists({ username });
-  return result != null && result._id !== id;
+  await connectToDB();
+
+  const user = await User.exists({ username });
+  return user != null && user._id !== id;
 };
 
 export const updateUserProfile = async (
   id: string,
-  newUsername: string,
-  newName: string,
-  newDescription: string
+  updatedUsername: string,
+  updatedName: string,
+  updatedBio: string
 ) => {
-  const userProfile = await User.findById(id);
-  userProfile.username = newUsername;
-  userProfile.name = newName;
-  userProfile.description = newDescription;
-  const result = await userProfile.save();
+  await connectToDB();
+
+  const user = await User.findById(id);
+  user.username = updatedUsername;
+  user.name = updatedName;
+  user.bio = updatedBio;
+  const result = await user.save();
   return result;
 };

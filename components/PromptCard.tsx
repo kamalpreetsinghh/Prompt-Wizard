@@ -30,7 +30,7 @@ const PromptCard = ({
 
   const [showCopyIcon, setShowCopyIcon] = useState(false);
 
-  const { _id, email, name, username, image, description } = post.creator;
+  const { _id, email, name, username, image, bio } = post.creator;
 
   const userProfile: UserProfile = {
     _id,
@@ -38,7 +38,7 @@ const PromptCard = ({
     name,
     username,
     image,
-    description,
+    bio,
   };
 
   const handleCopy = () => {

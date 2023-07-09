@@ -29,7 +29,7 @@ const Profile = async ({ userPosts, userProfile }: ProfileProps) => {
           <p className="text-4xl font-bold text-grey-color mt-4">
             {userProfile.name}
           </p>
-          <p className="desc">{userProfile.description}</p>
+          <p className="desc">{userProfile.bio}</p>
 
           {session?.user?.id === userProfile._id && (
             <div className="flex gap-2">

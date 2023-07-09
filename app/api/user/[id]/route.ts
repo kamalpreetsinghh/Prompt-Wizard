@@ -30,14 +30,14 @@ export const PATCH = async (
       return new Response("User not found", { status: 404 });
     }
 
-    const { username, name, description } = await request.json();
+    const { username, name, bio } = await request.json();
 
     const isUsernameExists = await checkIfUsernameExists(id, username);
 
     if (isUsernameExists)
       return new Response("Username already exists", { status: 409 });
 
-    await updateUserProfile(id, username, name, description);
+    await updateUserProfile(id, username, name, bio);
 
     return new Response("User Profile Updated successfully", { status: 200 });
   } catch (error) {

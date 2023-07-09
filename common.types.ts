@@ -13,14 +13,7 @@ export type Post = {
   _id: string;
   prompt: string;
   tag: string;
-  creator: {
-    _id: string;
-    name: string;
-    email: string;
-    username: string;
-    image: string;
-    description: string;
-  };
+  creator: UserProfile;
 };
 
 export type UserProfile = {
@@ -29,5 +22,5 @@ export type UserProfile = {
   name: string;
   username: string;
   image: string;
-  description?: string;
+  bio?: string;
 };

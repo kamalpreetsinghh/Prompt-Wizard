@@ -13,7 +13,7 @@ type ProfileFormProps = {
 const ProfileForm = ({ session, userProfile }: ProfileFormProps) => {
   const [username, setUsername] = useState(userProfile.username);
   const [name, setName] = useState(userProfile.name);
-  const [bio, setBio] = useState(userProfile.description || "");
+  const [bio, setBio] = useState(userProfile.bio || "");
   const [usernameError, setUsernameError] = useState("");
   const [submitting, setIsSubmitting] = useState(false);
 
@@ -27,9 +27,9 @@ const ProfileForm = ({ session, userProfile }: ProfileFormProps) => {
       const response = await fetch(`/api/user/${userProfile._id}`, {
         method: "PATCH",
         body: JSON.stringify({
-          username: username,
-          name: name,
-          description: bio,
+          username,
+          name,
+          bio,
         }),
       });
 

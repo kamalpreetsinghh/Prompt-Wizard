@@ -5,7 +5,7 @@ interface User extends Document {
   name: string;
   username: string;
   image: string;
-  description?: string;
+  bio?: string;
 }
 
 const UserSchema = new Schema<User>(
@@ -28,7 +28,7 @@ const UserSchema = new Schema<User>(
       ],
     },
     image: { type: String },
-    description: { type: String },
+    bio: { type: String },
   },
   { timestamps: true }
 );
