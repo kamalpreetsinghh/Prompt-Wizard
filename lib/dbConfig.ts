@@ -10,13 +10,22 @@ export const connectToDB = async () => {
   }
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI ?? "", {
+    await mongoose.connect(process.env.MONGODB_URI!, {
       dbName: "prompt_wizard",
       useNewUrlParser: true,
       useUnifiedTopology: true,
     } as ConnectOptions);
 
-    isConnected = true;
+    const connection = mongoose.connection;
+
+    connection.on("connected", () => {
+      isConnected = true;
+    });
+
+    connection.on("error", (error) => {
+      console.log("Error conecting to MongoDB" + error);
+      process.exit();
+    });
   } catch (error) {
     console.log(error);
   }

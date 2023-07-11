@@ -1,19 +1,15 @@
-import mongoose, { Document, Schema, model, models } from "mongoose";
+import { Document, Schema, Types, model, models } from "mongoose";
 
 export interface IPrompt {
-  creator: mongoose.Types.ObjectId;
   prompt: string;
   tag: string;
+  creator: Types.ObjectId;
 }
 
 interface IPromptDoc extends IPrompt, Document {}
 
 const PromptSchema = new Schema<IPromptDoc>(
   {
-    creator: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
     prompt: {
       type: String,
       required: [true, "Prompt is required."],
@@ -22,10 +18,14 @@ const PromptSchema = new Schema<IPromptDoc>(
       type: String,
       required: [true, "Tag is required."],
     },
+    creator: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );
 
-const Prompt = models.Prompt || model("Prompt", PromptSchema);
+const Prompt = models.prompts || model("prompts", PromptSchema);
 
 export default Prompt;

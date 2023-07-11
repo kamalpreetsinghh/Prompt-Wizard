@@ -16,6 +16,18 @@ export type Post = {
   creator: UserProfile;
 };
 
+export type CreateUserProfile = {
+  email: string;
+  name: string;
+  image: string;
+};
+
+export type UpdateUserProfile = {
+  name: string;
+  username: string;
+  bio: string;
+};
+
 export type UserProfile = {
   _id: string;
   email: string;
@@ -23,4 +35,13 @@ export type UserProfile = {
   username: string;
   image: string;
   bio?: string;
+  prompts?: Post[];
+  followers?: UserProfile[];
+  following?: UserProfile[];
+};
+
+export type Params = {
+  params: {
+    id: string;
+  };
 };

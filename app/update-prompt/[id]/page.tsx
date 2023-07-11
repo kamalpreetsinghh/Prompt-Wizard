@@ -1,8 +1,8 @@
 import Form from "@/components/Form";
-import { Post } from "@/common.types";
+import { Params, Post } from "@/common.types";
 import { getCurrentUser } from "@/lib/session";
 
-const UpdatePrompt = async ({ params: { id } }: { params: { id: string } }) => {
+const UpdatePromptPage = async ({ params: { id } }: Params) => {
   const session = await getCurrentUser();
 
   if (!session?.user) {
@@ -33,4 +33,4 @@ const UpdatePrompt = async ({ params: { id } }: { params: { id: string } }) => {
   return <Form type="Edit" userPrompt={userPrompt} session={session} />;
 };
 
-export default UpdatePrompt;
+export default UpdatePromptPage;

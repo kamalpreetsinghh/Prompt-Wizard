@@ -3,6 +3,7 @@ import Link from "next/link";
 import PromptCardList from "./PromptCardList";
 import { Post, UserProfile } from "@/common.types";
 import { getCurrentUser } from "@/lib/session";
+import ProfileActions from "./ProfileActions";
 
 type ProfileProps = {
   userProfile: UserProfile;
@@ -11,6 +12,28 @@ type ProfileProps = {
 
 const Profile = async ({ userPosts, userProfile }: ProfileProps) => {
   const session = await getCurrentUser();
+
+  // const res = await fetch(
+  //   `${process.env.NEXTAUTH_URL}/api/user/follow/${session?.user?.id}`,
+  //   {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       followingId: userProfile._id,
+  //     }),
+  //   }
+  // );
+
+  // if (!res.ok) {
+  //   return (
+  //     <p>
+  //       There is some issue in the system. We advise you to visi this website
+  //       later.
+  //     </p>
+  //   );
+  // }
+
+  // const isFollowingResult = await res.json();
+  // const { isFollowing } = {isFollowingResult};
 
   return (
     <section className="w-full flex-col flex-center">
@@ -34,7 +57,7 @@ const Profile = async ({ userPosts, userProfile }: ProfileProps) => {
           {session?.user?.id === userProfile._id && (
             <div className="flex gap-2">
               <Link
-                href={`/profile/update/${userProfile._id}`}
+                href={`/update-profile/${userProfile._id}`}
                 className="primary-button mt-4"
               >
                 Edit Profile
@@ -55,12 +78,11 @@ const Profile = async ({ userPosts, userProfile }: ProfileProps) => {
           )}
 
           {session && session?.user?.id !== userProfile._id && (
-            <Link
-              href={`/profile/update/${userProfile._id}`}
-              className="primary-button mt-4"
-            >
-              Follow
-            </Link>
+            <ProfileActions
+              userId={session?.user?.id}
+              followingId={userProfile._id}
+              isFollowing
+            />
           )}
         </div>
         <div className="flex-center mt-10 hidden lg:flex gap-10">

@@ -1,16 +1,14 @@
 import Prompt, { IPrompt } from "@/models/prompt";
-import { connectToDB } from "./database";
+import { connectToDB } from "./dbConfig";
+
+connectToDB();
 
 export const getAllPrompts = async () => {
-  await connectToDB();
-
   const prompts = await Prompt.find({}).populate("creator");
   return prompts;
 };
 
 export const createPrompt = async (prompt: IPrompt) => {
-  await connectToDB();
-
   const createdPrompt = new Prompt(prompt);
   await createdPrompt.save();
 
@@ -20,15 +18,11 @@ export const createPrompt = async (prompt: IPrompt) => {
 };
 
 export const deletePrompt = async (id: string) => {
-  await connectToDB();
-
   const result = await Prompt.findByIdAndDelete(id);
   return result;
 };
 
 export const getPromptById = async (id: string) => {
-  await connectToDB();
-
   const prompt = await Prompt.findById(id).populate("creator");
   return prompt;
 };
@@ -38,18 +32,20 @@ export const updatePrompt = async (
   updatedPrompt: string,
   updatedTag: string
 ) => {
-  await connectToDB();
-
   const prompt = await Prompt.findById(id).populate("creator");
-  prompt.prompt = updatedPrompt;
-  prompt.tag = updatedTag;
-  const result = await prompt.save();
+
+  let result;
+
+  if (prompt) {
+    prompt.prompt = updatedPrompt;
+    prompt.tag = updatedTag;
+    result = await prompt.save();
+  }
+
   return result;
 };
 
 export const getPromptsByUserId = async (userId: string) => {
-  await connectToDB();
-
   const prompts = await Prompt.find({ creator: userId }).populate("creator");
   return prompts;
 };

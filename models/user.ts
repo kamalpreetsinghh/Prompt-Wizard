@@ -1,14 +1,16 @@
-import { Document, Schema, model, models } from "mongoose";
+import { Document, Schema, Types, model, models } from "mongoose";
 
-interface User extends Document {
+interface IUser extends Document {
   email: string;
   name: string;
   username: string;
   image: string;
   bio?: string;
+  following?: Types.ObjectId[];
+  followers?: Types.ObjectId[];
 }
 
-const UserSchema = new Schema<User>(
+const UserSchema = new Schema<IUser>(
   {
     email: {
       type: String,
@@ -28,11 +30,13 @@ const UserSchema = new Schema<User>(
       ],
     },
     image: { type: String },
-    bio: { type: String },
+    bio: { type: String, default: "" },
+    following: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   { timestamps: true }
 );
 
-const User = models.User || model("User", UserSchema);
+const User = models.User || model<IUser>("User", UserSchema);
 
 export default User;

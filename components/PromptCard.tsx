@@ -26,7 +26,8 @@ const PromptCard = ({
   const session = data as SessionInterface;
   const router = useRouter();
 
-  const showActions = session?.user.id === post.creator._id && showUserActions;
+  const showActions =
+    session && session?.user.id === post.creator._id && showUserActions;
 
   const [showCopyIcon, setShowCopyIcon] = useState(false);
 

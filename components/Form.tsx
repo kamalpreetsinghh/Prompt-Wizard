@@ -36,7 +36,7 @@ const Form = ({ type, session, userPrompt }: FormProps) => {
     try {
       let response;
       if (type === "Create") {
-        response = await fetch("/api/prompt/new", {
+        response = await fetch("/api/prompt", {
           method: "POST",
           body: JSON.stringify({
             prompt: prompt,

@@ -1,8 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
-import User from "@/models/user";
 import { NextAuthOptions, getServerSession } from "next-auth";
-import { connectToDB } from "@/lib/database";
-import { SessionInterface } from "@/common.types";
+import { CreateUserProfile, SessionInterface } from "@/common.types";
+import { createUserProfile, getUserProfileByEmail } from "./user-actions";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -13,38 +12,31 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session }) {
-      const user = await User.findOne({
-        email: session.user?.email as string,
-      });
+      if (session?.user?.email) {
+        const user = await getUserProfileByEmail(session?.user?.email);
 
-      const newSession = {
-        ...session,
-        user: {
-          ...session.user,
-          id: user.id,
-        },
-      };
+        const newSession = {
+          ...session,
+          user: {
+            ...session.user,
+            id: user.id,
+          },
+        };
 
-      return newSession;
+        return newSession;
+      }
+
+      return session;
     },
     async signIn({ account, profile, user, credentials }) {
       try {
-        await connectToDB();
+        const newUser: CreateUserProfile = {
+          email: profile?.email!,
+          name: profile?.name!,
+          image: user?.image!,
+        };
 
-        // check if user already exists
-        const userExists = await User.findOne({
-          email: profile?.email as string,
-        });
-
-        // if not, create a new document and save user in MongoDB
-        if (!userExists) {
-          await User.create({
-            email: profile?.email as string,
-            name: profile?.name,
-            username: profile?.name?.replaceAll(" ", "").toLowerCase(),
-            image: user?.image as string,
-          });
-        }
+        await createUserProfile(newUser);
 
         return true;
       } catch (error) {

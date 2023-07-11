@@ -35,6 +35,7 @@ const ProfileForm = ({ session, userProfile }: ProfileFormProps) => {
 
       if (response.status === 409) {
         setUsernameError("Username already exists");
+        return;
       }
 
       if (response.ok) {
@@ -48,7 +49,7 @@ const ProfileForm = ({ session, userProfile }: ProfileFormProps) => {
   };
 
   const handleCancel = () => {
-    router.push(`/profile/${userProfile._id}`);
+    router.back();
   };
 
   return (

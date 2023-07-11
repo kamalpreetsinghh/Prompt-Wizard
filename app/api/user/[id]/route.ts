@@ -1,33 +1,42 @@
+import { Params } from "@/common.types";
+import { getPromptsByUserId } from "@/lib/prompt-actions";
 import {
   checkIfUsernameExists,
   getUserProfile,
   updateUserProfile,
 } from "@/lib/user-actions";
-import { NextRequest } from "next/server";
+import { error } from "console";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (
-  request: NextRequest,
-  { params: { id } }: { params: { id: string } }
-) => {
+export const GET = async (request: NextRequest, { params: { id } }: Params) => {
   try {
     const userProfile = await getUserProfile(id);
-    return new Response(JSON.stringify(userProfile), { status: 200 });
-  } catch (error) {
-    return new Response("Failed to fetch user profile from the server.", {
-      status: 500,
-    });
+
+    if (!userProfile) {
+      console.log(error);
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    const prompts = await getPromptsByUserId(id);
+
+    return NextResponse.json(
+      { result: { userProfile, prompts } },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 };
 
 export const PATCH = async (
   request: NextRequest,
-  { params: { id } }: { params: { id: string } }
+  { params: { id } }: Params
 ) => {
   try {
     const existingUserProfile = await getUserProfile(id);
 
     if (!existingUserProfile) {
-      return new Response("User not found", { status: 404 });
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     const { username, name, bio } = await request.json();
@@ -35,12 +44,18 @@ export const PATCH = async (
     const isUsernameExists = await checkIfUsernameExists(id, username);
 
     if (isUsernameExists)
-      return new Response("Username already exists", { status: 409 });
+      return NextResponse.json(
+        { error: "Username already exists" },
+        { status: 409 }
+      );
 
-    await updateUserProfile(id, username, name, bio);
+    await updateUserProfile(id, { username, name, bio });
 
-    return new Response("User Profile Updated successfully", { status: 200 });
-  } catch (error) {
-    return new Response("Error Updating User Profile", { status: 500 });
+    return NextResponse.json(
+      { message: "User Profile Updated successfully", success: true },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 };
