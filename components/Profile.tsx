@@ -34,7 +34,7 @@ const Profile = async ({ userPosts, userProfile }: ProfileProps) => {
           </p>
           <p className="desc">{userProfile.bio}</p>
 
-          {session?.user?.id === userProfile._id && (
+          {session && session?.user?.id === userProfile._id && (
             <div className="flex gap-2">
               <Link
                 href={`/update-profile/${userProfile._id}`}
@@ -61,7 +61,6 @@ const Profile = async ({ userPosts, userProfile }: ProfileProps) => {
             <ProfileActions
               userId={session?.user?.id}
               followingId={userProfile._id}
-              isFollowing
             />
           )}
         </div>

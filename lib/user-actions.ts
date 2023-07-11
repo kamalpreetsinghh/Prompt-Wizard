@@ -1,6 +1,7 @@
 import User from "@/models/user";
 import { connectToDB } from "./dbConfig";
 import { CreateUserProfile, UpdateUserProfile } from "@/common.types";
+import mongoose, { Types } from "mongoose";
 
 connectToDB();
 
@@ -92,8 +93,12 @@ export const removeFollowing = async (id: string, followingId: string) => {
   const user = await User.findById(id);
 
   if (user) {
-    let following: string[] = user?.following || [];
-    following = following.filter((fId) => fId !== followingId);
+    let following = user?.following || [];
+
+    following = following.filter(
+      (fId: Types.ObjectId) => fId.toString() !== followingId
+    );
+
     user.following = following;
 
     await user.save();

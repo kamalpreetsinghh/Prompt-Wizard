@@ -1,25 +1,47 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 type ProfileActionsProps = {
   userId: string;
   followingId: string;
-  isFollowing: boolean;
 };
 
-const ProfileActions = ({
-  userId,
-  followingId,
-  isFollowing,
-}: ProfileActionsProps) => {
-  const buttonText = isFollowing ? "Following" : "Follow";
-  const handleFollow = async () => {
+const ProfileActions = ({ userId, followingId }: ProfileActionsProps) => {
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchData = async () => {
+      const response = await fetch(`/api/user/follow/${userId}/${followingId}`);
+      const responseJson = await response.json();
+      if (responseJson) {
+        console.log(responseJson);
+        setIsFollowing(responseJson.isFollowingUser);
+      }
+    };
+
+    fetchData().catch((error) => console.log(error));
+  }, []);
+
+  const handleOnClick = async () => {
+    setIsFollowing((prevIsFollowing) => !prevIsFollowing);
+
     try {
-      const res = await fetch(`/api/user/follow/${userId}`, {
-        method: "PATCH",
-        body: JSON.stringify({ followingId: followingId }),
-      });
+      if (isFollowing) {
+        console.log("Unfollowing");
+        const response = await fetch(`/api/user/unfollow/${userId}`, {
+          method: "PATCH",
+          body: JSON.stringify({ followingId }),
+        });
+      } else {
+        console.log("following");
+        const response = await fetch(`/api/user/follow/${userId}`, {
+          method: "PATCH",
+          body: JSON.stringify({ followingId }),
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -28,10 +50,10 @@ const ProfileActions = ({
   return (
     <button
       type="button"
-      onClick={handleFollow}
+      onClick={handleOnClick}
       className="primary-button mt-4"
     >
-      {buttonText}
+      {isFollowing ? "Following" : "Follow"}
     </button>
   );
 };
