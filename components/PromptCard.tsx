@@ -6,41 +6,26 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import PromptCardUser from "./PromptCardUser";
 import { useState } from "react";
-import { useSession } from "next-auth/react";
-import { Post, SessionInterface, UserProfile } from "@/common.types";
+import { Post } from "@/common.types";
 import { revalidateTag } from "next/cache";
 import { useRouter } from "next/navigation";
 
 type PromptCardProps = {
   post: Post;
-  showUserActions: boolean;
+  showUserActions?: boolean;
   handleTagClick?: (tag: string) => void;
 };
 
 const PromptCard = ({
   post,
-  showUserActions,
+  showUserActions = false,
   handleTagClick,
 }: PromptCardProps) => {
-  const { data } = useSession();
-  const session = data as SessionInterface;
   const router = useRouter();
-
-  const showActions =
-    session && session?.user.id === post.creator._id && showUserActions;
 
   const [showCopyIcon, setShowCopyIcon] = useState(false);
 
-  const { _id, email, name, username, image, bio } = post.creator;
-
-  const userProfile: UserProfile = {
-    _id,
-    email,
-    name,
-    username,
-    image,
-    bio,
-  };
+  const { username, image } = post.creator;
 
   const handleCopy = () => {
     setShowCopyIcon(true);
@@ -65,7 +50,7 @@ const PromptCard = ({
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
         <Link href={`/profile/${post?.creator?._id}`}>
-          <PromptCardUser userProfile={userProfile} />
+          <PromptCardUser image={image} username={username} />
         </Link>
 
         <div className="copy_btn cursor-pointer" onClick={handleCopy}>
@@ -88,7 +73,7 @@ const PromptCard = ({
         >
           #{post.tag}
         </p>
-        {showActions && (
+        {showUserActions && (
           <div className="flex gap-2">
             <Link href={`/update-prompt/${post._id}`}>
               <EditIcon className="primary-color button-hover" />

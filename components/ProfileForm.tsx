@@ -2,15 +2,14 @@
 
 import { useState } from "react";
 import FormField from "./FormField";
-import { SessionInterface, UserProfile } from "@/common.types";
+import { UserProfile } from "@/common.types";
 import { useRouter } from "next/navigation";
 
 type ProfileFormProps = {
-  session: SessionInterface;
   userProfile: UserProfile;
 };
 
-const ProfileForm = ({ session, userProfile }: ProfileFormProps) => {
+const ProfileForm = ({ userProfile }: ProfileFormProps) => {
   const [username, setUsername] = useState(userProfile.username);
   const [name, setName] = useState(userProfile.name);
   const [bio, setBio] = useState(userProfile.bio || "");

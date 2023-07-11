@@ -1,15 +1,15 @@
 import Image from "next/image";
-import { UserProfile } from "@/common.types";
 
 type PromptCardUserProps = {
-  userProfile: UserProfile;
+  image: string;
+  username: string;
 };
 
-const PromptCardUser = ({ userProfile }: PromptCardUserProps) => {
+const PromptCardUser = ({ image, username }: PromptCardUserProps) => {
   return (
     <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
       <Image
-        src={userProfile.image}
+        src={image}
         alt="user_image"
         width={40}
         height={40}
@@ -18,7 +18,7 @@ const PromptCardUser = ({ userProfile }: PromptCardUserProps) => {
 
       <div className="flex flex-col">
         <h3 className="font-satoshi font-semibold text-grey-color">
-          {userProfile.username}
+          {username}
         </h3>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { Post } from "@/common.types";
 
 type PromptCardListProps = {
   posts: Array<Post>;
-  showUserActions: boolean;
+  showUserActions?: boolean;
   handleTagClick?: (tag: string) => void;
 };
 

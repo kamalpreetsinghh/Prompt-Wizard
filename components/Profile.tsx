@@ -13,27 +13,7 @@ type ProfileProps = {
 const Profile = async ({ userPosts, userProfile }: ProfileProps) => {
   const session = await getCurrentUser();
 
-  // const res = await fetch(
-  //   `${process.env.NEXTAUTH_URL}/api/user/follow/${session?.user?.id}`,
-  //   {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       followingId: userProfile._id,
-  //     }),
-  //   }
-  // );
-
-  // if (!res.ok) {
-  //   return (
-  //     <p>
-  //       There is some issue in the system. We advise you to visi this website
-  //       later.
-  //     </p>
-  //   );
-  // }
-
-  // const isFollowingResult = await res.json();
-  // const { isFollowing } = {isFollowingResult};
+  const showActions = session && session?.user.id === userProfile._id;
 
   return (
     <section className="w-full flex-col flex-center">
@@ -103,7 +83,7 @@ const Profile = async ({ userPosts, userProfile }: ProfileProps) => {
       </div>
 
       <div>
-        <PromptCardList posts={userPosts} showUserActions />
+        <PromptCardList posts={userPosts} showUserActions={showActions} />
       </div>
     </section>
   );

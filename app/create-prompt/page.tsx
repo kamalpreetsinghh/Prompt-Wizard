@@ -8,7 +8,7 @@ const CreatePromptPage = async () => {
     return null;
   }
 
-  return <Form type="Create" session={session} />;
+  return <Form type="Create" userId={session?.user?.id} />;
 };
 
 export default CreatePromptPage;

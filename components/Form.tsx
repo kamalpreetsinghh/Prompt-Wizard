@@ -3,11 +3,10 @@
 import FormField from "./FormField";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { SessionInterface } from "@/common.types";
 
 type FormProps = {
   type: string;
-  session: SessionInterface;
+  userId: string;
   userPrompt?: {
     id: string;
     prompt: string;
@@ -15,7 +14,7 @@ type FormProps = {
   };
 };
 
-const Form = ({ type, session, userPrompt }: FormProps) => {
+const Form = ({ type, userId, userPrompt }: FormProps) => {
   const router = useRouter();
 
   const [prompt, setPrompt] = useState("");
@@ -41,7 +40,7 @@ const Form = ({ type, session, userPrompt }: FormProps) => {
           body: JSON.stringify({
             prompt: prompt,
             tag: tag.replace(/\s/g, "").toLowerCase(),
-            creator: session?.user?.id,
+            creator: userId,
           }),
         });
       } else {
@@ -114,7 +113,11 @@ const Form = ({ type, session, userPrompt }: FormProps) => {
             disabled={submitting}
             className="primary-button"
           >
-            {submitting ? `${type}ing...` : type}
+            {submitting
+              ? type === "Create"
+                ? "Creating..."
+                : `Editing...`
+              : type}
           </button>
         </div>
       </form>

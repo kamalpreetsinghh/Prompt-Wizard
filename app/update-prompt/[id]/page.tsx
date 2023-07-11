@@ -30,7 +30,9 @@ const UpdatePromptPage = async ({ params: { id } }: Params) => {
     tag,
   };
 
-  return <Form type="Edit" userPrompt={userPrompt} session={session} />;
+  return (
+    <Form type="Edit" userPrompt={userPrompt} userId={session?.user?.id} />
+  );
 };
 
 export default UpdatePromptPage;
