@@ -1,5 +1,5 @@
 import { Params } from "@/common.types";
-import { getFollowers, getUserProfile } from "@/lib/user-actions";
+import { getFollowing, getUserProfile } from "@/lib/user-actions";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (request: NextRequest, { params: { id } }: Params) => {
@@ -10,15 +10,15 @@ export const GET = async (request: NextRequest, { params: { id } }: Params) => {
       return NextResponse.json({ error: "User not found" }, { status: 500 });
     }
 
-    const userFollowers = await getFollowers(id);
+    const usersFollowing = await getFollowing(id);
 
-    if (!userFollowers) {
+    if (!usersFollowing) {
       return NextResponse.json([], {
         status: 200,
       });
     }
 
-    return NextResponse.json(userFollowers.followers, {
+    return NextResponse.json(usersFollowing.following, {
       status: 200,
     });
   } catch (error: any) {

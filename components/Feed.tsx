@@ -4,24 +4,17 @@ import PromptCardList from "./PromptCardList";
 import { useEffect, useRef, useState } from "react";
 import { Post } from "@/common.types";
 
-const Feed = () => {
-  const [allPosts, setAllPosts] = useState<Post[]>([]);
+type FeedProps = {
+  posts: Post[];
+};
+
+const Feed = ({ posts }: FeedProps) => {
   const [searchText, setSearchText] = useState("");
   const [searchedResults, setSearchedResults] = useState<Post[]>([]);
 
   const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch("/api/prompt", { cache: "no-cache" });
-      const data: Post[] = await response.json();
-      if (data) {
-        setAllPosts(data);
-      }
-    };
-
-    fetchPosts();
-
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
@@ -31,7 +24,7 @@ const Feed = () => {
 
   const filterPrompts = (searchText: string): Post[] => {
     const regex = new RegExp(searchText, "i"); // 'i' flag for case-insensitive search
-    return allPosts.filter(
+    return posts.filter(
       (item) =>
         regex.test(item.creator.username) ||
         regex.test(item.tag) ||
@@ -77,7 +70,7 @@ const Feed = () => {
             handleTagClick={handleTagClick}
           />
         ) : (
-          <PromptCardList posts={allPosts} handleTagClick={handleTagClick} />
+          <PromptCardList posts={posts} handleTagClick={handleTagClick} />
         )}
       </div>
     </section>

@@ -45,3 +45,10 @@ export type Params = {
     id: string;
   };
 };
+
+export type FollowerUser = {
+  id: string;
+  username: string;
+  name: string;
+  image: string;
+};

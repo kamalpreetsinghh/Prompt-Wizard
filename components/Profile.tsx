@@ -1,19 +1,88 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import PromptCardList from "./PromptCardList";
-import { Post, UserProfile } from "@/common.types";
-import { getCurrentUser } from "@/lib/session";
 import ProfileActions from "./ProfileActions";
+import FollowerList from "./FollowerList";
+import { Post, SessionInterface, UserProfile } from "@/common.types";
+import { useEffect, useRef, useState } from "react";
 
 type ProfileProps = {
   userProfile: UserProfile;
   userPosts: Post[];
+  session?: SessionInterface;
 };
 
-const Profile = async ({ userPosts, userProfile }: ProfileProps) => {
-  const session = await getCurrentUser();
+const Profile = ({ userPosts, userProfile, session }: ProfileProps) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const showActions = session && session?.user.id === userProfile._id;
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [modalName, setModalName] = useState("");
+
+  useEffect(() => {
+    if (session) {
+      const fetchFollowing = async () => {
+        const response = await fetch(
+          `/api/user/following/${session?.user?.id}`
+        );
+        const followingJson = await response.json();
+        if (followingJson) {
+          console.log(followingJson);
+          setFollowing(followingJson);
+        }
+      };
+
+      const fetchFollowers = async () => {
+        const response = await fetch(
+          `/api/user/followers/${session?.user?.id}`
+        );
+        const followerJson = await response.json();
+        if (followerJson) {
+          console.log(followerJson);
+          setFollowers(followerJson);
+        }
+      };
+
+      fetchFollowing().catch((error) => console.log(error));
+      fetchFollowers().catch((error) => console.log(error));
+    }
+  }, []);
+
+  const showActions = session && session?.user?.id === userProfile._id;
+
+  const showFollowingModal = () => {
+    setModalName("Following");
+    showModal();
+  };
+
+  const showFollowersModal = () => {
+    setModalName("Followers");
+    showModal();
+  };
+
+  const showModal = () => {
+    if (dialogRef.current) {
+      dialogRef.current.showModal();
+    }
+  };
+
+  if (dialogRef.current) {
+    dialogRef.current.addEventListener("click", (e) => {
+      if (dialogRef.current) {
+        const dialogDimensions = dialogRef.current.getBoundingClientRect();
+        if (
+          e.clientX < dialogDimensions.left ||
+          e.clientX > dialogDimensions.right ||
+          e.clientY < dialogDimensions.top ||
+          e.clientY > dialogDimensions.bottom
+        ) {
+          dialogRef.current.close();
+        }
+      }
+    });
+  }
 
   return (
     <section className="w-full flex-col flex-center">
@@ -42,18 +111,18 @@ const Profile = async ({ userPosts, userProfile }: ProfileProps) => {
               >
                 Edit Profile
               </Link>
-              <Link
-                href={`/profile/update/${userProfile._id}`}
+              <button
+                onClick={showFollowersModal}
                 className="primary-button mt-4"
               >
                 Followers
-              </Link>
-              <Link
-                href={`/profile/update/${userProfile._id}`}
+              </button>
+              <button
+                onClick={showFollowingModal}
                 className="primary-button mt-4"
               >
                 Following
-              </Link>
+              </button>
             </div>
           )}
 
@@ -84,6 +153,17 @@ const Profile = async ({ userPosts, userProfile }: ProfileProps) => {
       <div>
         <PromptCardList posts={userPosts} showUserActions={showActions} />
       </div>
+
+      <dialog className="rounded-2xl w-full max-w-lg " ref={dialogRef}>
+        <div className="flex-col flex-center">
+          <h1 className="mt-2 mb-4 font-bold flex-center">{modalName}</h1>
+          <div className="border-t border-nav-border">
+            <FollowerList
+              followers={modalName === "Following" ? following : followers}
+            />
+          </div>
+        </div>
+      </dialog>
     </section>
   );
 };

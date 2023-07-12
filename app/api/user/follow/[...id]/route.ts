@@ -1,10 +1,5 @@
 import { Params } from "@/common.types";
-import {
-  addFollowing,
-  getUserProfile,
-  isFollowing,
-  removeFollowing,
-} from "@/lib/user-actions";
+import { addFollowing, getUserProfile, isFollowing } from "@/lib/user-actions";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (request: NextRequest, { params: { id } }: Params) => {

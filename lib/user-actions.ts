@@ -64,6 +64,26 @@ export const updateUserProfile = async (
   return result;
 };
 
+export const getFollowers = async (id: string) => {
+  console.log("In Following");
+  const result = await User.findById(id).populate({
+    path: "followers",
+    select: "_id name username image",
+  });
+  console.log(result);
+
+  return result;
+};
+
+export const getFollowing = async (id: string) => {
+  const result = await User.findById(id).populate({
+    path: "following",
+    select: "_id name username image",
+  });
+
+  return result;
+};
+
 export const isFollowing = async (id: string, followingId: string) => {
   const user = await User.findById(id).select("following");
 
@@ -82,10 +102,23 @@ export const addFollowing = async (id: string, followingId: string) => {
 
   if (user) {
     const following: string[] = user?.following || [];
-    following.push(followingId);
-    user.following = following;
+    if (!following.includes(followingId)) {
+      following.push(followingId);
+      user.following = following;
 
-    await user.save();
+      await user.save();
+    }
+  }
+
+  const followingUser = await User.findById(followingId);
+  if (followingUser) {
+    const followers: string[] = followingUser?.followers || [];
+    if (!followers.includes(id)) {
+      followers.push(id);
+      followingUser.followers = followers;
+
+      await followingUser.save();
+    }
   }
 };
 
@@ -102,6 +135,19 @@ export const removeFollowing = async (id: string, followingId: string) => {
     user.following = following;
 
     await user.save();
+  }
+
+  const followingUser = await User.findById(followingId);
+  if (followingUser) {
+    let followers = followingUser?.followers || [];
+
+    followers = followers.filter(
+      (fId: Types.ObjectId) => fId.toString() !== id
+    );
+
+    followingUser.followers = followers;
+
+    await followingUser.save();
   }
 };
 

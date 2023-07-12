@@ -4,7 +4,10 @@ import { connectToDB } from "./dbConfig";
 connectToDB();
 
 export const getAllPrompts = async () => {
-  const prompts = await Prompt.find({}).populate("creator");
+  const prompts = await Prompt.find({}).populate({
+    path: "creator",
+    select: "_id username image",
+  });
   return prompts;
 };
 

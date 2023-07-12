@@ -230,7 +230,7 @@ input[type="checkbox"].toggle + label::before {
   content: "";
   width: 2em;
   height: 1em;
-  background-color: rgb(223, 223, 223);
+  background-color: hsl(36, 100%, 77%);
   border-radius: 1em;
   transition: background-color 200ms ease-in-out;
 }
@@ -277,4 +277,14 @@ input[type="checkbox"].toggle:checked + label::after {
 .profile-images {
   width: 200;
   height: 200;
+}
+
+/* Modal */
+
+.modal-head-text {
+  @apply rounded-2xl;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
 }

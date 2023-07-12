@@ -17,7 +17,6 @@ const ProfileActions = ({ userId, followingId }: ProfileActionsProps) => {
       const response = await fetch(`/api/user/follow/${userId}/${followingId}`);
       const responseJson = await response.json();
       if (responseJson) {
-        console.log(responseJson);
         setIsFollowing(responseJson.isFollowingUser);
       }
     };
