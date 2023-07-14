@@ -5,7 +5,7 @@ import Link from "next/link";
 import PromptCardList from "./PromptCardList";
 import ProfileActions from "./ProfileActions";
 import FollowerList from "./FollowerList";
-import { Post, SessionInterface, UserProfile } from "@/common.types";
+import { ModalType, Post, SessionInterface, UserProfile } from "@/common.types";
 import { useEffect, useRef, useState } from "react";
 
 type ProfileProps = {
@@ -19,17 +19,16 @@ const Profile = ({ userPosts, userProfile, session }: ProfileProps) => {
 
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
-  const [modalName, setModalName] = useState("");
+  const [modalType, setModalType] = useState(ModalType.Followers);
 
   useEffect(() => {
-    if (session) {
+    if (session && session?.user?.id === userProfile._id) {
       const fetchFollowing = async () => {
         const response = await fetch(
           `/api/user/following/${session?.user?.id}`
         );
         const followingJson = await response.json();
         if (followingJson) {
-          console.log(followingJson);
           setFollowing(followingJson);
         }
       };
@@ -40,7 +39,6 @@ const Profile = ({ userPosts, userProfile, session }: ProfileProps) => {
         );
         const followerJson = await response.json();
         if (followerJson) {
-          console.log(followerJson);
           setFollowers(followerJson);
         }
       };
@@ -53,12 +51,12 @@ const Profile = ({ userPosts, userProfile, session }: ProfileProps) => {
   const showActions = session && session?.user?.id === userProfile._id;
 
   const showFollowingModal = () => {
-    setModalName("Following");
+    setModalType(ModalType.Following);
     showModal();
   };
 
   const showFollowersModal = () => {
-    setModalName("Followers");
+    setModalType(ModalType.Followers);
     showModal();
   };
 
@@ -154,16 +152,24 @@ const Profile = ({ userPosts, userProfile, session }: ProfileProps) => {
         <PromptCardList posts={userPosts} showUserActions={showActions} />
       </div>
 
-      <dialog className="rounded-2xl w-full max-w-lg " ref={dialogRef}>
-        <div className="flex-col flex-center">
-          <h1 className="mt-2 mb-4 font-bold flex-center">{modalName}</h1>
-          <div className="border-t border-nav-border">
-            <FollowerList
-              followers={modalName === "Following" ? following : followers}
-            />
+      {session && session?.user?.id === userProfile._id && (
+        <dialog className="rounded-2xl w-full max-w-md  " ref={dialogRef}>
+          <div className="flex-col flex-center">
+            <h1 className="mt-2 mb-4 font-bold flex-center">
+              {ModalType[modalType]}
+            </h1>
+            <div className="border-t border-nav-border w-full">
+              <FollowerList
+                modalType={modalType}
+                userId={session?.user?.id}
+                followers={
+                  modalType === ModalType.Following ? following : followers
+                }
+              />
+            </div>
           </div>
-        </div>
-      </dialog>
+        </dialog>
+      )}
     </section>
   );
 };

@@ -47,8 +47,13 @@ export type Params = {
 };
 
 export type FollowerUser = {
-  id: string;
+  _id: string;
   username: string;
   name: string;
   image: string;
 };
+
+export enum ModalType {
+  "Following",
+  "Followers",
+}

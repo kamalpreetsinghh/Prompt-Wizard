@@ -9,10 +9,8 @@ type ProfileActionsProps = {
 
 const ProfileActions = ({ userId, followingId }: ProfileActionsProps) => {
   const [isFollowing, setIsFollowing] = useState(false);
-  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     const fetchData = async () => {
       const response = await fetch(`/api/user/follow/${userId}/${followingId}`);
       const responseJson = await response.json();
@@ -29,13 +27,11 @@ const ProfileActions = ({ userId, followingId }: ProfileActionsProps) => {
 
     try {
       if (isFollowing) {
-        console.log("Unfollowing");
         const response = await fetch(`/api/user/unfollow/${userId}`, {
           method: "PATCH",
           body: JSON.stringify({ followingId }),
         });
       } else {
-        console.log("following");
         const response = await fetch(`/api/user/follow/${userId}`, {
           method: "PATCH",
           body: JSON.stringify({ followingId }),

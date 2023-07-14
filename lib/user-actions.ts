@@ -28,7 +28,7 @@ export const createUserProfile = async ({
 };
 
 export const getUserProfile = async (id: string) => {
-  const user = await User.findById(id);
+  const user = await User.findById(id).select("_id username name image bio");
   return user;
 };
 

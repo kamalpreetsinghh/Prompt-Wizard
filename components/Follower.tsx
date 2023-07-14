@@ -1,24 +1,80 @@
-import { FollowerUser } from "@/common.types";
-import Image from "next/image";
-import React from "react";
+"use client";
 
-const Follower = ({ id, username, name, image }: FollowerUser) => {
+import { FollowerUser, ModalType } from "@/common.types";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
+
+type FollowerProps = {
+  modalType: ModalType;
+  userId: string;
+  follower: FollowerUser;
+};
+
+const Follower = ({
+  modalType,
+  userId,
+  follower: { _id, username, name, image },
+}: FollowerProps) => {
+  const [isFollowing, setIsFollowing] = useState(true);
+
+  const handleOnClick = async () => {
+    try {
+      setIsFollowing((prevIsFollowing) => !prevIsFollowing);
+      if (modalType === ModalType.Following) {
+        if (isFollowing) {
+          await fetch(`/api/user/unfollow/${userId}`, {
+            method: "PATCH",
+            body: JSON.stringify({ followingId: _id }),
+          });
+        } else {
+          await fetch(`/api/user/follow/${userId}`, {
+            method: "PATCH",
+            body: JSON.stringify({ followingId: _id }),
+          });
+        }
+      } else {
+        if (isFollowing) {
+          await fetch(`/api/user/unfollow/${_id}`, {
+            method: "PATCH",
+            body: JSON.stringify({ followingId: userId }),
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="w-full my-4 flex gap-2">
-      <Image
-        src={image}
-        width={50}
-        height={50}
-        alt="Profile Picture"
-        className="rounded-full object-contain"
-      />
-      <div className="flex justify-between">
+    <div className="w-full my-4 flex justify-between">
+      <Link href={`/profile/${_id}`} className="flex gap-3 cursor-pointer">
+        <Image
+          src={image}
+          width={50}
+          height={50}
+          alt="Profile Picture"
+          className="rounded-full object-contain"
+        />
         <div>
           <p className="font-bold">{username}</p>
           <p className="text-grey-color">{name}</p>
         </div>
-        <button className="primary-button">Following</button>
-      </div>
+      </Link>
+
+      <button
+        className="primary-button"
+        disabled={modalType === ModalType.Followers && !isFollowing}
+        onClick={handleOnClick}
+      >
+        {modalType === ModalType.Following
+          ? isFollowing
+            ? "Following"
+            : "Follow"
+          : isFollowing
+          ? "Remove"
+          : "Removed"}
+      </button>
     </div>
   );
 };

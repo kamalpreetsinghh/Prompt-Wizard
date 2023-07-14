@@ -1,21 +1,22 @@
 import React from "react";
 import Follower from "./Follower";
-import { FollowerUser } from "@/common.types";
+import { FollowerUser, ModalType } from "@/common.types";
 
 type FollowerListProps = {
+  modalType: ModalType;
+  userId: string;
   followers: FollowerUser[];
 };
 
-const FollowerList = ({ followers }: FollowerListProps) => {
+const FollowerList = ({ modalType, userId, followers }: FollowerListProps) => {
   return (
     <div>
       {followers.map((follower) => (
         <Follower
           key={follower.username}
-          id={follower.id}
-          username={follower.username}
-          name={follower.name}
-          image={follower.image}
+          modalType={modalType}
+          userId={userId}
+          follower={follower}
         />
       ))}
     </div>

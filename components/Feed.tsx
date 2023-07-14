@@ -67,10 +67,15 @@ const Feed = ({ posts }: FeedProps) => {
         {searchText ? (
           <PromptCardList
             posts={searchedResults}
+            showUserInfo
             handleTagClick={handleTagClick}
           />
         ) : (
-          <PromptCardList posts={posts} handleTagClick={handleTagClick} />
+          <PromptCardList
+            posts={posts}
+            showUserInfo
+            handleTagClick={handleTagClick}
+          />
         )}
       </div>
     </section>
