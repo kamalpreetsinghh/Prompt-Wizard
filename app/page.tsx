@@ -1,5 +1,5 @@
-import { Post } from "@/common.types";
 import Feed from "@/components/Feed";
+import { Post } from "@/common.types";
 
 const Home = async () => {
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt`, {

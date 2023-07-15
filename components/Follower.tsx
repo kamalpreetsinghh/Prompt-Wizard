@@ -47,7 +47,7 @@ const Follower = ({
   };
 
   return (
-    <div className="w-full my-4 flex justify-between">
+    <div className="w-full my-4 flex justify-between items-center">
       <Link href={`/profile/${_id}`} className="flex gap-3 cursor-pointer">
         <Image
           src={image}

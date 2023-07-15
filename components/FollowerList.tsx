@@ -10,7 +10,7 @@ type FollowerListProps = {
 
 const FollowerList = ({ modalType, userId, followers }: FollowerListProps) => {
   return (
-    <div>
+    <>
       {followers.map((follower) => (
         <Follower
           key={follower.username}
@@ -19,7 +19,7 @@ const FollowerList = ({ modalType, userId, followers }: FollowerListProps) => {
           follower={follower}
         />
       ))}
-    </div>
+    </>
   );
 };
 

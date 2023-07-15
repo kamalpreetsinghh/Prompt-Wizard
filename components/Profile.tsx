@@ -159,6 +159,12 @@ const Profile = ({ userPosts, userProfile, session }: ProfileProps) => {
               {ModalType[modalType]}
             </h1>
             <div className="border-t border-nav-border w-full">
+              {modalType === ModalType.Following && following.length === 0 && (
+                <h1 className="my-4 flex-center">No Following</h1>
+              )}
+              {modalType === ModalType.Followers && followers.length === 0 && (
+                <h1 className="my-4 flex-center">No Followers</h1>
+              )}
               <FollowerList
                 modalType={modalType}
                 userId={session?.user?.id}
