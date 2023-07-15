@@ -1,25 +1,34 @@
-export const NavLinks = [
-  { href: "/", key: "Inspiration", text: "Inspiration" },
-  { href: "/", key: "Find Projects", text: "Find Projects" },
-  { href: "/", key: "Learn Development", text: "Learn Development" },
-  { href: "/", key: "Career Advancement", text: "Career Advancement" },
-  { href: "/", key: "Hire Developers", text: "Hire Developers" },
-];
+import { Post } from "@/common.types";
 
-export const categoryFilters = [
-  "Frontend",
-  "Backend",
-  "Full-Stack",
-  "Mobile",
-  "UI/UX",
-  "Game Dev",
-  "DevOps",
-  "Data Science",
-  "Machine Learning",
-  "Cybersecurity",
-  "Blockchain",
-  "E-commerce",
-  "Chatbots",
+export const prompts = [
+  {
+    prompt:
+      "A 3D rendering of a tree with bright yellow leaves and an abstract style.",
+    tag: "aiart",
+  },
+  {
+    prompt:
+      "A photograph of an old man walking in the rain making eye contact with the viewer in a mid-shot view.",
+    tag: "aiart",
+  },
+  {
+    prompt:
+      "A photograph of a person sitting on a bench facing the sunset in black and white.",
+    tag: "midjourney",
+  },
+  {
+    prompt: "A beautiful Amazon warrior in a sheer white dress.",
+    tag: "mubert",
+  },
+  {
+    prompt: "Write a resume for a [TITLE] based on this job description.",
+    tag: "resume",
+  },
+  {
+    prompt:
+      "Tailor my resume to this job description for a [JOB TITLE] role at [COMPANY].",
+    tag: "resume",
+  },
 ];
 
 export const footerLinks = [

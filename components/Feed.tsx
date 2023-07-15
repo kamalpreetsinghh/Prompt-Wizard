@@ -10,7 +10,7 @@ type FeedProps = {
 };
 
 const Feed = ({ posts }: FeedProps) => {
-  const limit = 5;
+  const limit = 6;
 
   const [userPosts, setUserPosts] = useState<Post[]>(posts);
   const [page, setPage] = useState(1);
@@ -102,7 +102,7 @@ const Feed = ({ posts }: FeedProps) => {
 
   return (
     <section className="w-full">
-      <div className="flex-center w-full mt-16">
+      <div className="flex-center w-full mt-2">
         <input
           className="form_field-input max-w-[800px]"
           type="text"
@@ -112,7 +112,7 @@ const Feed = ({ posts }: FeedProps) => {
         />
       </div>
 
-      <div className="flex-center">
+      <div className="mt-4 flex-center">
         <PromptCardList
           posts={userPosts}
           showUserInfo
@@ -121,7 +121,7 @@ const Feed = ({ posts }: FeedProps) => {
       </div>
 
       <Pagination
-        className="mt-10 mb-4 flex-center"
+        className="my-6 flex-center"
         count={searchText ? searchPageCount : pageCount}
         page={searchText ? searchPage : page}
         onChange={handlePageChange}

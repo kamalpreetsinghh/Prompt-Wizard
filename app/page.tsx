@@ -1,26 +1,31 @@
-import Feed from "@/components/Feed";
-import { Post } from "@/common.types";
+import Link from "next/link";
+import DefaultPromptList from "@/components/DefaultPromptList";
+import { prompts } from "@/constants";
 
 const Home = async () => {
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt`, {
-    cache: "no-cache",
-  });
-
-  const posts: Post[] = (await response.json()) || [];
-
   return (
     <section className="w-full flex-center flex-col">
-      <h1 className="head_text text-center">
-        Discover & Share
-        <br />
-        <span className="orange_gradient text-center"> AI-Powered Prompts</span>
-      </h1>
-      <p className="desc text-center">
-        Prompt Wizard is an open-source AI prompting tool for modern world to
-        discover, create and share creative prompts
-      </p>
+      <div className="my-6">
+        {" "}
+        <h1 className="head_text text-center">
+          Discover & Share
+          <br />
+          <span className="orange_gradient text-center">
+            {" "}
+            AI-Powered Prompts
+          </span>
+        </h1>
+        <p className="mb-4 desc text-center">
+          Prompt Wizard is an open-source AI prompting tool for modern world to
+          discover, create and share creative prompts
+        </p>
+      </div>
 
-      <Feed posts={posts} />
+      <DefaultPromptList posts={prompts} />
+
+      <Link className="primary-button mt-4 mb-14" href="/prompts">
+        See All Prompts
+      </Link>
     </section>
   );
 };

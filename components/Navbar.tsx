@@ -9,7 +9,7 @@ const Navbar = async () => {
   const session = await getCurrentUser();
 
   return (
-    <nav className="flex-between w-full py-5 gap-4">
+    <nav className="flex-between w-full py-4 gap-4">
       <Link href="/">
         <Image
           src="/assets/icons/logo.svg"
