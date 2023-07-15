@@ -6,8 +6,8 @@ const DefaultPromptList = ({
   posts: { prompt: string; tag: string }[];
 }) => (
   <div className="prompt_layout">
-    {posts.map((post) => (
-      <DefaultPrompt post={post} />
+    {posts.map((post, index) => (
+      <DefaultPrompt key={index} post={post} />
     ))}
   </div>
 );

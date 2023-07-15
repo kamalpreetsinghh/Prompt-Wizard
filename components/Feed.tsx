@@ -21,10 +21,12 @@ const Feed = ({ posts }: FeedProps) => {
   const [searchPage, setSearchPage] = useState(1);
   const [searchPageCount, setSearchPageCount] = useState(1);
 
+  const [showSearchResults, setShowSerchResults] = useState(false);
+
   const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (searchText) {
+    if (showSearchResults) {
       console.log(searchedResults);
       const paginatedPosts = getPaginatedPosts(
         searchPage,
@@ -44,7 +46,7 @@ const Feed = ({ posts }: FeedProps) => {
         clearTimeout(timerRef.current);
       }
     };
-  }, [page, searchedResults, searchPage]);
+  }, [page, searchedResults, searchPage, showSearchResults]);
 
   const getPaginatedPosts = (page: number, limit: number, posts: Post[]) => {
     let startIndex = (page - 1) * limit;
@@ -79,6 +81,12 @@ const Feed = ({ posts }: FeedProps) => {
     }
 
     setSearchText(searchText);
+
+    if (searchText) {
+      setShowSerchResults(true);
+    } else {
+      setShowSerchResults(false);
+    }
 
     setSearchPage(1);
 
