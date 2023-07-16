@@ -26,6 +26,6 @@ const PromptSchema = new Schema<IPromptDoc>(
   { timestamps: true }
 );
 
-const Prompt = models.prompts || model("prompts", PromptSchema);
+const Prompt = models?.prompts || model("prompts", PromptSchema);
 
 export default Prompt;

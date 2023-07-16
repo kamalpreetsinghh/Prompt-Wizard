@@ -136,8 +136,8 @@ body {
 }
 
 .rounded-icon {
-  @apply rounded-full p-2 text-white transition-all  
-  text-center text-sm font-semibold flex items-center justify-center;
+  @apply rounded-full text-white transition-all  
+  text-center text-2xl font-semibold flex items-center justify-center;
   background-color: var(--primary-color);
 }
 

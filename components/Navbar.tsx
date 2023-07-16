@@ -38,14 +38,7 @@ const Navbar = async () => {
               <span className="rounded-navbar-button hidden sm:flex">
                 Create Post
               </span>
-              <span className="rounded-icon sm:hidden">
-                <Image
-                  src="/assets/icons/plus.svg"
-                  width={25}
-                  height={25}
-                  alt="Theme"
-                />
-              </span>
+              <span className="rounded-icon px-3 py-1 sm:hidden">+</span>
             </Link>
           </div>
         ) : (

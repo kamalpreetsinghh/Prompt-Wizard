@@ -7,6 +7,12 @@ const ToggleSwitch = () => {
   const { theme, setTheme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
 
+  useEffect(() => {
+    if (theme === "system") {
+      setTheme("dark");
+    }
+  }, []);
+
   useEffect(() => setIsMounted(true), []);
 
   if (!isMounted) {
