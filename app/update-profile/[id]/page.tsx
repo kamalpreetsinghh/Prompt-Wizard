@@ -1,6 +1,6 @@
-import { Params, UserProfile } from "@/common.types";
 import ProflieForm from "@/components/ProfileForm";
 import { getCurrentUser } from "@/lib/session";
+import { Params } from "@/common.types";
 
 const UpdateProfilePage = async ({ params: { id } }: Params) => {
   const session = await getCurrentUser();
@@ -17,12 +17,7 @@ const UpdateProfilePage = async ({ params: { id } }: Params) => {
 
   const responseJson = await response.json();
 
-  return (
-    <ProflieForm
-      session={session}
-      userProfile={responseJson.result.userProfile}
-    />
-  );
+  return <ProflieForm userProfile={responseJson.result.userProfile} />;
 };
 
 export default UpdateProfilePage;

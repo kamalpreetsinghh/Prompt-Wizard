@@ -65,12 +65,10 @@ export const updateUserProfile = async (
 };
 
 export const getFollowers = async (id: string) => {
-  console.log("In Following");
   const result = await User.findById(id).populate({
     path: "followers",
     select: "_id name username image",
   });
-  console.log(result);
 
   return result;
 };
