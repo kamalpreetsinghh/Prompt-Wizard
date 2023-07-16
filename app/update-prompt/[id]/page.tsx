@@ -9,17 +9,10 @@ const UpdatePromptPage = async ({ params: { id } }: Params) => {
     return null;
   }
 
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt/${id}`, {
-    method: "GET",
-  });
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt/${id}`);
 
   if (!res.ok) {
-    return (
-      <p>
-        There is some issue in the system. We advise you to visi this website
-        later.
-      </p>
-    );
+    return <p>User not found.</p>;
   }
 
   const { prompt, tag, _id } = (await res.json()) as Post;

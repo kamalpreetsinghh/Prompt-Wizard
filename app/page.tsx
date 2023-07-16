@@ -6,12 +6,10 @@ const Home = async () => {
   return (
     <section className="w-full flex-center flex-col">
       <div className="my-6">
-        {" "}
         <h1 className="head_text text-center">
           Discover & Share
           <br />
           <span className="orange_gradient text-center">
-            {" "}
             AI-Powered Prompts
           </span>
         </h1>

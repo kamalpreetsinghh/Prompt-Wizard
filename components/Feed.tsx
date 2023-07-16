@@ -1,52 +1,56 @@
 "use client";
 
 import PromptCardList from "./PromptCardList";
+import { Pagination } from "@mui/material";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Post } from "@/common.types";
-import { Pagination } from "@mui/material";
 
-type FeedProps = {
-  posts: Post[];
-};
-
-const Feed = ({ posts }: FeedProps) => {
+const Feed = () => {
   const limit = 6;
 
-  const [userPosts, setUserPosts] = useState<Post[]>(posts);
+  const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [displayPosts, setDisplayPosts] = useState<Post[]>([]);
+
   const [page, setPage] = useState(1);
-  const pageCount = Math.ceil(posts.length / limit);
+  const [pageCount, setPageCount] = useState(1);
 
   const [searchText, setSearchText] = useState("");
   const [searchedResults, setSearchedResults] = useState<Post[]>([]);
   const [searchPage, setSearchPage] = useState(1);
   const [searchPageCount, setSearchPageCount] = useState(1);
 
-  const [showSearchResults, setShowSerchResults] = useState(false);
-
   const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (showSearchResults) {
-      console.log(searchedResults);
-      const paginatedPosts = getPaginatedPosts(
-        searchPage,
-        limit,
-        searchedResults
-      );
-      setUserPosts(paginatedPosts);
-      setSearchPageCount(Math.ceil(searchedResults.length / limit));
-    } else {
-      const paginatedPosts = getPaginatedPosts(page, limit, posts);
-      setUserPosts(paginatedPosts);
-      Math.ceil(posts.length / limit);
-    }
+    const fetchPosts = async () => {
+      const response = await fetch(`/api/prompt`);
+      const posts = (await response.json()) || [];
+
+      setAllPosts(posts);
+
+      if (posts.length > 0) {
+        setDisplayPosts(getPaginatedPosts(page, limit, posts));
+        setPageCount(Math.ceil(posts.length / limit));
+      }
+    };
+
+    fetchPosts();
 
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
     };
-  }, [page, searchedResults, searchPage, showSearchResults]);
+  }, []);
+
+  useEffect(() => {
+    if (searchText) {
+      setDisplayPosts(getPaginatedPosts(searchPage, limit, searchedResults));
+      setSearchPageCount(Math.ceil(searchedResults.length / limit));
+    } else {
+      setDisplayPosts(getPaginatedPosts(page, limit, allPosts));
+    }
+  }, [page, searchedResults, searchPage, searchText]);
 
   const getPaginatedPosts = (page: number, limit: number, posts: Post[]) => {
     let startIndex = (page - 1) * limit;
@@ -65,7 +69,7 @@ const Feed = ({ posts }: FeedProps) => {
 
   const filterPrompts = (searchText: string): Post[] => {
     const regex = new RegExp(searchText, "i"); // 'i' flag for case-insensitive search
-    return posts.filter(
+    return allPosts.filter(
       (item) =>
         regex.test(item.creator.username) ||
         regex.test(item.tag) ||
@@ -82,13 +86,7 @@ const Feed = ({ posts }: FeedProps) => {
 
     setSearchText(searchText);
 
-    if (searchText) {
-      setShowSerchResults(true);
-    } else {
-      setShowSerchResults(false);
-    }
-
-    setSearchPage(1);
+    setSearchPage(1); //set page to 1 for search results
 
     timerRef.current = window.setTimeout(() => {
       setSearchedResults(filterPrompts(searchText));
@@ -120,20 +118,28 @@ const Feed = ({ posts }: FeedProps) => {
         />
       </div>
 
-      <div className="mt-4 flex-center">
-        <PromptCardList
-          posts={userPosts}
-          showUserInfo
-          handleTagClick={handleTagClick}
-        />
-      </div>
+      {displayPosts.length > 0 ? (
+        <>
+          <div className="mt-4 flex-center">
+            <PromptCardList
+              posts={displayPosts}
+              showUserInfo
+              handleTagClick={handleTagClick}
+            />
+          </div>
 
-      <Pagination
-        className="my-6 flex-center"
-        count={searchText ? searchPageCount : pageCount}
-        page={searchText ? searchPage : page}
-        onChange={handlePageChange}
-      />
+          <Pagination
+            className="my-6 flex-center"
+            count={searchText ? searchPageCount : pageCount}
+            page={searchText ? searchPage : page}
+            onChange={handlePageChange}
+          />
+        </>
+      ) : searchText ? (
+        <h4>No prompts found for the search</h4>
+      ) : (
+        <h4>No posts</h4>
+      )}
     </section>
   );
 };

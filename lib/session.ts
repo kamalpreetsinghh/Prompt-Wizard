@@ -39,8 +39,8 @@ export const authOptions: NextAuthOptions = {
         await createUserProfile(newUser);
 
         return true;
-      } catch (error) {
-        console.log("Error checking if user exists: ", error);
+      } catch (error: any) {
+        console.log(error.message);
         return false;
       }
     },
