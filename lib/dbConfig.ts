@@ -16,16 +16,7 @@ export const connectToDB = async () => {
       useUnifiedTopology: true,
     } as ConnectOptions);
 
-    const connection = mongoose.connection;
-
-    connection.on("connected", () => {
-      isConnected = true;
-    });
-
-    connection.on("error", (error) => {
-      console.log("Error conecting to MongoDB" + error);
-      process.exit();
-    });
+    isConnected = true;
   } catch (error) {
     console.log(error);
   }
