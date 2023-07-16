@@ -145,7 +145,7 @@ const Profile = ({ session, id }: ProfileProps) => {
               />
             )}
           </div>
-          <div className="flex-center mt-10 hidden lg:flex gap-10">
+          <div className="mt-10 hidden lg:flex gap-10">
             <Image
               className=""
               src="/assets/images/ai.png"

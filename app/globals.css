@@ -129,6 +129,18 @@ body {
   color: var(--text-grey-color);
 }
 
+.rounded-navbar-button {
+  @apply rounded-full py-2 px-5 text-white transition-all  
+  text-center text-sm font-semibold;
+  background-color: var(--primary-color);
+}
+
+.rounded-icon {
+  @apply rounded-full p-2 text-white transition-all  
+  text-center text-sm font-semibold flex items-center justify-center;
+  background-color: var(--primary-color);
+}
+
 .rounded-button {
   @apply rounded-full py-2 px-5 text-white transition-all  
   text-center text-sm font-semibold flex items-center justify-center;
@@ -140,7 +152,9 @@ body {
 }
 
 .primary-button:hover,
-.rounded-button:hover {
+.rounded-button:hover,
+.rounded-icon:hover,
+.rounded-navbar-button:hover {
   color: var(--background-color);
   background-color: var(--text-color);
 }

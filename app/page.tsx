@@ -2,7 +2,7 @@ import Link from "next/link";
 import DefaultPromptList from "@/components/DefaultPromptList";
 import { prompts } from "@/constants";
 
-const Home = async () => {
+const Home = () => {
   return (
     <section className="w-full flex-center flex-col">
       <div className="my-6">

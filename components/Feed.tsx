@@ -107,7 +107,7 @@ const Feed = () => {
   };
 
   return (
-    <section className="w-full">
+    <section className="w-full flex-center flex-col">
       <div className="flex-center w-full mt-2">
         <input
           className="form_field-input max-w-[800px]"
@@ -120,13 +120,11 @@ const Feed = () => {
 
       {displayPosts.length > 0 ? (
         <>
-          <div className="mt-4 flex-center">
-            <PromptCardList
-              posts={displayPosts}
-              showUserInfo
-              handleTagClick={handleTagClick}
-            />
-          </div>
+          <PromptCardList
+            posts={displayPosts}
+            showUserInfo
+            handleTagClick={handleTagClick}
+          />
 
           <Pagination
             className="my-6 flex-center"
