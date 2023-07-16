@@ -9,15 +9,7 @@ const UpdateProfilePage = async ({ params: { id } }: Params) => {
     return null;
   }
 
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${id}`);
-
-  if (!response.ok) {
-    return <p>Unable to get your profile information</p>;
-  }
-
-  const responseJson = await response.json();
-
-  return <ProflieForm userProfile={responseJson.result.userProfile} />;
+  return <ProflieForm userId={id} />;
 };
 
 export default UpdateProfilePage;

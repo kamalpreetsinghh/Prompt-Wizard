@@ -9,23 +9,7 @@ const UpdatePromptPage = async ({ params: { id } }: Params) => {
     return null;
   }
 
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt/${id}`);
-
-  if (!res.ok) {
-    return <p>User not found.</p>;
-  }
-
-  const { prompt, tag, _id } = (await res.json()) as Post;
-
-  const userPrompt = {
-    id: _id,
-    prompt,
-    tag,
-  };
-
-  return (
-    <Form type="Edit" userPrompt={userPrompt} userId={session?.user?.id} />
-  );
+  return <Form type="Edit" promptId={id} userId={session?.user?.id} />;
 };
 
 export default UpdatePromptPage;

@@ -7,14 +7,10 @@ import { useRouter } from "next/navigation";
 type FormProps = {
   type: string;
   userId: string;
-  userPrompt?: {
-    id: string;
-    prompt: string;
-    tag: string;
-  };
+  promptId?: string;
 };
 
-const Form = ({ type, userId, userPrompt }: FormProps) => {
+const Form = ({ type, userId, promptId }: FormProps) => {
   const router = useRouter();
 
   const [prompt, setPrompt] = useState("");
@@ -22,9 +18,15 @@ const Form = ({ type, userId, userPrompt }: FormProps) => {
   const [submitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (userPrompt && type === "Edit") {
-      setPrompt(userPrompt.prompt);
-      setTag(userPrompt.tag);
+    if (type === "Edit") {
+      const fetchPrompt = async () => {
+        const response = await fetch(`/api/prompt/${promptId}`);
+        const responseJson = await response.json();
+        setPrompt(responseJson.prompt);
+        setTag(responseJson.tag);
+      };
+
+      fetchPrompt();
     }
   }, []);
 
@@ -44,7 +46,7 @@ const Form = ({ type, userId, userPrompt }: FormProps) => {
           }),
         });
       } else {
-        response = await fetch(`/api/prompt/${userPrompt?.id}`, {
+        response = await fetch(`/api/prompt/${promptId}`, {
           method: "PATCH",
           body: JSON.stringify({
             prompt: prompt,

@@ -1,29 +1,43 @@
 "use client";
 
-import { useState } from "react";
 import FormField from "./FormField";
-import { UserProfile } from "@/common.types";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 type ProfileFormProps = {
-  userProfile: UserProfile;
+  userId: String;
 };
 
-const ProfileForm = ({ userProfile }: ProfileFormProps) => {
-  const [username, setUsername] = useState(userProfile.username);
-  const [name, setName] = useState(userProfile.name);
-  const [bio, setBio] = useState(userProfile.bio || "");
+const ProfileForm = ({ userId }: ProfileFormProps) => {
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [submitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const response = await fetch(`/api/user/${userId}`);
+      const responseJson = await response.json();
+      const userProfile = responseJson.result.userProfile;
+      setUsername(userProfile.username);
+      setName(userProfile.name);
+      if (userProfile.bio) {
+        setBio(userProfile.bio);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`/api/user/${userProfile._id}`, {
+      const response = await fetch(`/api/user/${userId}`, {
         method: "PATCH",
         body: JSON.stringify({
           username,
