@@ -4,7 +4,7 @@ import { prompts } from "@/constants";
 
 const Home = () => {
   return (
-    <section className="w-full flex-center flex-col">
+    <section className="w-full min-h-screen flex-center flex-col">
       <div className="my-6">
         <h1 className="head_text text-center">
           Discover & Share

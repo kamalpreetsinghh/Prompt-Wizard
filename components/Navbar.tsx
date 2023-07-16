@@ -19,7 +19,7 @@ const Navbar = async () => {
         />
       </Link>
 
-      <div className="flex-center gap-6">
+      <div className="flex-center gap-4 sm:gap-6">
         <div className="flex-center mx-4">
           <ToggleSwitch />
           <div>
@@ -32,7 +32,7 @@ const Navbar = async () => {
           </div>
         </div>
         {session?.user ? (
-          <div className="flex gap-4 md:gap-6">
+          <div className="flex gap-3 md:gap-6">
             <ProfileMenu session={session} />
             <Link href="/create-prompt">
               <span className="rounded-navbar-button hidden sm:flex">
