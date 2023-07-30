@@ -25,11 +25,10 @@ export default function RootLayout({
             <div className="main">
               <div className="gradient"></div>
             </div>
-
-            <main className="app">
+            <div className="min-h-screen">
               <Navbar />
-              {children}
-            </main>
+              <main className="app">{children}</main>
+            </div>
             <Footer />
           </SessionProvider>
         </ThemeProvider>

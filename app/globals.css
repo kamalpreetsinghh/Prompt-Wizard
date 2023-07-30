@@ -5,36 +5,34 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb-light: 0, 0, 0;
-  --background-start-rgb-light: rgb(214, 219, 220);
-  --background-end-rgb-light: rgb(255, 255, 255);
-  --primary-color: #ed640d;
+  --primary-color: rgb(237, 100, 13);
 
-  --text-color-light: black;
-  --background-color-light: white;
+  --text-color-light: rgb(0, 0, 0);
+  --background-color-light: rgb(255, 255, 255);
   --background-color-menu-light: rgba(252, 252, 252, 0.7);
   --text-grey-color-light: rgb(86, 86, 86);
   --form-background-color-light: rgba(230, 230, 230, 0.5);
-  --footer-background-color-light: #f6f6f8;
+  --footer-background-color-light: rgb(246, 246, 248);
   --divider-color-light: rgb(235 234 234);
-  --card-color-light: rgba(155, 155, 155, 0.1);
+  --card-color-light: rgba(165, 165, 165, 0.1);
 
-  --text-color-dark: white;
-  --background-color-dark: black;
-  --background-color-menu-dark: rgba(0, 0, 0, 0.7);
+  --text-color-dark: rgb(255, 255, 255);
+  --background-color-dark: rgb(0, 0, 0);
+  --background-color-menu-dark: rgba(0, 0, 0, 0.8);
   --text-grey-color-dark: rgb(156 163 175);
   --form-background-color-dark: rgba(40, 40, 40, 0.5);
-  --footer-background-color-dark: #0d0d0d;
-  --divider-color-dark: #1e1e1e;
+  --footer-background-color-dark: rgb(13, 13, 13);
+  --divider-color-dark: rgb(30, 30, 30);
   --card-color-dark: rgba(255, 255, 255, 0.1);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb-dark: 255, 255, 255;
-    --background-start-rgb-dark: 0, 0, 0;
-    --background-end-rgb-dark: 0, 0, 0;
-  }
+  /*Background Gradient Colors */
+  --foreground-rgb-light: rgb(0, 0, 0);
+  --background-start-rgb-light: rgb(255, 255, 255);
+  --background-end-rgb-light: rgb(255, 255, 255);
+
+  --foreground-rgb-dark: rgb(255, 255, 255);
+  --background-start-rgb-dark: rgb(0, 0, 0);
+  --background-end-rgb-dark: rgb(0, 0, 0);
 }
 
 html.dark {
@@ -46,7 +44,6 @@ html.dark {
   --divider-color: var(--divider-color-dark);
   --form-background-color: var(--form-background-color-dark);
   --card-color: var(--card-color-dark);
-
   --foreground-rgb: var(--foreground-rgb-dark);
   --background-start-rgb: var(--background-start-rgb-dark);
   --background-end-rgb: var(--background-end-rgb-dark);
@@ -61,20 +58,15 @@ html.light {
   --divider-color: var(--divider-color-light);
   --form-background-color: var(--form-background-color-light);
   --card-color: var(--card-color-light);
-
   --foreground-rgb: var(--foreground-rgb-light);
   --background-start-rgb: var(--background-start-rgb-light);
   --background-end-rgb: var(--background-end-rgb-light);
 }
 
 body {
-  color: rgb(var(--text-color));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--text-color);
+  background: linear-gradient(to bottom, transparent, var(--background-end-rgb))
+    var(--background-start-rgb);
 }
 
 .main {
@@ -83,12 +75,12 @@ body {
   position: fixed;
   display: flex;
   justify-content: center;
-  padding: 120px 24px 160px 24px;
+  padding: 120px 24px 120px 24px;
   pointer-events: none;
 }
 
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col mx-auto sm:px-24 px-6;
+  @apply relative z-10 flex flex-col justify-center items-center mx-auto px-6 sm:px-24;
 }
 
 .gradient {

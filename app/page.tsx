@@ -15,13 +15,13 @@ const Home = () => {
         </h1>
         <p className="mb-4 desc text-center">
           Prompt Wizard is an open-source AI prompting tool for modern world to
-          discover, create and share creative prompts
+          discover, create and share creative prompts.
         </p>
       </div>
 
       <DefaultPromptList posts={prompts} />
 
-      <Link className="primary-button mt-4 mb-14" href="/prompts">
+      <Link className="primary-button my-4" href="/prompts">
         See All Prompts
       </Link>
     </section>
