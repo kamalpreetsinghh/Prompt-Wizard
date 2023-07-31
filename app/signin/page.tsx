@@ -51,7 +51,7 @@ const SignInPage = () => {
             </button>
           </form>
           <p>
-            Don't have an account?{" "}
+            Don&apos;t have an account?&nbsp;
             <Link className="text-blue-600 font-bold" href="/signup">
               Sign up
             </Link>
