@@ -42,7 +42,10 @@ const Navbar = async () => {
             </Link>
           </div>
         ) : (
-          <AuthProviders />
+          <Link href="/signin" className="primary-button">
+            Sign In
+          </Link>
+          // <AuthProviders />
         )}
       </div>
     </nav>

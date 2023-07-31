@@ -1,4 +1,5 @@
 import GoogleProvider from "next-auth/providers/google";
+import GithubProvider from "next-auth/providers/github";
 import { NextAuthOptions, getServerSession } from "next-auth";
 import { CreateUserProfile, SessionInterface } from "@/common.types";
 import { createUserProfile, getUserProfileByEmail } from "./user-actions";
@@ -8,6 +9,10 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    GithubProvider({
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     }),
   ],
   callbacks: {
@@ -29,6 +34,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async signIn({ account, profile, user, credentials }) {
+      console.log(user?.image);
       try {
         const newUser: CreateUserProfile = {
           email: profile?.email!,

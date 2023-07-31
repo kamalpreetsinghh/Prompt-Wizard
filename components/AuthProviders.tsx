@@ -31,11 +31,11 @@ const AuthProviders = () => {
       <div>
         {Object.values(providers).map((provider: Provider, index) => (
           <button
-            className="primary-button"
+            className="primary-button my-2"
             key={index}
             onClick={() => signIn(provider?.id)}
           >
-            Sign In
+            Sign In with {provider.name}
           </button>
         ))}
       </div>
