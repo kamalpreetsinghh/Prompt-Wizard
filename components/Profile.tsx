@@ -25,27 +25,27 @@ const Profile = ({ session, id }: ProfileProps) => {
   const [showActions, setShowActions] = useState(false);
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      const response = await fetch(`/api/user/${id}`);
-      const responseJson = await response.json();
-
-      const userProfileResponse: UserProfile = responseJson.result.userProfile;
-      const userPostsResponse: Post[] = responseJson.result.prompts || [];
-      setUserProfile(userProfileResponse);
-      setUserPosts(userPostsResponse);
-
-      if (session && session?.user?.id === userProfileResponse._id) {
-        fetchFollowing().catch((error) => console.log(error));
-        fetchFollowers().catch((error) => console.log(error));
-      }
-
-      const actions =
-        (session && session?.user?.id === userProfileResponse?._id) || false;
-      setShowActions(actions);
-    };
-
     fetchUserProfile();
   }, []);
+
+  const fetchUserProfile = async () => {
+    const response = await fetch(`/api/user/${id}`);
+    const responseJson = await response.json();
+
+    const userProfileResponse: UserProfile = responseJson.result.userProfile;
+    const userPostsResponse: Post[] = responseJson.result.prompts || [];
+    setUserProfile(userProfileResponse);
+    setUserPosts(userPostsResponse);
+
+    if (session && session?.user?.id === userProfileResponse._id) {
+      fetchFollowing().catch((error) => console.log(error));
+      fetchFollowers().catch((error) => console.log(error));
+    }
+
+    const actions =
+      (session && session?.user?.id === userProfileResponse?._id) || false;
+    setShowActions(actions);
+  };
 
   const fetchFollowing = async () => {
     const response = await fetch(`/api/user/following/${session?.user?.id}`);
@@ -77,6 +77,10 @@ const Profile = ({ session, id }: ProfileProps) => {
     if (dialogRef.current) {
       dialogRef.current.showModal();
     }
+  };
+
+  const handleDeletePrompt = () => {
+    fetchUserProfile();
   };
 
   if (dialogRef.current) {
@@ -163,7 +167,11 @@ const Profile = ({ session, id }: ProfileProps) => {
         </div>
 
         <div>
-          <PromptCardList posts={userPosts} showUserActions={showActions} />
+          <PromptCardList
+            posts={userPosts}
+            showUserActions={showActions}
+            onDelete={handleDeletePrompt}
+          />
         </div>
 
         {session && session?.user?.id === userProfile._id && (

@@ -4,6 +4,7 @@ import PromptCardList from "./PromptCardList";
 import { Pagination } from "@mui/material";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Post } from "@/common.types";
+import Loader from "./Loader";
 
 const Feed = () => {
   const limit = 6;
@@ -19,13 +20,18 @@ const Feed = () => {
   const [searchPage, setSearchPage] = useState(1);
   const [searchPageCount, setSearchPageCount] = useState(1);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
+      setIsLoading(true);
+
       const response = await fetch(`/api/prompt`);
       const posts = (await response.json()) || [];
 
+      setIsLoading(false);
       setAllPosts(posts);
 
       if (posts.length > 0) {
@@ -105,6 +111,10 @@ const Feed = () => {
       setPage(page);
     }
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <section className="w-full flex-center flex-col">

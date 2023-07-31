@@ -3,6 +3,7 @@
 import FormField from "./FormField";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Loader from "./Loader";
 
 type FormProps = {
   type: string;
@@ -16,12 +17,15 @@ const Form = ({ type, userId, promptId }: FormProps) => {
   const [prompt, setPrompt] = useState("");
   const [tag, setTag] = useState("");
   const [submitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (type === "Edit") {
       const fetchPrompt = async () => {
+        setIsLoading(true);
         const response = await fetch(`/api/prompt/${promptId}`);
         const responseJson = await response.json();
+        setIsLoading(false);
         setPrompt(responseJson.prompt);
         setTag(responseJson.tag);
       };
@@ -68,6 +72,10 @@ const Form = ({ type, userId, promptId }: FormProps) => {
   const handleCancel = () => {
     router.back();
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <section className="w-full max-w-full flex-center flex-col my-10 sm:my-6">

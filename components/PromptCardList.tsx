@@ -6,6 +6,7 @@ type PromptCardListProps = {
   showUserActions?: boolean;
   showUserInfo?: boolean;
   handleTagClick?: (tag: string) => void;
+  onDelete?: () => void;
 };
 
 const PromptCardList = ({
@@ -13,6 +14,7 @@ const PromptCardList = ({
   showUserActions,
   showUserInfo,
   handleTagClick,
+  onDelete,
 }: PromptCardListProps) => {
   return (
     <div className="prompt_layout mt-4">
@@ -23,6 +25,7 @@ const PromptCardList = ({
           showUserActions={showUserActions}
           showUserInfo={showUserInfo}
           handleTagClick={handleTagClick}
+          onDelete={onDelete}
         />
       ))}
     </div>
