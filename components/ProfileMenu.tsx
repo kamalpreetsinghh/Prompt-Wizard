@@ -11,7 +11,7 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <div className="flex-center z-10 flex-col relative">
+    <div className="flex-center z-20 flex-col relative">
       <Menu as="div">
         <Menu.Button
           className="flex-center"
