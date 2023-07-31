@@ -133,9 +133,17 @@ body {
   background-color: var(--primary-color);
 }
 
+.button {
+  @apply transition-all text-center text-sm font-semibold flex items-center justify-center;
+}
+
+.black-button {
+  @apply button;
+}
+
 .rounded-button {
-  @apply rounded-full py-2 px-5 text-white transition-all  
-  text-center text-sm font-semibold flex items-center justify-center;
+  @apply button;
+  @apply py-2 px-5 rounded-full text-white;
 }
 
 .primary-button {
@@ -143,6 +151,7 @@ body {
   background-color: var(--primary-color);
 }
 
+.button:hover,
 .primary-button:hover,
 .rounded-button:hover,
 .rounded-icon:hover,

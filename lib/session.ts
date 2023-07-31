@@ -34,7 +34,6 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async signIn({ account, profile, user, credentials }) {
-      console.log(user?.image);
       try {
         const newUser: CreateUserProfile = {
           email: profile?.email!,
@@ -50,6 +49,9 @@ export const authOptions: NextAuthOptions = {
         return false;
       }
     },
+  },
+  pages: {
+    signIn: "/signin",
   },
 };
 
