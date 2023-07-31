@@ -4,6 +4,7 @@ import FormField from "./FormField";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "./Loader";
+import { motion } from "framer-motion";
 
 type FormProps = {
   type: string;
@@ -78,7 +79,16 @@ const Form = ({ type, userId, promptId }: FormProps) => {
   }
 
   return (
-    <section className="w-full max-w-full flex-center flex-col my-10 sm:my-6">
+    <motion.section
+      className="w-full max-w-full flex-center flex-col my-10 sm:my-6"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.5,
+        delay: 0.2,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+    >
       <h1 className="head_text text-left">
         <span className="orange_gradient">{type} Post</span>
       </h1>
@@ -131,7 +141,7 @@ const Form = ({ type, userId, promptId }: FormProps) => {
           </button>
         </div>
       </form>
-    </section>
+    </motion.section>
   );
 };
 

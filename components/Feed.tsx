@@ -5,6 +5,7 @@ import { Pagination } from "@mui/material";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Post } from "@/common.types";
 import Loader from "./Loader";
+import { motion } from "framer-motion";
 
 const Feed = () => {
   const limit = 6;
@@ -20,7 +21,7 @@ const Feed = () => {
   const [searchPage, setSearchPage] = useState(1);
   const [searchPageCount, setSearchPageCount] = useState(1);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const timerRef = useRef<number | null>(null);
 
@@ -118,7 +119,16 @@ const Feed = () => {
 
   return (
     <section className="w-full flex-center flex-col">
-      <div className="flex-center w-full mt-2">
+      <motion.div
+        className="flex-center w-full mt-2"
+        initial={{ opacity: 0, scale: 0.9, y: -20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.5,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+      >
         <input
           className="form_field-input max-w-[800px]"
           type="text"
@@ -126,7 +136,7 @@ const Feed = () => {
           value={searchText}
           onChange={handleSearch}
         />
-      </div>
+      </motion.div>
 
       {displayPosts.length > 0 ? (
         <>
@@ -136,12 +146,14 @@ const Feed = () => {
             handleTagClick={handleTagClick}
           />
 
-          <Pagination
-            className="my-6 flex-center"
-            count={searchText ? searchPageCount : pageCount}
-            page={searchText ? searchPage : page}
-            onChange={handlePageChange}
-          />
+          {pageCount > 1 && (
+            <Pagination
+              className="my-6"
+              count={searchText ? searchPageCount : pageCount}
+              page={searchText ? searchPage : page}
+              onChange={handlePageChange}
+            />
+          )}
         </>
       ) : searchText ? (
         <h4>No prompts found for the search</h4>

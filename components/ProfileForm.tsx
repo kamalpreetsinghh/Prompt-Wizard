@@ -3,6 +3,8 @@
 import FormField from "./FormField";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import Loader from "./Loader";
 
 type ProfileFormProps = {
   userId: String;
@@ -14,14 +16,21 @@ const ProfileForm = ({ userId }: ProfileFormProps) => {
   const [bio, setBio] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [submitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   useEffect(() => {
     const fetchProfile = async () => {
+      setIsLoading(true);
+
       const response = await fetch(`/api/user/${userId}`);
       const responseJson = await response.json();
+
+      setIsLoading(false);
+
       const userProfile = responseJson.result.userProfile;
+
       setUsername(userProfile.username);
       setName(userProfile.name);
       if (userProfile.bio) {
@@ -65,8 +74,21 @@ const ProfileForm = ({ userId }: ProfileFormProps) => {
     router.back();
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
-    <section className="w-full max-w-full flex-center flex-col my-10 sm:my-6">
+    <motion.section
+      className="w-full max-w-full flex-center flex-col my-10 sm:my-6"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.5,
+        delay: 0.2,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+    >
       <h1 className="head_text text-left">
         <span className="orange_gradient">Edit Profile</span>
       </h1>
@@ -116,7 +138,7 @@ const ProfileForm = ({ userId }: ProfileFormProps) => {
           </button>
         </div>
       </form>
-    </section>
+    </motion.section>
   );
 };
 

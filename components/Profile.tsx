@@ -7,6 +7,7 @@ import ProfileActions from "./ProfileActions";
 import FollowerList from "./FollowerList";
 import { ModalType, Post, SessionInterface, UserProfile } from "@/common.types";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 type ProfileProps = {
   id: string;
@@ -103,7 +104,16 @@ const Profile = ({ session, id }: ProfileProps) => {
     userProfile && (
       <section className="w-full flex-col flex-center">
         <div className="w-full sm:max-w-[800px] xl:max-w-[1200px] flex-between">
-          <div className="flex flex-col mt-10 max-w-[600px]">
+          <motion.div
+            className="flex flex-col mt-10 max-w-[600px]"
+            initial={{ opacity: 0, scale: 0.9, x: -40 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.2,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+          >
             <Image
               src={userProfile?.image}
               width={100}
@@ -148,8 +158,17 @@ const Profile = ({ session, id }: ProfileProps) => {
                 followingId={userProfile._id}
               />
             )}
-          </div>
-          <div className="mt-10 hidden lg:flex gap-10">
+          </motion.div>
+          <motion.div
+            className="mt-10 hidden lg:flex gap-10"
+            initial={{ opacity: 0, scale: 0.9, x: 40 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.2,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+          >
             <Image
               className=""
               src="/assets/images/ai.png"
@@ -163,16 +182,14 @@ const Profile = ({ session, id }: ProfileProps) => {
               height={190}
               alt="Prompt Image"
             />
-          </div>
+          </motion.div>
         </div>
 
-        <div>
-          <PromptCardList
-            posts={userPosts}
-            showUserActions={showActions}
-            onDelete={handleDeletePrompt}
-          />
-        </div>
+        <PromptCardList
+          posts={userPosts}
+          showUserActions={showActions}
+          onDelete={handleDeletePrompt}
+        />
 
         {session && session?.user?.id === userProfile._id && (
           <dialog className="rounded-2xl w-full max-w-md  " ref={dialogRef}>

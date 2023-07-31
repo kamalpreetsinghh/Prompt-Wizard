@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import DefaultPrompt from "./DefaultPrompt";
+import { container } from "@/lib/motion";
 
 const DefaultPromptList = ({
   posts,
@@ -10,11 +11,9 @@ const DefaultPromptList = ({
 }) => (
   <motion.div
     className="prompt_layout"
-    initial={{ scale: 0.9 }}
-    animate={{ scale: 1 }}
-    transition={{
-      duration: 0.5,
-    }}
+    variants={container}
+    initial="hidden"
+    animate="visible"
   >
     {posts.map((post, index) => (
       <DefaultPrompt key={index} post={post} />

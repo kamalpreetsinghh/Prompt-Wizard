@@ -5,9 +5,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import PromptCardUser from "./PromptCardUser";
 import { Post } from "@/common.types";
-import { useRouter } from "next/navigation";
 import PromptCopy from "./PromptCopy";
 import { useRef } from "react";
+import { motion } from "framer-motion";
+import { item } from "@/lib/motion";
 
 type PromptCardProps = {
   post: Post;
@@ -24,7 +25,6 @@ const PromptCard = ({
   handleTagClick,
   onDelete,
 }: PromptCardProps) => {
-  const router = useRouter();
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const { username, image } = post.creator;
@@ -79,7 +79,11 @@ const PromptCard = ({
   }
 
   return (
-    <div className="prompt_card">
+    <motion.div
+      className="prompt_card"
+      variants={item}
+      whileHover={{ scale: 1.03 }}
+    >
       {showUserInfo && (
         <div className="mb-4 flex justify-between items-start gap-5">
           <Link href={`/profile/${post?.creator?._id}`}>
@@ -130,7 +134,7 @@ const PromptCard = ({
           </div>
         </div>
       </dialog>
-    </div>
+    </motion.div>
   );
 };
 
