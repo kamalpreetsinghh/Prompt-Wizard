@@ -1,8 +1,16 @@
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions, getServerSession } from "next-auth";
 import { CreateUserProfile, SessionInterface } from "@/common.types";
-import { createUserProfile, getUserProfileByEmail } from "./user-actions";
+import bcryptjs from "bcryptjs";
+
+import {
+  checkIfUserExists,
+  createUserProfile,
+  getUserByEmail,
+  getUserProfileByEmail,
+} from "./user-actions";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -13,6 +21,49 @@ export const authOptions: NextAuthOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        username: {
+          label: "Email",
+          type: "text",
+          placeholder: "lovehiking@mountains.com",
+        },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, req) {
+        const username = credentials?.username;
+        const password = credentials?.password;
+
+        if (username && password) {
+          const user = await getUserByEmail(username);
+
+          if (!user) {
+            return null;
+          }
+
+          const validPassword = await bcryptjs.compare(password, user.password);
+
+          // check if password is correct
+          if (!validPassword) {
+            return null;
+          }
+
+          console.log(username);
+          console.log(password);
+
+          const loggedInUser = {
+            id: user._id,
+            name: user.name,
+            email: username,
+          };
+
+          return loggedInUser;
+        }
+
+        return null;
+      },
     }),
   ],
   callbacks: {
@@ -35,13 +86,20 @@ export const authOptions: NextAuthOptions = {
     },
     async signIn({ account, profile, user, credentials }) {
       try {
-        const newUser: CreateUserProfile = {
-          email: profile?.email!,
-          name: profile?.name!,
-          image: user?.image!,
-        };
+        console.log(JSON.stringify(credentials));
 
-        await createUserProfile(newUser);
+        if (profile?.email) {
+          const userExists = await checkIfUserExists(profile.email);
+          if (!userExists) {
+            const newUser: CreateUserProfile = {
+              email: profile?.email!,
+              name: profile?.name!,
+              image: user?.image!,
+            };
+
+            await createUserProfile(newUser);
+          }
+        }
 
         return true;
       } catch (error: any) {

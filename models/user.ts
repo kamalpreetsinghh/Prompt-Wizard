@@ -4,7 +4,8 @@ interface IUser extends Document {
   email: string;
   name: string;
   username: string;
-  image: string;
+  image?: string;
+  password?: string;
   bio?: string;
   following?: Types.ObjectId[];
   followers?: Types.ObjectId[];
@@ -25,9 +26,12 @@ const UserSchema = new Schema<IUser>(
       type: String,
       required: [true, "Username is required!"],
       match: [
-        /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
-        "Username invalid, it should contain 8-20 alphanumeric letters and be unique!",
+        /^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
+        "Username invalid, it should contain 3-20 alphanumeric letters and be unique!",
       ],
+    },
+    password: {
+      type: String,
     },
     image: { type: String },
     bio: { type: String, default: "" },

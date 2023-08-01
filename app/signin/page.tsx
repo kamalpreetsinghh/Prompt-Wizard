@@ -27,35 +27,6 @@ const SignInPage = () => {
           <h1 className="head_text orange_gradient mt-10 mb-2">Hi there!</h1>
           <p className="desc max-w-md mb-6">Welcome to Prompt Wizard</p>
           <AuthProviders />
-          <div>
-            <hr />
-          </div>
-          <form className="flex flex-col w-full gap-7 glassmorphism">
-            <FormField
-              title="Email"
-              state={email}
-              placeholder="Email"
-              setState={setEmail}
-              isRequired
-            />
-
-            <FormField
-              title="Password"
-              state={password}
-              placeholder="Password"
-              setState={setPassword}
-              isRequired
-            />
-            <button className="primary-button my-4" type="submit">
-              Sign In
-            </button>
-          </form>
-          <p>
-            Don&apos;t have an account?&nbsp;
-            <Link className="text-blue-600 font-bold" href="/signup">
-              Sign up
-            </Link>
-          </p>
         </div>
       </motion.div>
       <motion.div

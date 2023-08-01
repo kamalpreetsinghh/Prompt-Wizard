@@ -1,30 +1,57 @@
 import User from "@/models/user";
 import { connectToDB } from "./dbConfig";
-import { CreateUserProfile, UpdateUserProfile } from "@/common.types";
-import mongoose, { Types } from "mongoose";
+import { CreateUserProfile, SignUp, UpdateUserProfile } from "@/common.types";
+import { Types } from "mongoose";
 
 connectToDB();
+
+export const checkIfUserExists = async (email: string) => {
+  const userExists = await User.exists({ email });
+  return userExists;
+};
+
+export const getUserByEmail = async (email: string) => {
+  const user = await User.findOne({ email });
+  return user;
+};
 
 export const createUserProfile = async ({
   email,
   name,
   image,
 }: CreateUserProfile) => {
-  const userExists = await User.exists({ email });
+  const users = await User.find({ name: name }).select("username");
+  const existingUsernames: string[] = users.map((user) => user.username);
 
-  if (!userExists) {
-    const users = await User.find({ name: name }).select("username");
-    const existingUsernames: string[] = users.map((user) => user.username);
+  const username = createUsername(name, existingUsernames);
 
-    const username = createUsername(name, existingUsernames);
+  await User.create({
+    email,
+    name,
+    username,
+    image,
+  });
+};
 
-    await User.create({
-      email,
-      name,
-      username,
-      image,
-    });
-  }
+export const createUserCredentialsProfile = async ({
+  name,
+  email,
+  password,
+}: SignUp) => {
+  const users = await User.find({ name }).select("username");
+  const existingUsernames: string[] = users.map((user) => user.username);
+
+  const username = createUsername(name, existingUsernames);
+  console.log(username);
+
+  const newUser = await User.create({
+    email,
+    name,
+    username,
+    password,
+  });
+
+  return newUser;
 };
 
 export const getUserProfile = async (id: string) => {

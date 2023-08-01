@@ -22,6 +22,12 @@ export type CreateUserProfile = {
   image: string;
 };
 
+export type SignUp = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 export type UpdateUserProfile = {
   name: string;
   username: string;
