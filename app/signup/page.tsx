@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { SignUp } from "@/common.types";
+import Link from "next/link";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
@@ -70,6 +71,12 @@ const SignUpPage = () => {
               Create Account
             </button>
           </form>
+          <p className="flex justify-center">
+            Already have an account?&nbsp;
+            <Link className="text-blue-600 font-bold" href="/signin">
+              Sign in
+            </Link>
+          </p>
         </div>
       </motion.div>
 

@@ -294,6 +294,19 @@ input[type="checkbox"].toggle:checked + label::after {
   height: 200;
 }
 
+.profile-name-icon {
+  @apply w-fit rounded-full text-white px-7 py-5 text-center text-7xl font-bold cursor-pointer;
+  background-color: var(--primary-color);
+}
+
+.profile-name-icon:hover {
+  opacity: 0.5;
+}
+
+.form_image-input {
+  @apply absolute z-30 w-full opacity-0 h-full cursor-pointer;
+}
+
 /* Modal */
 
 .modal-head-text {

@@ -175,6 +175,19 @@ export const removeFollowing = async (id: string, followingId: string) => {
   }
 };
 
+export const updateProfileImage = async (id: string, image: string) => {
+  const user = await User.findById(id);
+
+  let result;
+
+  if (user) {
+    user.image = image;
+    result = await user.save();
+  }
+
+  return result;
+};
+
 const createUsername = (name: string, usernames: string[]): string => {
   let username = name.trim().toLowerCase().replace(/\s/g, "");
 
