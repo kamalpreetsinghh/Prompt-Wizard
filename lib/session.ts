@@ -50,9 +50,6 @@ export const authOptions: NextAuthOptions = {
             return null;
           }
 
-          console.log(username);
-          console.log(password);
-
           const loggedInUser = {
             id: user._id,
             name: user.name,
@@ -86,8 +83,6 @@ export const authOptions: NextAuthOptions = {
     },
     async signIn({ account, profile, user, credentials }) {
       try {
-        console.log(JSON.stringify(credentials));
-
         if (profile?.email) {
           const userExists = await checkIfUserExists(profile.email);
           if (!userExists) {

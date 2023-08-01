@@ -39,7 +39,7 @@ export type UserProfile = {
   email: string;
   name: string;
   username: string;
-  image: string;
+  image?: string;
   bio?: string;
   prompts?: Post[];
   followers?: UserProfile[];

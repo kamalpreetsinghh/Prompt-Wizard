@@ -6,6 +6,7 @@ import { signOut } from "next-auth/react";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { SessionInterface } from "@/common.types";
+import UserNameIcon from "./UserNameIcon";
 
 const ProfileMenu = ({ session }: { session: SessionInterface }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -17,7 +18,7 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
           className="flex-center"
           onMouseEnter={() => setOpenModal(true)}
         >
-          {session?.user?.image && (
+          {session?.user?.image ? (
             <Image
               src={session.user.image}
               width={40}
@@ -25,6 +26,8 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
               className="rounded-full"
               alt="user profile image"
             />
+          ) : (
+            <UserNameIcon name={session?.user?.name[0]} />
           )}
         </Menu.Button>
 

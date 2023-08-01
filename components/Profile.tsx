@@ -8,6 +8,7 @@ import FollowerList from "./FollowerList";
 import { ModalType, Post, SessionInterface, UserProfile } from "@/common.types";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import UserNameIcon from "./UserNameIcon";
 
 type ProfileProps = {
   id: string;
@@ -114,13 +115,23 @@ const Profile = ({ session, id }: ProfileProps) => {
               ease: [0, 0.71, 0.2, 1.01],
             }}
           >
-            <Image
-              src={userProfile?.image}
-              width={100}
-              height={100}
-              className="rounded-full"
-              alt="user image"
-            />
+            {userProfile?.image ? (
+              <Image
+                src={userProfile?.image}
+                width={100}
+                height={100}
+                className="rounded-full"
+                alt="user image"
+              />
+            ) : (
+              <span
+                className=" w-fit rounded-full text-white px-10 py-7 text-center 
+              text-8xl font-bold bg-orange-500"
+              >
+                {userProfile.username[0].toUpperCase()}
+              </span>
+            )}
+
             <p className="text-2xl text-grey-color mt-8">
               {userProfile.username}
             </p>

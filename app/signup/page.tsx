@@ -22,9 +22,6 @@ const SignUpPage = () => {
     if (response.ok) {
       alert("Account Created");
     }
-
-    const responseJson = await response.json();
-    console.log(responseJson);
   };
 
   return (

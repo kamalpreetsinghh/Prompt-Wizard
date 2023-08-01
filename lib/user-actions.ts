@@ -42,7 +42,6 @@ export const createUserCredentialsProfile = async ({
   const existingUsernames: string[] = users.map((user) => user.username);
 
   const username = createUsername(name, existingUsernames);
-  console.log(username);
 
   const newUser = await User.create({
     email,

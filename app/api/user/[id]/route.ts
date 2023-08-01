@@ -13,7 +13,6 @@ export const GET = async (request: NextRequest, { params: { id } }: Params) => {
     const userProfile = await getUserProfile(id);
 
     if (!userProfile) {
-      console.log(error);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
