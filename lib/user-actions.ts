@@ -188,6 +188,28 @@ export const updateProfileImage = async (id: string, image: string) => {
   return result;
 };
 
+export const updateUserPassword = async (
+  forgotPasswordToken: string,
+  newPassword: string
+) => {
+  const user = await User.findOne({
+    forgotPasswordToken,
+    forgotPasswordTokenExpiry: { $gt: Date.now() },
+  });
+
+  console.log(user);
+
+  if (user) {
+    user.password = newPassword;
+    user.forgotPasswordToken = undefined;
+    user.forgotPasswordTokenExpiry = undefined;
+
+    await user.save();
+  }
+
+  return user;
+};
+
 const createUsername = (name: string, usernames: string[]): string => {
   let username = name.trim().toLowerCase().replace(/\s/g, "");
 

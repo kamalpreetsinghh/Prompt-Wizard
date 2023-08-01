@@ -6,10 +6,10 @@ import { CreateUserProfile, SessionInterface } from "@/common.types";
 import bcryptjs from "bcryptjs";
 
 import {
-  checkIfUserExists,
   createUserProfile,
   getUserByEmail,
   getUserProfileByEmail,
+  updateProfileImage,
 } from "./user-actions";
 
 export const authOptions: NextAuthOptions = {
@@ -84,7 +84,12 @@ export const authOptions: NextAuthOptions = {
     async signIn({ account, profile, user, credentials }) {
       try {
         if (profile?.email) {
-          const userExists = await checkIfUserExists(profile.email);
+          const userExists = await getUserByEmail(profile.email);
+
+          if (userExists && user?.image && !userExists.image) {
+            await updateProfileImage(userExists._id, user.image);
+          }
+
           if (!userExists) {
             const newUser: CreateUserProfile = {
               email: profile?.email!,

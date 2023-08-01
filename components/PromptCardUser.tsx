@@ -8,15 +8,17 @@ type PromptCardUserProps = {
 
 const PromptCardUser = ({ image, username }: PromptCardUserProps) => {
   return (
-    <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
+    <div className="flex items-center gap-3 cursor-pointer">
       {image ? (
-        <Image
-          src={image}
-          alt="user_image"
-          width={40}
-          height={40}
-          className="rounded-full object-contain"
-        />
+        <div className="flex w-10 h-10 relative">
+          <Image
+            src={image}
+            alt="user image"
+            style={{ objectFit: "cover" }}
+            fill
+            className="rounded-full"
+          />
+        </div>
       ) : (
         <UserNameIcon name={username[0].toUpperCase()} />
       )}

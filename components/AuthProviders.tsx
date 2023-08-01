@@ -69,8 +69,10 @@ const AuthProviders = () => {
           <GitHub className="mx-2" />
           Sign in with {providers?.github?.name}
         </button>
-        <div>
-          <hr />
+        <div className="flex my-2 w-full justify-center items-center gap-4">
+          <hr className="w-2/5 border-orange-400" />
+          <p className="text-orange-400">OR</p>
+          <hr className="w-2/5 border-orange-400" />
         </div>
 
         <form
@@ -92,7 +94,13 @@ const AuthProviders = () => {
             setState={setPassword}
             isRequired
           />
-          <button className="primary-button my-4" type="submit">
+          <div className="flex flex-end">
+            <Link className="text-blue-600 font-bold" href="/forgotpassword">
+              Forgot Password?
+            </Link>
+          </div>
+
+          <button className="primary-button mt-2 mb-4" type="submit">
             Sign In
           </button>
         </form>

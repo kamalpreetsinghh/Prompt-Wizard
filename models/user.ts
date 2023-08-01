@@ -9,6 +9,8 @@ interface IUser extends Document {
   bio?: string;
   following?: Types.ObjectId[];
   followers?: Types.ObjectId[];
+  forgotPasswordToken: string;
+  forgotPasswordTokenExpiry: Date;
 }
 
 const UserSchema = new Schema<IUser>(
@@ -37,6 +39,8 @@ const UserSchema = new Schema<IUser>(
     bio: { type: String, default: "" },
     following: [{ type: Schema.Types.ObjectId, ref: "User" }],
     followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    forgotPasswordToken: String,
+    forgotPasswordTokenExpiry: Date,
   },
   { timestamps: true }
 );

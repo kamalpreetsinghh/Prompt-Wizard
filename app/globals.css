@@ -118,6 +118,9 @@ body {
 
 .desc {
   @apply mt-5 text-lg sm:text-xl max-w-2xl;
+}
+
+.text-grey-color {
   color: var(--text-grey-color);
 }
 

@@ -1,18 +1,12 @@
 "use client";
 
 import AuthProviders from "@/components/AuthProviders";
-import FormField from "@/components/FormField";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 
 const SignInPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   return (
-    <section className="w-full py-8 flex justify-between items-center">
+    <section className="w-full flex justify-between items-center">
       <motion.div
         className="w-full sm:pr-24"
         initial={{ opacity: 0, scale: 0.95 }}
@@ -24,7 +18,7 @@ const SignInPage = () => {
         }}
       >
         <div className="flex flex-col w-full items-center sm:px-20">
-          <h1 className="head_text orange_gradient mt-10 mb-2">Hi there!</h1>
+          <h1 className="head_text orange_gradient mt-8 mb-2">Hi there!</h1>
           <p className="desc max-w-md mb-6">Welcome to Prompt Wizard</p>
           <AuthProviders />
         </div>
