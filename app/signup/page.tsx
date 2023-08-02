@@ -6,29 +6,43 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { SignUp } from "@/common.types";
 import Link from "next/link";
+import { Toaster, toast } from "react-hot-toast";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     const user: SignUp = { name, email, password };
     const response = await fetch("/api/user/create", {
       method: "POST",
       body: JSON.stringify(user),
     });
 
+    setIsLoading(false);
+
     if (response.ok) {
-      alert("Account Created");
+      setName("");
+      setEmail("");
+      setPassword("");
+
+      toast.success(
+        "Account Created Successfully. \nPlease login to use your account.",
+        {
+          duration: 6000,
+        }
+      );
     }
   };
 
   return (
-    <section className="w-full py-8 flex justify-between items-center">
+    <section className="w-full py-8 flex justify-center lg:justify-between items-center">
       <motion.div
-        className="w-full sm:pr-24"
+        className="w-full lg:w-3/5 lg:pr-24"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{
@@ -37,7 +51,7 @@ const SignUpPage = () => {
           ease: [0, 0.71, 0.2, 1.01],
         }}
       >
-        <div className="flex flex-col w-full items-center sm:px-20">
+        <div className="w-full max-w-lg mx-auto flex flex-col items-center">
           <h1 className="head_text orange_gradient mt-8 mb-2">Hi there!</h1>
           <p className="desc max-w-md mb-6">Welcome to Prompt Wizard</p>
           <form
@@ -67,8 +81,16 @@ const SignUpPage = () => {
               setState={setPassword}
               isRequired
             />
-            <button className="primary-button my-4" type="submit">
-              Create Account
+            <button
+              className="primary-button my-4"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span className="loader flex"></span>
+              ) : (
+                "Create Account"
+              )}
             </button>
           </form>
           <p className="flex justify-center">
@@ -81,7 +103,7 @@ const SignUpPage = () => {
       </motion.div>
 
       <motion.div
-        className="hidden sm:flex"
+        className="hidden lg:flex w-2/5"
         initial={{ opacity: 0, scale: 0.9, x: 40 }}
         animate={{ opacity: 1, scale: 1, x: 0 }}
         transition={{
@@ -90,14 +112,19 @@ const SignUpPage = () => {
           ease: [0, 0.71, 0.2, 1.01],
         }}
       >
-        <Image
-          className="object-cover "
-          src="/assets/images/signin.png"
-          height={1000}
-          width={1000}
-          alt="Signin Image"
-        />
+        <div className="flex w-full justify-center relative">
+          <Image
+            className="object-cover"
+            src="/assets/images/astronaught2.png"
+            width={0}
+            height={0}
+            sizes="100vw"
+            alt="Astronaught Image"
+            style={{ objectFit: "cover", width: "100%", height: "auto" }}
+          />
+        </div>
       </motion.div>
+      <Toaster position="top-center" reverseOrder={false} />
     </section>
   );
 };
