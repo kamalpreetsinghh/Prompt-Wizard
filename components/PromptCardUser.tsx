@@ -20,7 +20,10 @@ const PromptCardUser = ({ image, username }: PromptCardUserProps) => {
           />
         </div>
       ) : (
-        <UserNameIcon name={username[0].toUpperCase()} />
+        <UserNameIcon
+          name={username[0].toUpperCase()}
+          className="w-10 h-10 text-2xl"
+        />
       )}
 
       <div className="flex flex-col">

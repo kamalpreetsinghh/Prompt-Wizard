@@ -4,6 +4,7 @@ import { FollowerUser, ModalType } from "@/common.types";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import UserNameIcon from "./UserNameIcon";
 
 type FollowerProps = {
   modalType: ModalType;
@@ -49,13 +50,23 @@ const Follower = ({
   return (
     <div className="w-full my-4 flex justify-between items-center">
       <Link href={`/profile/${_id}`} className="flex gap-3 cursor-pointer">
-        <Image
-          src={image}
-          width={50}
-          height={50}
-          alt="Profile Picture"
-          className="rounded-full object-contain"
-        />
+        {image ? (
+          <div className="w-12 h-12 relative">
+            <Image
+              src={image}
+              fill={true}
+              style={{ objectFit: "cover" }}
+              alt="Profile Picture"
+              className="rounded-full object-contain"
+            />
+          </div>
+        ) : (
+          <UserNameIcon
+            name={username[0].toUpperCase()}
+            className="w-12 h-12 text-2xl"
+          />
+        )}
+
         <div>
           <p className="font-bold">{username}</p>
           <p className="text-grey-color">{name}</p>

@@ -156,9 +156,11 @@ const Feed = () => {
           )}
         </>
       ) : searchText ? (
-        <h4>No prompts found for the search</h4>
+        <h4 className="mt-28 text-xl text-center">
+          No prompts found for the search.
+        </h4>
       ) : (
-        <h4>No posts</h4>
+        <h4 className="mt-28 text-xl text-center">No posts</h4>
       )}
     </section>
   );

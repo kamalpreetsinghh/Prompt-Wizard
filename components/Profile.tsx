@@ -12,6 +12,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import { fade, fadeRight } from "@/lib/motion";
+import UserNameIcon from "./UserNameIcon";
 
 type ProfileProps = {
   id: string;
@@ -154,49 +155,41 @@ const Profile = ({ session, id }: ProfileProps) => {
             {...fadeRight}
           >
             <div className="flex">
-              {uploadedImage ? (
-                <div className="group relative hover:opacity-50 w-28 h-28">
-                  <Image
-                    src={image ? image : uploadedImage}
-                    style={{ objectFit: "cover" }}
-                    className="rounded-full "
-                    alt="user image"
-                    fill
-                  />
-                  <input
-                    id="image"
-                    type="file"
-                    accept="image/*"
-                    className="form_image-input left-0 right-0 bottom-0 top-0"
-                    onChange={(e) => handleChangeImage(e)}
-                  />
-                  <span
-                    className="invisible group-hover:visible absolute left-0 right-0 bottom-0 top-0 
+              <div className="group relative hover:opacity-50">
+                {uploadedImage || image ? (
+                  <div className="w-28 h-28">
+                    <Image
+                      src={image ? image : uploadedImage}
+                      style={{ objectFit: "cover" }}
+                      className="rounded-full "
+                      alt="user image"
+                      fill
+                    />
+                  </div>
+                ) : (
+                  <span>
+                    <UserNameIcon
+                      name={userProfile.name[0]}
+                      className="w-28 h-28 text-7xl"
+                    />
+                  </span>
+                )}
+
+                <input
+                  id="image"
+                  type="file"
+                  accept="image/*"
+                  className="form_image-input left-0 right-0 bottom-0 top-0"
+                  onChange={(e) => handleChangeImage(e)}
+                />
+                <span
+                  className="invisible group-hover:visible absolute left-0 right-0 bottom-0 top-0 
                 flex justify-center items-center"
-                  >
-                    <EditIcon />
-                  </span>
-                </div>
-              ) : (
-                <div className="profile-name-icon group relative">
-                  <span className="visible group-hover:invisible">
-                    {userProfile.username[0].toUpperCase()}
-                  </span>
-                  <input
-                    id="image"
-                    type="file"
-                    accept="image/*"
-                    className="form_image-input left-0 right-0 bottom-0 top-0"
-                    onChange={(e) => handleChangeImage(e)}
-                  />
-                  <span
-                    className="invisible group-hover:visible absolute left-0 right-0 bottom-0 top-0 
-                flex justify-center items-center"
-                  >
-                    <EditIcon />
-                  </span>
-                </div>
-              )}
+                >
+                  <EditIcon />
+                </span>
+              </div>
+
               {showImageActions && (
                 <div className="flex gap-2">
                   <div
@@ -270,11 +263,26 @@ const Profile = ({ session, id }: ProfileProps) => {
           </motion.div>
         </div>
 
-        <PromptCardList
-          posts={userPosts}
-          showUserActions={showActions}
-          onDelete={handleDeletePrompt}
-        />
+        {userPosts.length > 0 ? (
+          <PromptCardList
+            posts={userPosts}
+            showUserActions={showActions}
+            onDelete={handleDeletePrompt}
+          />
+        ) : (
+          <motion.div className="mt-28 text-xl flex-col items-center" {...fade}>
+            {session && session?.user?.id === userProfile._id ? (
+              <>
+                <p className="text-center">You have not created any post.</p>
+                <p className="text-center">
+                  Create and share creative prompts to the community.
+                </p>
+              </>
+            ) : (
+              <p className="text-center">User has not shared any posts.</p>
+            )}
+          </motion.div>
+        )}
 
         {session && session?.user?.id === userProfile._id && (
           <dialog className="rounded-2xl w-full max-w-md  " ref={dialogRef}>
@@ -282,7 +290,10 @@ const Profile = ({ session, id }: ProfileProps) => {
               <h1 className="mt-2 mb-4 font-bold flex-center">
                 {ModalType[modalType]}
               </h1>
-              <div className="border-t border-nav-border w-full">
+              <div
+                className="border-t border-nav-border w-full 
+              h-96 overflow-y-scroll overflow-x-scroll"
+              >
                 {modalType === ModalType.Following &&
                   following.length === 0 && (
                     <h1 className="my-4 flex-center">No Following</h1>

@@ -56,7 +56,7 @@ export type FollowerUser = {
   _id: string;
   username: string;
   name: string;
-  image: string;
+  image?: string;
 };
 
 export enum ModalType {
