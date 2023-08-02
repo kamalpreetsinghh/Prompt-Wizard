@@ -1,12 +1,11 @@
 "use client";
 
 import FormField from "@/components/FormField";
-import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
+import FormAndImage from "@/components/FormAndImage";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { errors, regex } from "@/constants";
 
 const ForgotPasswordPage = () => {
@@ -45,18 +44,12 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <section className="w-full py-8 flex justify-center lg:justify-between items-center">
-      <motion.div
-        className="w-full lg:w-3/5 lg:pr-24"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.5,
-          delay: 0.2,
-          ease: [0, 0.71, 0.2, 1.01],
-        }}
-      >
-        <div className="w-full max-w-lg mx-auto flex flex-col items-center">
+    <FormAndImage
+      image="/assets/images/forgotpassword.png"
+      imageDesc="Forgot Password Image"
+    >
+      <>
+        <div className="w-full my-6 max-w-lg mx-auto flex flex-col items-center">
           <h1 className="text-5xl orange_gradient mt-8 pb-2">
             Forgot Password?
           </h1>
@@ -88,31 +81,9 @@ const ForgotPasswordPage = () => {
             </Link>
           </p>
         </div>
-      </motion.div>
-      <motion.div
-        className="hidden lg:flex w-2/5"
-        initial={{ opacity: 0, scale: 0.9, x: 40 }}
-        animate={{ opacity: 1, scale: 1, x: 0 }}
-        transition={{
-          duration: 0.5,
-          delay: 0.2,
-          ease: [0, 0.71, 0.2, 1.01],
-        }}
-      >
-        <div className="flex w-full justify-center relative">
-          <Image
-            className="object-cover"
-            src="/assets/images/astronaught2.png"
-            width={0}
-            height={0}
-            sizes="100vw"
-            alt="Astronaught Image"
-            style={{ objectFit: "cover", width: "100%", height: "auto" }}
-          />
-        </div>
-      </motion.div>
-      <Toaster position="top-center" reverseOrder={false} />
-    </section>
+        <Toaster position="top-center" reverseOrder={false} />
+      </>
+    </FormAndImage>
   );
 };
 
