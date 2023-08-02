@@ -14,6 +14,7 @@ const ResetPasswordPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const urlToken = window.location.search.split("=")[1];
@@ -34,11 +35,15 @@ const ResetPasswordPage = () => {
     e.preventDefault();
 
     if (validateForm()) {
+      setIsLoading(true);
+
       try {
         const response = await fetch("/api/user/resetpassword", {
           method: "POST",
           body: JSON.stringify({ token, password }),
         });
+
+        setIsLoading(false);
 
         if (response.ok) {
           setPassword("");
@@ -105,8 +110,18 @@ const ResetPasswordPage = () => {
               isRequired
             />
 
-            <button className="primary-button mt-4 mb-6" type="submit">
-              Reset Password
+            <button
+              className="form-button mt-4 mb-6"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="h-7 flex items-center justify-center">
+                  <span className="loader bottom-4"></span>
+                </div>
+              ) : (
+                "Reset Password"
+              )}
             </button>
           </form>
           <p className="flex justify-center">

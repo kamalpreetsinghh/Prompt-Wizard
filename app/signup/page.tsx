@@ -56,6 +56,7 @@ const SignUpPage = () => {
         setName("");
         setEmail("");
         setPassword("");
+        setConfirmPassword("");
 
         toast.success(
           "Account Created Successfully. \nPlease login to use your account.",
@@ -140,12 +141,14 @@ const SignUpPage = () => {
             isRequired
           />
           <button
-            className="primary-button my-4"
+            className="form-button my-4"
             type="submit"
             disabled={isLoading}
           >
             {isLoading ? (
-              <span className="loader flex"></span>
+              <div className="h-7 flex items-center justify-center">
+                <span className="loader bottom-4"></span>
+              </div>
             ) : (
               "Create Account"
             )}

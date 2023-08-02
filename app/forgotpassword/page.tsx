@@ -11,6 +11,7 @@ import { errors, regex } from "@/constants";
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleEmailChange = (updatedEmail: string) => {
     setEmail(updatedEmail);
@@ -25,10 +26,14 @@ const ForgotPasswordPage = () => {
       return;
     }
 
+    setIsLoading(true);
+
     const response = await fetch("/api/user/forgotpassword", {
       method: "POST",
       body: JSON.stringify({ email }),
     });
+
+    setIsLoading(false);
 
     if (response.ok) {
       setEmail("");
@@ -70,8 +75,18 @@ const ForgotPasswordPage = () => {
               errorMessage={emailError}
               isRequired
             />
-            <button className="primary-button mt-4 mb-6" type="submit">
-              Reset Password
+            <button
+              className="form-button mt-4 mb-6"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="h-7 flex items-center justify-center">
+                  <span className="loader bottom-4"></span>
+                </div>
+              ) : (
+                "Reset Password"
+              )}
             </button>
           </form>
           <p className="flex justify-center">
