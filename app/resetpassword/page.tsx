@@ -7,46 +7,70 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { errors, regex } from "@/constants";
 
 const ResetPasswordPage = () => {
   const [token, setToken] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordReset, setPasswordReset] = useState(false);
-  const [error, setError] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   useEffect(() => {
     const urlToken = window.location.search.split("=")[1];
     setToken(urlToken || "");
   }, []);
 
+  const handlePasswordChange = (updatedPassword: string) => {
+    setPassword(updatedPassword);
+    setPasswordError("");
+  };
+
+  const handleConfirmPasswordChange = (updatedConfirmPassword: string) => {
+    setConfirmPassword(updatedConfirmPassword);
+    setConfirmPasswordError("");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!password) {
-      alert("Please enter a password");
-      return;
-    }
+    if (validateForm()) {
+      try {
+        const response = await fetch("/api/user/resetpassword", {
+          method: "POST",
+          body: JSON.stringify({ token, password }),
+        });
 
-    try {
-      const response = await fetch("/api/user/resetpassword", {
-        method: "POST",
-        body: JSON.stringify({ token, password }),
-      });
-
-      if (response.ok) {
-        setPassword("");
-        setPasswordReset(true);
-        toast.success(
-          "Your password is updated. \nYou can use your new password for log in.",
-          {
-            duration: 6000,
-          }
-        );
+        if (response.ok) {
+          setPassword("");
+          setConfirmPassword("");
+          toast.success(
+            "Your password is updated. \nYou can use your new password for log in.",
+            {
+              duration: 6000,
+            }
+          );
+        }
+      } catch (error: any) {
+        console.log(error.message);
       }
-    } catch (error: any) {
-      setError(true);
-      console.log(error.message);
     }
+  };
+
+  const validateForm = (): boolean => {
+    let isValidForm = true;
+
+    if (!regex.password.test(password)) {
+      setPasswordError(errors.password);
+      isValidForm = false;
+    }
+
+    if (password !== confirmPassword) {
+      setConfirmPasswordError(errors.confirmPassword);
+      isValidForm = false;
+    }
+
+    return isValidForm;
   };
 
   return (
@@ -73,10 +97,21 @@ const ResetPasswordPage = () => {
             <FormField
               title="Password"
               state={password}
-              placeholder="youcanneverguessit"
-              setState={setPassword}
+              placeholder="Password"
+              setState={handlePasswordChange}
+              errorMessage={passwordError}
               isRequired
             />
+
+            <FormField
+              title="Confirm Password"
+              state={confirmPassword}
+              placeholder="Confirm Password"
+              setState={handleConfirmPasswordChange}
+              errorMessage={confirmPasswordError}
+              isRequired
+            />
+
             <button className="primary-button mt-4 mb-6" type="submit">
               Reset Password
             </button>
