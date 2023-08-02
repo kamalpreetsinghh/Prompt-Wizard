@@ -27,7 +27,10 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
               alt="user profile image"
             />
           ) : (
-            <UserNameIcon name={session?.user?.name[0]} />
+            <UserNameIcon
+              name={session?.user?.name[0]}
+              className="w-10 h-10 text-2xl"
+            />
           )}
         </Menu.Button>
 
@@ -47,13 +50,18 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
             onMouseLeave={() => setOpenModal(false)}
           >
             <div className="flex flex-col items-center gap-y-4">
-              {session?.user?.image && (
+              {session?.user?.image ? (
                 <Image
                   src={session?.user?.image}
                   className="rounded-full"
                   width={80}
                   height={80}
                   alt="profile Image"
+                />
+              ) : (
+                <UserNameIcon
+                  name={session?.user?.name[0]}
+                  className="w-20 h-20 text-6xl"
                 />
               )}
               <p className="font-semibold">{session?.user?.name}</p>

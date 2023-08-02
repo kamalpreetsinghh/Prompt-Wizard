@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
+import { fade, fadeRight } from "@/lib/motion";
 
 type ProfileProps = {
   id: string;
@@ -150,13 +151,7 @@ const Profile = ({ session, id }: ProfileProps) => {
         <div className="w-full sm:max-w-[800px] xl:max-w-[1200px] flex-between">
           <motion.div
             className="flex flex-col mt-10 max-w-[600px]"
-            initial={{ opacity: 0, scale: 0.9, x: -40 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{
-              duration: 0.5,
-              delay: 0.2,
-              ease: [0, 0.71, 0.2, 1.01],
-            }}
+            {...fadeRight}
           >
             <div className="flex">
               {uploadedImage ? (
@@ -258,16 +253,7 @@ const Profile = ({ session, id }: ProfileProps) => {
               />
             )}
           </motion.div>
-          <motion.div
-            className="mt-10 hidden lg:flex gap-10"
-            initial={{ opacity: 0, scale: 0.9, x: 40 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{
-              duration: 0.5,
-              delay: 0.2,
-              ease: [0, 0.71, 0.2, 1.01],
-            }}
-          >
+          <motion.div className="mt-10 hidden lg:flex gap-10" {...fade}>
             <Image
               className=""
               src="/assets/images/ai.png"

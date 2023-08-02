@@ -136,6 +136,11 @@ body {
   background-color: var(--primary-color);
 }
 
+.rounded-icon-name {
+  @apply rounded-full text-white;
+  background-color: var(--primary-color);
+}
+
 .button {
   @apply transition-all text-center text-sm font-semibold flex items-center justify-center;
 }
