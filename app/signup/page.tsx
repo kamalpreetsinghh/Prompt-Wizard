@@ -112,6 +112,7 @@ const SignUpPage = () => {
             setState={handleNameChange}
             errorMessage={nameError}
             isRequired
+            autocapitalize={true}
           />
 
           <FormField
@@ -130,6 +131,7 @@ const SignUpPage = () => {
             setState={handlePasswordChange}
             errorMessage={passwordError}
             isRequired
+            type="password"
           />
 
           <FormField
@@ -139,6 +141,7 @@ const SignUpPage = () => {
             setState={handleConfirmPasswordChange}
             errorMessage={confirmPasswordError}
             isRequired
+            type="password"
           />
           <button
             className="form-button my-4"

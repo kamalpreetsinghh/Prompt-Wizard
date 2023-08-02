@@ -99,6 +99,7 @@ const ResetPasswordPage = () => {
               setState={handlePasswordChange}
               errorMessage={passwordError}
               isRequired
+              type="password"
             />
 
             <FormField
@@ -108,6 +109,7 @@ const ResetPasswordPage = () => {
               setState={handleConfirmPasswordChange}
               errorMessage={confirmPasswordError}
               isRequired
+              type="password"
             />
 
             <button

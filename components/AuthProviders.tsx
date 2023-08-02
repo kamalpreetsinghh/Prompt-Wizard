@@ -124,6 +124,7 @@ const AuthProviders = () => {
             setState={handlePasswordChange}
             errorMessage={passwordError}
             isRequired
+            type="password"
           />
           <div className="flex flex-end">
             <Link className="text-blue-600 font-bold" href="/forgotpassword">

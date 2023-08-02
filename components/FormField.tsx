@@ -7,6 +7,7 @@ type FormFieldProps = {
   placeholder: string;
   isTextArea?: boolean;
   isRequired?: boolean;
+  autocapitalize?: boolean;
   errorMessage?: string;
   setState: (value: string) => void;
 };
@@ -19,6 +20,7 @@ const FormField = ({
   isTextArea,
   errorMessage,
   isRequired = false,
+  autocapitalize = false,
   setState,
 }: FormFieldProps) => {
   return (
@@ -41,7 +43,8 @@ const FormField = ({
           placeholder={placeholder}
           required={isRequired}
           value={state}
-          className="form_field-input"
+          autoCapitalize={autocapitalize ? "words" : "off"}
+          className={`form_field-input ${autocapitalize && "capitalize"}`}
           onChange={(e) => setState(e.target.value)}
         />
       )}

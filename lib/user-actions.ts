@@ -197,8 +197,6 @@ export const updateUserPassword = async (
     forgotPasswordTokenExpiry: { $gt: Date.now() },
   });
 
-  console.log(user);
-
   if (user) {
     user.password = newPassword;
     user.forgotPasswordToken = undefined;

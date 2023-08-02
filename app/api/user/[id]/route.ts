@@ -60,7 +60,6 @@ export const PATCH = async (
 };
 
 export const PUT = async (request: NextRequest, { params: { id } }: Params) => {
-  console.log("UPDATE PROFILE");
   try {
     const existingUserProfile = await getUserProfile(id);
 
