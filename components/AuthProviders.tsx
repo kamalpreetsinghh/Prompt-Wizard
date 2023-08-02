@@ -6,6 +6,7 @@ import Image from "next/image";
 import GitHub from "@mui/icons-material/GitHub";
 import FormField from "./FormField";
 import Link from "next/link";
+import { errors, regex } from "@/constants";
 
 type Provider = {
   id: string;
@@ -22,6 +23,8 @@ const AuthProviders = () => {
   const [providers, setProviders] = useState<Providers | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   useEffect(() => {
     const fetchProviders = async () => {
@@ -32,6 +35,16 @@ const AuthProviders = () => {
     fetchProviders();
   }, []);
 
+  const handleEmailChange = (updatedEmail: string) => {
+    setEmail(updatedEmail);
+    setEmailError("");
+  };
+
+  const handlePasswordChange = (updatedPassword: string) => {
+    setPassword(updatedPassword);
+    setPasswordError("");
+  };
+
   const handleSignIn = async (providerId: string) => {
     await signIn(providerId, { callbackUrl: "/" });
   };
@@ -39,11 +52,27 @@ const AuthProviders = () => {
   const handleFormSubmit = async (e: React.FormEvent, providerId: string) => {
     e.preventDefault();
 
-    const response = await signIn(providerId, {
-      username: email,
-      password: password,
-      callbackUrl: "/",
-    });
+    if (validateForm()) {
+      const response = await signIn(providerId, {
+        username: email,
+        password: password,
+        callbackUrl: "/",
+      });
+    }
+  };
+
+  const validateForm = () => {
+    let isValidForm = true;
+    if (!regex.email.test(email)) {
+      setEmailError(errors.email);
+      isValidForm = false;
+    }
+
+    if (!regex.password.test(password)) {
+      setPasswordError(errors.password);
+      isValidForm = false;
+    }
+    return isValidForm;
   };
 
   if (providers) {
@@ -83,7 +112,8 @@ const AuthProviders = () => {
             title="Email"
             state={email}
             placeholder="Email"
-            setState={setEmail}
+            setState={handleEmailChange}
+            errorMessage={emailError}
             isRequired
           />
 
@@ -91,7 +121,8 @@ const AuthProviders = () => {
             title="Password"
             state={password}
             placeholder="Password"
-            setState={setPassword}
+            setState={handlePasswordChange}
+            errorMessage={passwordError}
             isRequired
           />
           <div className="flex flex-end">

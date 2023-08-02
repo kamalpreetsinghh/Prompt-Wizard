@@ -1,4 +1,20 @@
-import { Post } from "@/common.types";
+export const errors = {
+  name: "Name should be at least 2 characters long, and should only contain letters and spaces.",
+  email: "Please enter a valid email address",
+  password:
+    "Password should contain at least one uppercase letter, one lowercase letter, at least one digit, and at least 8 characters long.",
+  confirmPassword: "Passwords do not match.",
+  emailAlreadyExisis:
+    "Email already exists. Please use a different email address.",
+  emailNotExist:
+    "Email address doest not exist. Please enter correct email address.",
+};
+
+export const regex = {
+  name: /^[a-zA-Z-' ]{2,}$/,
+  email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+};
 
 export const prompts = [
   {

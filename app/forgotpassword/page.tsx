@@ -7,12 +7,25 @@ import Link from "next/link";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { errors, regex } from "@/constants";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  const handleEmailChange = (updatedEmail: string) => {
+    setEmail(updatedEmail);
+    setEmailError("");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!regex.email.test(email)) {
+      setEmailError(errors.email);
+      return;
+    }
+
     const response = await fetch("/api/user/forgotpassword", {
       method: "POST",
       body: JSON.stringify({ email }),
@@ -26,6 +39,8 @@ const ForgotPasswordPage = () => {
           duration: 6000,
         }
       );
+    } else if (response.status === 400) {
+      setEmailError(errors.emailNotExist);
     }
   };
 
@@ -58,7 +73,8 @@ const ForgotPasswordPage = () => {
               title="Email"
               state={email}
               placeholder="Email"
-              setState={setEmail}
+              setState={handleEmailChange}
+              errorMessage={emailError}
               isRequired
             />
             <button className="primary-button mt-4 mb-6" type="submit">

@@ -7,40 +7,97 @@ import { motion } from "framer-motion";
 import { SignUp } from "@/common.types";
 import Link from "next/link";
 import { Toaster, toast } from "react-hot-toast";
+import { errors, regex } from "@/constants";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleNameChange = (updatedName: string) => {
+    setName(updatedName);
+    setNameError("");
+  };
+
+  const handleEmailChange = (updatedEmail: string) => {
+    setEmail(updatedEmail);
+    setEmailError("");
+  };
+
+  const handlePasswordChange = (updatedPassword: string) => {
+    setPassword(updatedPassword);
+    setPasswordError("");
+  };
+
+  const handleConfirmPasswordChange = (updatedConfirmPassword: string) => {
+    setConfirmPassword(updatedConfirmPassword);
+    setConfirmPasswordError("");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    const user: SignUp = { name, email, password };
-    const response = await fetch("/api/user/create", {
-      method: "POST",
-      body: JSON.stringify(user),
-    });
 
-    setIsLoading(false);
+    if (validateForm()) {
+      setIsLoading(true);
+      const user: SignUp = { name, email, password };
+      const response = await fetch("/api/user/create", {
+        method: "POST",
+        body: JSON.stringify(user),
+      });
 
-    if (response.ok) {
-      setName("");
-      setEmail("");
-      setPassword("");
+      setIsLoading(false);
 
-      toast.success(
-        "Account Created Successfully. \nPlease login to use your account.",
-        {
-          duration: 6000,
-        }
-      );
+      if (response.ok) {
+        setName("");
+        setEmail("");
+        setPassword("");
+
+        toast.success(
+          "Account Created Successfully. \nPlease login to use your account.",
+          {
+            duration: 6000,
+          }
+        );
+      } else if (response.status === 403) {
+        setEmailError(errors.emailAlreadyExisis);
+      }
     }
   };
 
+  const validateForm = (): boolean => {
+    let isValidForm = true;
+
+    if (!regex.name.test(name)) {
+      setNameError(errors.name);
+      isValidForm = false;
+    }
+
+    if (!regex.email.test(email)) {
+      setEmailError(errors.email);
+      isValidForm = false;
+    }
+
+    if (!regex.password.test(password)) {
+      setPasswordError(errors.password);
+      isValidForm = false;
+    }
+
+    if (password !== confirmPassword) {
+      setConfirmPasswordError(errors.confirmPassword);
+      isValidForm = false;
+    }
+
+    return isValidForm;
+  };
+
   return (
-    <section className="w-full py-8 flex justify-center lg:justify-between items-center">
+    <section className="w-full flex justify-center lg:justify-between items-center">
       <motion.div
         className="w-full lg:w-3/5 lg:pr-24"
         initial={{ opacity: 0, scale: 0.95 }}
@@ -62,7 +119,8 @@ const SignUpPage = () => {
               title="First and Last Name"
               state={name}
               placeholder="Christopher Nolan"
-              setState={setName}
+              setState={handleNameChange}
+              errorMessage={nameError}
               isRequired
             />
 
@@ -70,7 +128,8 @@ const SignUpPage = () => {
               title="Email"
               state={email}
               placeholder="Email"
-              setState={setEmail}
+              setState={handleEmailChange}
+              errorMessage={emailError}
               isRequired
             />
 
@@ -78,7 +137,17 @@ const SignUpPage = () => {
               title="Password"
               state={password}
               placeholder="Password"
-              setState={setPassword}
+              setState={handlePasswordChange}
+              errorMessage={passwordError}
+              isRequired
+            />
+
+            <FormField
+              title="Confirm Password"
+              state={confirmPassword}
+              placeholder="Confirm Password"
+              setState={handleConfirmPasswordChange}
+              errorMessage={confirmPasswordError}
               isRequired
             />
             <button
