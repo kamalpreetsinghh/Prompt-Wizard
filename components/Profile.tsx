@@ -174,20 +174,23 @@ const Profile = ({ session, id }: ProfileProps) => {
                     />
                   </span>
                 )}
-
-                <input
-                  id="image"
-                  type="file"
-                  accept="image/*"
-                  className="form_image-input left-0 right-0 bottom-0 top-0"
-                  onChange={(e) => handleChangeImage(e)}
-                />
-                <span
-                  className="invisible group-hover:visible absolute left-0 right-0 bottom-0 top-0 
-                flex justify-center items-center"
-                >
-                  <EditIcon />
-                </span>
+                {session && session?.user?.id === userProfile._id && (
+                  <>
+                    <input
+                      id="image"
+                      type="file"
+                      accept="image/*"
+                      className="form_image-input left-0 right-0 bottom-0 top-0"
+                      onChange={(e) => handleChangeImage(e)}
+                    />
+                    <span
+                      className="invisible group-hover:visible absolute left-0 right-0 bottom-0 top-0 
+                 flex justify-center items-center"
+                    >
+                      <EditIcon />
+                    </span>
+                  </>
+                )}
               </div>
 
               {showImageActions && (
