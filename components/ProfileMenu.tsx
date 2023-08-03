@@ -19,13 +19,15 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
           onMouseEnter={() => setOpenModal(true)}
         >
           {session?.user?.image ? (
-            <Image
-              src={session.user.image}
-              width={40}
-              height={40}
-              className="rounded-full"
-              alt="user profile image"
-            />
+            <div className="w-10 h-10 relative">
+              <Image
+                src={session.user.image}
+                className="rounded-full"
+                fill
+                style={{ objectFit: "cover" }}
+                alt="user profile image"
+              />
+            </div>
           ) : (
             <UserNameIcon
               name={session?.user?.name[0]}
@@ -51,13 +53,15 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
           >
             <div className="flex flex-col items-center gap-y-4">
               {session?.user?.image ? (
-                <Image
-                  src={session?.user?.image}
-                  className="rounded-full"
-                  width={80}
-                  height={80}
-                  alt="profile Image"
-                />
+                <div className="w-20 h-20 relative">
+                  <Image
+                    src={session?.user?.image}
+                    className="rounded-full"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    alt="profile Image"
+                  />
+                </div>
               ) : (
                 <UserNameIcon
                   name={session?.user?.name[0]}

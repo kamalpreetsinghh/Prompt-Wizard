@@ -66,13 +66,14 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session }) {
       if (session?.user?.email) {
-        const user = await getUserProfileByEmail(session?.user?.email);
+        const userProfile = await getUserProfileByEmail(session?.user?.email);
 
         const newSession = {
           ...session,
           user: {
             ...session.user,
-            id: user.id,
+            id: userProfile.id,
+            image: userProfile.image ? userProfile.image : session.user.image,
           },
         };
 

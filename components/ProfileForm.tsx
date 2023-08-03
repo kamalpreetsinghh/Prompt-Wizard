@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Loader from "./Loader";
+import { capitalizeWords } from "@/lib/common";
 
 type ProfileFormProps = {
   userId: String;
@@ -50,7 +51,7 @@ const ProfileForm = ({ userId }: ProfileFormProps) => {
         method: "PATCH",
         body: JSON.stringify({
           username,
-          name,
+          name: capitalizeWords(name),
           bio,
         }),
       });
@@ -110,6 +111,7 @@ const ProfileForm = ({ userId }: ProfileFormProps) => {
           state={name}
           placeholder="first & last name"
           isRequired
+          autocapitalize
           setState={setName}
         />
 

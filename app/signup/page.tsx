@@ -7,6 +7,7 @@ import { useState } from "react";
 import { SignUp } from "@/common.types";
 import { Toaster, toast } from "react-hot-toast";
 import { errors, regex } from "@/constants";
+import { capitalizeWords } from "@/lib/common";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
@@ -44,7 +45,7 @@ const SignUpPage = () => {
 
     if (validateForm()) {
       setIsLoading(true);
-      const user: SignUp = { name, email, password };
+      const user: SignUp = { name: capitalizeWords(name), email, password };
       const response = await fetch("/api/user/create", {
         method: "POST",
         body: JSON.stringify(user),
