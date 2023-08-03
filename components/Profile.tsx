@@ -273,13 +273,17 @@ const Profile = ({ session, id }: ProfileProps) => {
           <motion.div className="mt-28 text-xl flex-col items-center" {...fade}>
             {session && session?.user?.id === userProfile._id ? (
               <>
-                <p className="text-center">You have not created any post.</p>
-                <p className="text-center">
+                <p className="text-center text-grey-color">
+                  You have not created any post.
+                </p>
+                <p className="mt-4 text-center text-grey-color">
                   Create and share creative prompts to the community.
                 </p>
               </>
             ) : (
-              <p className="text-center">User has not shared any posts.</p>
+              <p className="text-center text-grey-color">
+                User has not shared any posts.
+              </p>
             )}
           </motion.div>
         )}

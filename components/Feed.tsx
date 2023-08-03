@@ -156,11 +156,18 @@ const Feed = () => {
           )}
         </>
       ) : searchText ? (
-        <h4 className="mt-28 text-xl text-center">
-          No prompts found for the search.
-        </h4>
+        <p className="mt-28 text-xl text-center text-grey-color">
+          No prompts were found for the search input.
+        </p>
       ) : (
-        <h4 className="mt-28 text-xl text-center">No posts</h4>
+        <>
+          <p className="mt-28 text-xl text-center text-grey-color">
+            Currently there are no posts.
+          </p>
+          <p className="mt-4 text-xl text-center text-grey-color">
+            Create and share creative prompts to the community.
+          </p>
+        </>
       )}
     </section>
   );
