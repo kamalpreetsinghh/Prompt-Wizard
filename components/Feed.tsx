@@ -1,11 +1,11 @@
 "use client";
 
 import PromptCardList from "./PromptCardList";
-import { Pagination } from "@mui/material";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Post } from "@/common.types";
 import Loader from "./Loader";
 import { motion } from "framer-motion";
+import StyledPagination from "./StyledPagination";
 
 const Feed = () => {
   const limit = 6;
@@ -147,11 +147,10 @@ const Feed = () => {
           />
 
           {pageCount > 1 && (
-            <Pagination
-              className="my-6"
+            <StyledPagination
               count={searchText ? searchPageCount : pageCount}
               page={searchText ? searchPage : page}
-              onChange={handlePageChange}
+              handlePageChange={handlePageChange}
             />
           )}
         </>
