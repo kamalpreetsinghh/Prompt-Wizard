@@ -81,8 +81,8 @@ const ForgotPasswordPage = () => {
               disabled={isLoading}
             >
               {isLoading ? (
-                <div className="h-7 flex items-center justify-center">
-                  <span className="loader bottom-4"></span>
+                <div className="h-6 flex items-center justify-center">
+                  <span className="loader bottom-3"></span>
                 </div>
               ) : (
                 "Reset Password"

@@ -172,7 +172,7 @@ body {
 }
 
 .form-button:hover .loader {
-  color: black;
+  color: var(--background-color);
 }
 
 .flex-center {
@@ -448,7 +448,7 @@ dialog::backdrop {
 }
 .loader {
   color: #fff;
-  font-size: 6px;
+  font-size: 5px;
   position: relative;
   text-indent: -9999em;
   transform: translateZ(0);

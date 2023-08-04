@@ -28,6 +28,7 @@ const AuthProviders = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchProviders = async () => {
@@ -56,12 +57,15 @@ const AuthProviders = () => {
     e.preventDefault();
 
     if (validateForm()) {
+      setIsLoading(true);
       const response = await signIn(providerId, {
         email,
         password,
         redirect: false,
         callbackUrl: "/",
       });
+
+      setIsLoading(false);
 
       if (!response?.error) {
         router.replace("/prompts");
@@ -144,8 +148,18 @@ const AuthProviders = () => {
             </Link>
           </div>
 
-          <button className="primary-button mt-2 mb-4" type="submit">
-            Sign In
+          <button
+            className="form-button my-4"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <div className="h-6 flex items-center justify-center">
+                <span className="loader bottom-3"></span>
+              </div>
+            ) : (
+              "Sign In"
+            )}
           </button>
         </form>
 
