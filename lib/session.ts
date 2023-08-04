@@ -24,42 +24,33 @@ export const authOptions: NextAuthOptions = {
     }),
     CredentialsProvider({
       name: "Credentials",
-      credentials: {
-        username: {
-          label: "Email",
-          type: "text",
-          placeholder: "lovehiking@mountains.com",
-        },
-        password: { label: "Password", type: "password" },
-      },
+      credentials: {},
       async authorize(credentials, req) {
-        const username = credentials?.username;
-        const password = credentials?.password;
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
 
-        if (username && password) {
-          const user = await getUserByEmail(username);
+        const user = await getUserByEmail(email);
 
-          if (!user) {
-            return null;
-          }
-
-          const validPassword = await bcryptjs.compare(password, user.password);
-
-          // check if password is correct
-          if (!validPassword) {
-            return null;
-          }
-
-          const loggedInUser = {
-            id: user._id,
-            name: user.name,
-            email: username,
-          };
-
-          return loggedInUser;
+        if (!user) {
+          throw new Error("Email does not exist.");
         }
 
-        return null;
+        const validPassword = await bcryptjs.compare(password, user.password);
+
+        // check if password is correct
+        if (!validPassword) {
+          throw new Error("Incorrect Username or Password.");
+        }
+
+        const loggedInUser = {
+          id: user._id,
+          name: user.name,
+          email: email,
+        };
+
+        return loggedInUser;
       },
     }),
   ],

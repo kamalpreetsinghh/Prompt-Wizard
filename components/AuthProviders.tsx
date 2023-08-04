@@ -7,6 +7,7 @@ import GitHub from "@mui/icons-material/GitHub";
 import FormField from "./FormField";
 import Link from "next/link";
 import { errors, regex } from "@/constants";
+import { useRouter } from "next/navigation";
 
 type Provider = {
   id: string;
@@ -20,6 +21,8 @@ type Provider = {
 type Providers = Record<string, Provider>;
 
 const AuthProviders = () => {
+  const router = useRouter();
+
   const [providers, setProviders] = useState<Providers | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,7 +49,7 @@ const AuthProviders = () => {
   };
 
   const handleSignIn = async (providerId: string) => {
-    await signIn(providerId, { callbackUrl: "/" });
+    await signIn(providerId);
   };
 
   const handleFormSubmit = async (e: React.FormEvent, providerId: string) => {
@@ -54,10 +57,19 @@ const AuthProviders = () => {
 
     if (validateForm()) {
       const response = await signIn(providerId, {
-        username: email,
-        password: password,
+        email,
+        password,
+        redirect: false,
         callbackUrl: "/",
       });
+
+      if (!response?.error) {
+        router.replace("/prompts");
+      } else if (response?.error === "Email does not exist.") {
+        setEmailError(response.error);
+      } else if (response?.error === "Incorrect Username or Password.") {
+        setPasswordError(response.error);
+      }
     }
   };
 
