@@ -157,7 +157,7 @@ const Profile = ({ session, id }: ProfileProps) => {
             <div className="flex">
               <div className="group relative hover:opacity-50">
                 {uploadedImage || image ? (
-                  <div className="w-28 h-28">
+                  <div className="w-28 h-28 relative">
                     <Image
                       src={image ? image : uploadedImage}
                       style={{ objectFit: "cover" }}
