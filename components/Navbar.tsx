@@ -3,6 +3,7 @@ import Link from "next/link";
 import ProfileMenu from "./ProfileMenu";
 import ToggleSwitch from "./ToggleSwitch";
 import { getCurrentUser } from "@/lib/session";
+import SignInButton from "./SignInButton";
 
 const Navbar = async () => {
   const session = await getCurrentUser();
@@ -41,9 +42,7 @@ const Navbar = async () => {
             </Link>
           </div>
         ) : (
-          <Link href="/signin" className="primary-button">
-            Sign In
-          </Link>
+          <SignInButton />
         )}
       </div>
     </nav>

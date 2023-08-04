@@ -5,7 +5,7 @@ import Link from "next/link";
 import PromptCardList from "./PromptCardList";
 import ProfileActions from "./ProfileActions";
 import FollowerList from "./FollowerList";
-import { ModalType, Post, SessionInterface, UserProfile } from "@/common.types";
+import { ModalType, Post, UserProfile } from "@/common.types";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import EditIcon from "@mui/icons-material/Edit";
@@ -13,10 +13,11 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import { fade, fadeRight } from "@/lib/motion";
 import UserNameIcon from "./UserNameIcon";
+import { Session } from "next-auth";
 
 type ProfileProps = {
   id: string;
-  session?: SessionInterface;
+  session: Session | null;
 };
 
 const Profile = ({ session, id }: ProfileProps) => {

@@ -24,6 +24,7 @@ const FormAndImage = ({ children, image, imageDesc }: FormAndImageProps) => {
             height={0}
             sizes="100vw"
             alt={imageDesc}
+            priority
             style={{ objectFit: "cover", width: "100%", height: "auto" }}
           />
         </div>

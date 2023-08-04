@@ -30,6 +30,8 @@ const AuthProviders = () => {
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const callbackUrl = localStorage.getItem("callbackUrl") || "/";
+
   useEffect(() => {
     const fetchProviders = async () => {
       const res = await getProviders();
@@ -50,7 +52,7 @@ const AuthProviders = () => {
   };
 
   const handleSignIn = async (providerId: string) => {
-    await signIn(providerId);
+    await signIn(providerId, { callbackUrl });
   };
 
   const handleFormSubmit = async (e: React.FormEvent, providerId: string) => {
@@ -68,7 +70,7 @@ const AuthProviders = () => {
       setIsLoading(false);
 
       if (!response?.error) {
-        router.replace("/prompts");
+        router.replace(callbackUrl);
       } else if (response?.error === "Email does not exist.") {
         setEmailError(response.error);
       } else if (response?.error === "Incorrect Username or Password.") {

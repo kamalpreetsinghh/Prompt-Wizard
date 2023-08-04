@@ -1,7 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { NextAuthOptions, getServerSession } from "next-auth";
+import { NextAuthOptions, Session, getServerSession } from "next-auth";
 import { CreateUserProfile, SessionInterface } from "@/common.types";
 import bcryptjs from "bcryptjs";
 
@@ -59,7 +59,7 @@ export const authOptions: NextAuthOptions = {
       if (session?.user?.email) {
         const userProfile = await getUserProfileByEmail(session?.user?.email);
 
-        const newSession = {
+        const newSession: Session = {
           ...session,
           user: {
             ...session.user,
@@ -107,6 +107,6 @@ export const authOptions: NextAuthOptions = {
 };
 
 export async function getCurrentUser() {
-  const session = (await getServerSession(authOptions)) as SessionInterface;
+  const session = await getServerSession(authOptions);
   return session;
 }
