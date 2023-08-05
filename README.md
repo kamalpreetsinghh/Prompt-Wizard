@@ -1,3 +1,5 @@
+<img width="1512" alt="Screenshot 2023-08-04 at 9 09 31 PM" src="https://github.com/kamalpreetsinghh/Prompt-Wizard/assets/88215400/85093243-b098-4609-8ef8-83d409fab1ee">
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
