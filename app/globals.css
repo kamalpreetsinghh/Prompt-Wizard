@@ -193,7 +193,7 @@ body {
 
 /* Profile Menu */
 .profile_menu-items {
-  @apply flex-col absolute right-1/2 translate-x-1/2 mt-3 
+  @apply flex-col absolute right-full sm:right-1/2 translate-x-1/2 mt-3 
   p-7 sm:min-w-[300px] min-w-max rounded-xl border;
   border-color: var(--divider-color);
   background-color: var(--background-color-menu);
