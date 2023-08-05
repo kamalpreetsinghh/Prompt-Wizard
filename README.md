@@ -1,6 +1,6 @@
 <img width="1512" alt="Screenshot 2023-08-04 at 9 09 31 PM" src="https://github.com/kamalpreetsinghh/Prompt-Wizard/assets/88215400/85093243-b098-4609-8ef8-83d409fab1ee">
 
-#Prompt Wizard
+# Prompt Wizard
 
 Welcome to Prompt Wizard, a community of creatives for sharing creative AI prompts. This project aims to provide a platform for creating, sharing, and exploring creative AI prompts. With this website, you can discover and share inspiring prompts for various AI models and follow other users to discover their prompts and creative works.
 
