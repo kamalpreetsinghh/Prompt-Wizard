@@ -24,16 +24,16 @@ To use the Creative AI Prompts Hub, follow these simple steps:
 ### Installation
 
 1. Clone the repository to your local machine:
-
+```
 git clone https://github.com/kamalpreetsinghh/Prompt-Wizard.git
 cd prompt-wizard
-
+```
 2. Set up your environment variables. Create a .env file in the root directory and add the respective keys and values.
 
 3. Install the required dependencies:
-
+```
 npm install
-
+```
 ### Usage
 
 1. Create an account or log in to your existing account on the Prompt Wizard website.
@@ -53,17 +53,17 @@ We welcome contributions from the community to make this community even better! 
 1. Fork the repository to your GitHub account.
 
 2. Create a new branch for your feature or bug fix:
-
+```
 git checkout -b feature/your-feature-name
-
+```
 3. Make your changes and commit them with descriptive commit messages:
-
+```
 git commit -m "Add feature or fix: your brief description"
-
+```
 4. Push your changes to your forked repository:
-
+```
 git push origin feature/your-feature-name
-
+```
 5. Create a pull request against the `main` branch of this repository, explaining the changes you made and their significance.
 
 ## Community Guidelines
