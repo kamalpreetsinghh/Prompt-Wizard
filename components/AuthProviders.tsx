@@ -30,13 +30,15 @@ const AuthProviders = () => {
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const callbackUrl = localStorage.getItem("callbackUrl") || "/";
+  let callbackUrl = "";
 
   useEffect(() => {
     const fetchProviders = async () => {
       const res = await getProviders();
       setProviders(res);
     };
+
+    callbackUrl = localStorage.getItem("callbackUrl") || "/";
 
     fetchProviders();
   }, []);
