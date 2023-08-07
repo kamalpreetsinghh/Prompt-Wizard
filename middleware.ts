@@ -15,7 +15,8 @@ export function middleware(request: NextRequest) {
     path === "/update-prompt" ||
     path === "/update-profile";
 
-  const token = request.cookies.get("next-auth.session-token")?.value || "";
+  const token =
+    request.cookies.get(process.env.NEXTAUTH_COOKIE_TOKEN!)?.value || "";
 
   if (isPublicPath && token) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
