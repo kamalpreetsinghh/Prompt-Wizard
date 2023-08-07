@@ -95,7 +95,7 @@ const ResetPasswordPage = () => {
             <FormField
               title="Password"
               state={password}
-              placeholder="Password"
+              placeholder="no0neCanGuessIt"
               setState={handlePasswordChange}
               errorMessage={passwordError}
               isRequired
@@ -105,7 +105,7 @@ const ResetPasswordPage = () => {
             <FormField
               title="Confirm Password"
               state={confirmPassword}
-              placeholder="Confirm Password"
+              placeholder="no0neCanGuessIt"
               setState={handleConfirmPasswordChange}
               errorMessage={confirmPasswordError}
               isRequired

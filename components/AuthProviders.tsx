@@ -131,7 +131,7 @@ const AuthProviders = () => {
           <FormField
             title="Email"
             state={email}
-            placeholder="Email"
+            placeholder="explore@mountains.com"
             setState={handleEmailChange}
             errorMessage={emailError}
             isRequired
@@ -140,7 +140,7 @@ const AuthProviders = () => {
           <FormField
             title="Password"
             state={password}
-            placeholder="Password"
+            placeholder="no0neCanGuessIt"
             setState={handlePasswordChange}
             errorMessage={passwordError}
             isRequired

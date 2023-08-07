@@ -70,7 +70,7 @@ const ForgotPasswordPage = () => {
             <FormField
               title="Email"
               state={email}
-              placeholder="Email"
+              placeholder="explore@mountains.com"
               setState={handleEmailChange}
               errorMessage={emailError}
               isRequired

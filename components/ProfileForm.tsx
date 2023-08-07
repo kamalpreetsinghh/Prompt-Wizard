@@ -107,9 +107,9 @@ const ProfileForm = ({ userId }: ProfileFormProps) => {
         />
 
         <FormField
-          title="Name"
+          title="First and Last Name"
           state={name}
-          placeholder="first & last name"
+          placeholder="Bruce Wayne"
           isRequired
           autocapitalize
           setState={setName}
