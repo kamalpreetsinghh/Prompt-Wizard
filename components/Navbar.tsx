@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import ProfileMenu from "./ProfileMenu";
 import ToggleSwitch from "./ToggleSwitch";
 import { getCurrentUser } from "@/lib/session";
-import SignInButton from "./SignInButton";
+import SignInAndCreate from "./SignInAndCreate";
 
 const Navbar = async () => {
   const session = await getCurrentUser();
@@ -31,19 +30,7 @@ const Navbar = async () => {
             />
           </div>
         </div>
-        {session?.user ? (
-          <div className="flex gap-3 md:gap-6">
-            <ProfileMenu session={session} />
-            <Link href="/create-prompt">
-              <span className="rounded-navbar-button hidden sm:flex">
-                Create Post
-              </span>
-              <span className="rounded-icon px-3 py-1 sm:hidden">+</span>
-            </Link>
-          </div>
-        ) : (
-          <SignInButton />
-        )}
+        <SignInAndCreate session={session} />
       </div>
     </nav>
   );

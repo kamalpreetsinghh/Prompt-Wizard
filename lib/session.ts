@@ -2,7 +2,7 @@ import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions, Session, getServerSession } from "next-auth";
-import { CreateUserProfile, SessionInterface } from "@/common.types";
+import { CreateUserProfile } from "@/common.types";
 import bcryptjs from "bcryptjs";
 
 import {

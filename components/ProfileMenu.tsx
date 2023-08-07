@@ -5,10 +5,10 @@ import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { SessionInterface } from "@/common.types";
+import { User } from "@/common.types";
 import UserNameIcon from "./UserNameIcon";
 
-const ProfileMenu = ({ session }: { session: SessionInterface }) => {
+const ProfileMenu = ({ user }: { user: User }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -18,10 +18,10 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
           className="flex-center"
           onMouseEnter={() => setOpenModal(true)}
         >
-          {session?.user?.image ? (
+          {user.image ? (
             <div className="w-10 h-10 relative">
               <Image
-                src={session.user.image}
+                src={user.image}
                 className="rounded-full"
                 fill
                 style={{ objectFit: "cover" }}
@@ -29,10 +29,7 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
               />
             </div>
           ) : (
-            <UserNameIcon
-              name={session?.user?.name[0]}
-              className="w-10 h-10 text-2xl"
-            />
+            <UserNameIcon name={user.name[0]} className="w-10 h-10 text-2xl" />
           )}
         </Menu.Button>
 
@@ -52,10 +49,10 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
             onMouseLeave={() => setOpenModal(false)}
           >
             <div className="flex flex-col items-center gap-y-4">
-              {session?.user?.image ? (
+              {user.image ? (
                 <div className="w-20 h-20 relative">
                   <Image
-                    src={session?.user?.image}
+                    src={user.image}
                     className="rounded-full"
                     fill
                     style={{ objectFit: "cover" }}
@@ -64,27 +61,21 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
                 </div>
               ) : (
                 <UserNameIcon
-                  name={session?.user?.name[0]}
+                  name={user.name[0]}
                   className="w-20 h-20 text-6xl"
                 />
               )}
-              <p className="font-semibold">{session?.user?.name}</p>
+              <p className="font-semibold">{user.name}</p>
             </div>
 
             <div className="flex flex-col gap-3 pt-10 items-start w-full">
               <Menu.Item>
-                <Link
-                  href={`/profile/${session?.user?.id}`}
-                  className="text-sm"
-                >
+                <Link href={`/profile/${user.id}`} className="text-sm">
                   Settings
                 </Link>
               </Menu.Item>
               <Menu.Item>
-                <Link
-                  href={`/profile/${session?.user?.id}`}
-                  className="text-sm"
-                >
+                <Link href={`/profile/${user.id}`} className="text-sm">
                   Profile
                 </Link>
               </Menu.Item>
