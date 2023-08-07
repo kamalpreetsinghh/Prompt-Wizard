@@ -6,7 +6,10 @@ const SignInButton = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    localStorage.setItem("callbackUrl", window.location.pathname);
+    const callbackUrl = window.location.pathname;
+    if (callbackUrl !== "/signin") {
+      localStorage.setItem("callbackUrl", window.location.pathname);
+    }
     router.push("/signin");
   };
 

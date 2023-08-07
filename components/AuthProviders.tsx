@@ -30,15 +30,11 @@ const AuthProviders = () => {
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  let callbackUrl = "";
-
   useEffect(() => {
     const fetchProviders = async () => {
       const res = await getProviders();
       setProviders(res);
     };
-
-    callbackUrl = localStorage.getItem("callbackUrl") || "/";
 
     fetchProviders();
   }, []);
@@ -54,11 +50,14 @@ const AuthProviders = () => {
   };
 
   const handleSignIn = async (providerId: string) => {
+    const callbackUrl = localStorage.getItem("callbackUrl") || "/";
     await signIn(providerId, { callbackUrl });
   };
 
   const handleFormSubmit = async (e: React.FormEvent, providerId: string) => {
     e.preventDefault();
+
+    const callbackUrl = localStorage.getItem("callbackUrl") || "/";
 
     if (validateForm()) {
       setIsLoading(true);
@@ -66,7 +65,6 @@ const AuthProviders = () => {
         email,
         password,
         redirect: false,
-        callbackUrl: "/",
       });
 
       setIsLoading(false);
