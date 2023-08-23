@@ -89,11 +89,11 @@ const Form = ({ type, userId, promptId }: FormProps) => {
         ease: [0, 0.71, 0.2, 1.01],
       }}
     >
-      <h1 className="head_text text-left">
-        <span className="orange_gradient">{type} Post</span>
+      <h1 className="heading text-left">
+        <span className="orange-gradient">{type} Post</span>
       </h1>
 
-      <p className="desc text-left max-w-md">
+      <p className="description text-left max-w-md">
         Create and share amazing prompts with the world, and let your
         imagination run wild with any AI-powered platform.
       </p>
@@ -131,7 +131,7 @@ const Form = ({ type, userId, promptId }: FormProps) => {
           <button
             type="submit"
             disabled={submitting}
-            className="primary-button"
+            className="rounded-button bg-primary"
           >
             {submitting
               ? type === "Create"

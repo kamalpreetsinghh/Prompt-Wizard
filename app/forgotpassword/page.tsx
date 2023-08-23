@@ -55,10 +55,10 @@ const ForgotPasswordPage = () => {
     >
       <>
         <div className="w-full my-6 max-w-lg mx-auto flex flex-col items-center">
-          <h1 className="text-5xl orange_gradient mt-8 pb-2">
+          <h1 className="text-5xl orange-gradient mt-8 pb-2">
             Forgot Password?
           </h1>
-          <p className="desc max-w-md mb-6">
+          <p className="description max-w-md mb-6">
             No worries, we will send you reset instructions.
           </p>
         </div>

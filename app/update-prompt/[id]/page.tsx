@@ -1,5 +1,5 @@
 import Form from "@/components/Form";
-import { Params, Post } from "@/common.types";
+import { Params } from "@/common.types";
 import { getCurrentUser } from "@/lib/session";
 
 const UpdatePromptPage = async ({ params: { id } }: Params) => {

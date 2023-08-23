@@ -18,14 +18,14 @@ const SignInAndCreate = ({ session }: SignInAndCreateProps) => {
     <>
       {(session && session?.user) ||
       clientSession.status === "authenticated" ? (
-        <div className="flex gap-3 md:gap-6">
+        <div className="flex gap-3 md:gap-6 items-center">
           <ProfileMenu
             user={
               session && session?.user ? session.user : clientSession.data?.user
             }
           />
           <Link href="/create-prompt">
-            <span className="rounded-navbar-button hidden sm:flex">
+            <span className="rounded-navbar-button bg-primary hidden sm:flex">
               Create Post
             </span>
             <span className="rounded-icon px-3 py-1 sm:hidden">+</span>

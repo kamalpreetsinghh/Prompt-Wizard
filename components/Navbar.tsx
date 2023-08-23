@@ -13,6 +13,7 @@ const Navbar = async () => {
         <Image
           src="/assets/icons/logo.svg"
           alt="logo"
+          priority={true}
           width={150}
           height={40}
         />

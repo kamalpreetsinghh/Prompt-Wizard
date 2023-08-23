@@ -63,7 +63,7 @@ const Follower = ({
         ) : (
           <UserNameIcon
             name={username[0].toUpperCase()}
-            className="w-12 h-12 text-2xl"
+            className="rounded-icon-name text-white flex justify-center items-center w-12 h-12 text-2xl"
           />
         )}
 
@@ -74,7 +74,7 @@ const Follower = ({
       </Link>
 
       <button
-        className="primary-button"
+        className="rounded-button bg-primary"
         disabled={modalType === ModalType.Followers && !isFollowing}
         onClick={handleOnClick}
       >

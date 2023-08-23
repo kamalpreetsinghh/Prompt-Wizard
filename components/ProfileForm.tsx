@@ -90,8 +90,8 @@ const ProfileForm = ({ userId }: ProfileFormProps) => {
         ease: [0, 0.71, 0.2, 1.01],
       }}
     >
-      <h1 className="head_text text-left">
-        <span className="orange_gradient">Edit Profile</span>
+      <h1 className="heading text-left">
+        <span className="orange-gradient">Edit Profile</span>
       </h1>
       <form
         onSubmit={handleSubmit}
@@ -134,7 +134,7 @@ const ProfileForm = ({ userId }: ProfileFormProps) => {
           <button
             type="submit"
             disabled={submitting}
-            className="primary-button"
+            className="rounded-button bg-primary"
           >
             {submitting ? `Editing...` : "Edit"}
           </button>

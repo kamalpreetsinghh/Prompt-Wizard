@@ -20,7 +20,7 @@ const DefaultPrompt = ({ post }: DefaultPromptProps) => {
     >
       <p className="mb-4 text-lg">{post.prompt}</p>
       <div className="flex flex-between">
-        <p className="font-inter orange_gradient cursor-pointer button-hover">
+        <p className="font-inter orange-gradient cursor-pointer button-hover">
           #{post.tag}
         </p>
         <PromptCopy onCopy={handleCopy} />

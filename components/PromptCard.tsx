@@ -97,7 +97,7 @@ const PromptCard = ({
       <p className="mb-4 text-lg">{post.prompt}</p>
       <div className="flex flex-between">
         <p
-          className="font-inter orange_gradient cursor-pointer button-hover"
+          className="font-inter orange-gradient cursor-pointer button-hover"
           onClick={() => handleTagClick && handleTagClick(post.tag)}
         >
           #{post.tag}
@@ -106,10 +106,10 @@ const PromptCard = ({
           {showUserActions && (
             <div className="flex gap-2">
               <Link href={`/update-prompt/${post._id}`}>
-                <EditIcon className="primary-color button-hover" />
+                <EditIcon className="text-primary button-hover" />
               </Link>
               <span onClick={showModal}>
-                <DeleteIcon className="primary-color button-hover" />
+                <DeleteIcon className="text-primary button-hover" />
               </span>
             </div>
           )}
@@ -128,7 +128,10 @@ const PromptCard = ({
             <button className="rounded-button bg-red-800" onClick={closeModal}>
               Cancel
             </button>
-            <button className="primary-button" onClick={handleConfirmDelete}>
+            <button
+              className="rounded-button bg-primary"
+              onClick={handleConfirmDelete}
+            >
               Delete
             </button>
           </div>

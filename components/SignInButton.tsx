@@ -14,7 +14,7 @@ const SignInButton = () => {
   };
 
   return (
-    <button className="primary-button" onClick={handleClick}>
+    <button className="rounded-button bg-primary" onClick={handleClick}>
       Sign In
     </button>
   );

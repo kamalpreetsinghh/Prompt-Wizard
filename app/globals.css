@@ -108,71 +108,8 @@ body {
   opacity: 0.15;
 }
 
-.head_text {
-  @apply mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.15];
-}
-
-.orange_gradient {
+.orange-gradient {
   @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
-}
-
-.desc {
-  @apply mt-5 text-lg sm:text-xl max-w-2xl;
-}
-
-.text-grey-color {
-  color: var(--text-grey-color);
-}
-
-.rounded-navbar-button {
-  @apply rounded-full py-2 px-5 text-white transition-all  
-  text-center text-sm font-semibold;
-  background-color: var(--primary-color);
-}
-
-.rounded-icon {
-  @apply rounded-full text-white transition-all  
-  text-center text-2xl font-semibold flex items-center justify-center;
-  background-color: var(--primary-color);
-}
-
-.rounded-icon-name {
-  @apply rounded-full text-white;
-  background-color: var(--primary-color);
-}
-
-.button {
-  @apply transition-all text-center text-sm font-semibold flex items-center justify-center;
-}
-
-.rounded-button {
-  @apply button;
-  @apply py-2 px-5 rounded-full text-white;
-}
-
-.primary-button {
-  @apply rounded-button;
-  background-color: var(--primary-color);
-}
-
-.form-button {
-  @apply transition-all text-center font-semibold flex items-center justify-center 
-  py-2 px-5 rounded-full text-white;
-  background-color: var(--primary-color);
-}
-
-.button:hover,
-.form-button:hover,
-.primary-button:hover,
-.rounded-button:hover,
-.rounded-icon:hover,
-.rounded-navbar-button:hover {
-  color: var(--background-color);
-  background-color: var(--text-color);
-}
-
-.form-button:hover .loader {
-  color: var(--background-color);
 }
 
 .flex-center {
@@ -189,6 +126,62 @@ body {
 
 .flex-between {
   @apply flex justify-between items-center;
+}
+
+.heading {
+  @apply mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.15];
+}
+
+.description {
+  @apply mt-5 text-lg sm:text-xl max-w-2xl;
+}
+
+.text-grey-color {
+  color: var(--text-grey-color);
+}
+
+.button {
+  @apply transition-all text-center text-sm font-semibold flex-center;
+}
+
+.rounded-button {
+  @apply button;
+  @apply py-2 px-5 rounded-full text-white;
+}
+
+.rounded-navbar-button {
+  @apply rounded-full py-2 px-5 text-white transition-all  
+  text-center text-sm font-semibold;
+}
+
+.rounded-icon {
+  @apply rounded-full text-white transition-all  
+  text-center text-2xl font-semibold flex-center;
+  background-color: var(--primary-color);
+}
+
+.rounded-icon-name {
+  @apply rounded-full text-white;
+  background-color: var(--primary-color);
+}
+
+.form-button {
+  @apply transition-all text-center font-semibold flex-center 
+  py-2 px-5 rounded-full text-white;
+  background-color: var(--primary-color);
+}
+
+.button:hover,
+.form-button:hover,
+.rounded-button:hover,
+.rounded-icon:hover,
+.rounded-navbar-button:hover {
+  color: var(--background-color);
+  background-color: var(--text-color);
+}
+
+.form-button:hover .loader {
+  color: var(--background-color);
 }
 
 /* Profile Menu */
@@ -294,10 +287,6 @@ input[type="checkbox"].toggle:checked + label::after {
 
 .text-grey-color {
   color: var(--text-grey-color);
-}
-
-.primary-color {
-  color: var(--primary-color);
 }
 
 .button-hover:hover {
