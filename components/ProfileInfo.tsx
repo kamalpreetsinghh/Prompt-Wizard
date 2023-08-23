@@ -34,9 +34,7 @@ const ProfileInfo = ({
           userId={userProfile?._id}
         />
         <p className="text-2xl text-grey-color mt-8">{userProfile.username}</p>
-        <p className="text-4xl font-bold text-grey-color mt-4">
-          {userProfile.name}
-        </p>
+        <p className="text-4xl font-bold mt-4">{userProfile.name}</p>
         <p className="description">{userProfile.bio}</p>
         {isLoggedInUser ? (
           <div className="flex gap-2">
