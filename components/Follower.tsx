@@ -63,7 +63,7 @@ const Follower = ({
         ) : (
           <UserNameIcon
             name={username[0].toUpperCase()}
-            className="rounded-icon-name text-white flex justify-center items-center w-12 h-12 text-2xl"
+            className="w-12 h-12 text-2xl"
           />
         )}
 

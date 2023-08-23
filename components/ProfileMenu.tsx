@@ -29,10 +29,7 @@ const ProfileMenu = ({ user }: { user: User }) => {
               />
             </div>
           ) : (
-            <UserNameIcon
-              name={user.name[0]}
-              className="rounded-icon-name text-white flex justify-center items-center w-10 h-10 text-2xl"
-            />
+            <UserNameIcon name={user.name[0]} className="w-10 h-10 text-2xl" />
           )}
         </Menu.Button>
 
@@ -65,7 +62,7 @@ const ProfileMenu = ({ user }: { user: User }) => {
               ) : (
                 <UserNameIcon
                   name={user.name[0]}
-                  className="rounded-icon-name text-white flex justify-center items-center w-20 h-20 text-6xl"
+                  className="w-20 h-20 text-6xl"
                 />
               )}
               <p className="font-semibold">{user.name}</p>

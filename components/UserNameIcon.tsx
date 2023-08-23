@@ -7,9 +7,7 @@ type UserNameIconProps = {
 
 const UserNameIcon = ({ name, className }: UserNameIconProps) => {
   return (
-    <div
-      className={`rounded-icon-name text-white flex justify-center items-center ${className}`}
-    >
+    <div className={`rounded-icon-name ${className}`}>
       <span>{name}</span>
     </div>
   );

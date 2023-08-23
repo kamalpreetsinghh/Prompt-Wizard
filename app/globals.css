@@ -161,7 +161,7 @@ body {
 }
 
 .rounded-icon-name {
-  @apply rounded-full text-white;
+  @apply rounded-full text-white flex justify-center items-center;
   background-color: var(--primary-color);
 }
 

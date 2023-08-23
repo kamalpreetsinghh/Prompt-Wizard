@@ -22,7 +22,7 @@ const PromptCardUser = ({ image, username }: PromptCardUserProps) => {
       ) : (
         <UserNameIcon
           name={username[0].toUpperCase()}
-          className="rounded-icon-name text-white flex justify-center items-center w-10 h-10 text-2xl"
+          className="w-10 h-10 text-2xl"
         />
       )}
 
