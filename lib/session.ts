@@ -78,6 +78,7 @@ export const authOptions: NextAuthOptions = {
       try {
         if (profile?.email) {
           const userExists = await getUserByEmail(profile.email);
+          console.log(user);
 
           if (userExists && user?.image && !userExists.image) {
             await updateProfileImage(userExists._id, user.image);

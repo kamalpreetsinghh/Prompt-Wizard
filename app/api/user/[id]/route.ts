@@ -5,6 +5,7 @@ import {
   getUserProfile,
   updateProfileImage,
   updateUserProfile,
+  uploadImage,
 } from "@/lib/user-actions";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -69,7 +70,9 @@ export const PUT = async (request: NextRequest, { params: { id } }: Params) => {
 
     const { image } = await request.json();
 
-    await updateProfileImage(id, image);
+    const imageUrl = await uploadImage(image);
+
+    await updateProfileImage(id, imageUrl);
 
     return NextResponse.json(
       { message: "User Image Updated successfully", success: true },

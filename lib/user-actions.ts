@@ -2,6 +2,7 @@ import User from "@/models/user";
 import { connectToDB } from "./dbConfig";
 import { CreateUserProfile, SignUp, UpdateUserProfile } from "@/common.types";
 import { Types } from "mongoose";
+import { v2 as cloudinary } from "cloudinary";
 
 connectToDB();
 
@@ -217,4 +218,21 @@ const createUsername = (name: string, usernames: string[]): string => {
     count++;
   }
   return username;
+};
+
+export const uploadImage = async (image: string): Promise<string> => {
+  const folder = "prompt_wizard";
+
+  cloudinary.config({
+    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+    secure: true,
+  });
+
+  const imageUploadResponse = await cloudinary.uploader.upload(image, {
+    folder,
+  });
+
+  return imageUploadResponse.secure_url;
 };
