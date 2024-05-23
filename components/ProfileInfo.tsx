@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import UploadImage from "./UploadImage";
 import { UserProfile } from "@/common.types";
 import ProfileActions from "./ProfileActions";

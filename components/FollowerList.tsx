@@ -1,4 +1,3 @@
-import React from "react";
 import Follower from "./Follower";
 import { FollowerUser, ModalType } from "@/common.types";
 

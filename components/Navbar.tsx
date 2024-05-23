@@ -20,17 +20,7 @@ const Navbar = async () => {
       </Link>
 
       <div className="flex-center gap-4 sm:gap-6">
-        <div className="flex-center mx-4">
-          <ToggleSwitch />
-          <div>
-            <Image
-              src="/assets/icons/moon.svg"
-              width={25}
-              height={25}
-              alt="Theme"
-            />
-          </div>
-        </div>
+        <ToggleSwitch />
         <SignInAndCreate session={session} />
       </div>
     </nav>

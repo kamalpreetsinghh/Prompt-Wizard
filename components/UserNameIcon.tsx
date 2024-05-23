@@ -1,5 +1,3 @@
-import React from "react";
-
 type UserNameIconProps = {
   name: string;
   className: string;
