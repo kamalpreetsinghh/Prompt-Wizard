@@ -8,6 +8,8 @@ import { motion } from "framer-motion";
 import { fade } from "@/lib/motion";
 import { Session } from "next-auth";
 import ProfileInfo from "./ProfileInfo";
+import { pacifico } from "@/app/font";
+import Link from "next/link";
 
 type ProfileProps = {
   id: string;
@@ -123,15 +125,25 @@ const Profile = ({ session, id }: ProfileProps) => {
           <motion.div className="mt-28 text-xl flex-col items-center" {...fade}>
             {session && session?.user?.id === userProfile._id ? (
               <>
-                <p className="text-center text-grey-color">
+                <p
+                  className={`${pacifico.className} font-extrabold text-xl lg:text-3xl text-center`}
+                >
                   You have not created any post.
                 </p>
-                <p className="mt-4 text-center text-grey-color">
-                  Create and share creative prompts to the community.
-                </p>
+                <motion.p
+                  whileHover={{ scale: 1.1 }}
+                  className={`${pacifico.className} text-primary font-extrabold 
+                    text-xl lg:text-3xl text-center mt-6 cursor-pointer`}
+                >
+                  <Link href="/create-prompt">
+                    Create and share creative prompts to the community.
+                  </Link>
+                </motion.p>
               </>
             ) : (
-              <p className="text-center text-grey-color">
+              <p
+                className={`${pacifico.className} text-primary font-extrabold text-xl lg:text-3xl text-center`}
+              >
                 User has not shared any posts.
               </p>
             )}

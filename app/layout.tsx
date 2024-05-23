@@ -1,11 +1,9 @@
 import Navbar from "@/components/Navbar";
 import SessionProvider from "@/components/Provider";
-import { Poppins } from "next/font/google";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/AppThemeProvider";
 import "./globals.css";
-
-const poppins = Poppins({ weight: "300", subsets: ["latin"] });
+import { poppins } from "./font";
 
 export const metadata = {
   title: "Prompt Wizard",
