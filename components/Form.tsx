@@ -7,7 +7,7 @@ import Loader from "./Loader";
 import { motion } from "framer-motion";
 
 type FormProps = {
-  type: string;
+  type: "Create" | "Edit";
   userId: string;
   promptId?: string;
 };

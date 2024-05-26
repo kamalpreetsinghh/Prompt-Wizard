@@ -145,7 +145,7 @@ const AuthProviders = () => {
             type="password"
           />
           <div className="flex flex-end">
-            <Link className="text-blue-600 font-bold" href="/forgotpassword">
+            <Link className="text-blue-600 font-bold" href="/forgot-password">
               Forgot Password?
             </Link>
           </div>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import DefaultPromptList from "@/components/DefaultPromptList";
+import DefaultPromptList from "@/components/prompts/DefaultPromptList";
 import { prompts } from "@/constants";
 
 const Home = () => {

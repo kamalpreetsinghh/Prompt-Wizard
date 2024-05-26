@@ -26,7 +26,7 @@ export const sendEmail = async ({
       },
     });
 
-    const url = `${process.env.NEXTAUTH_URL}/resetpassword?token=${token}`;
+    const url = `${process.env.NEXTAUTH_URL}/reset-password?token=${token}`;
 
     const emailOptions = {
       from: "kamalpreetsingh025@gmail.com",

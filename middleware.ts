@@ -7,8 +7,8 @@ export function middleware(request: NextRequest) {
   const isPublicPath =
     path === "/signin" ||
     path === "/signup" ||
-    path === "/forgotpassword" ||
-    path === "/resetpassword";
+    path === "/forgot-password" ||
+    path === "/reset-password";
 
   const isPrivatePath =
     path === "/create-prompt" ||
@@ -31,8 +31,8 @@ export const config = {
   matcher: [
     "/signin",
     "/signup",
-    "/forgotpassword",
-    "/resetpassword",
+    "/forgot-password",
+    "/reset-password",
     "/create-prompt",
     "/update-prompt",
     "/update-profile",

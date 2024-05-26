@@ -1,7 +1,7 @@
 "use client";
 
 import { Session } from "next-auth";
-import ProfileMenu from "./ProfileMenu";
+import ProfileMenu from "./profile/ProfileMenu";
 import Link from "next/link";
 import SignInButton from "./SignInButton";
 import { useSession } from "next-auth/react";

@@ -431,7 +431,7 @@ dialog::backdrop {
 }
 .loader {
   color: #fff;
-  font-size: 5px;
+  font-size: 4px;
   position: relative;
   text-indent: -9999em;
   transform: translateZ(0);
