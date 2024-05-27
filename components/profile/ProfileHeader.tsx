@@ -7,6 +7,7 @@ import Image from "next/image";
 import { fade } from "@/lib/motion";
 import Connections from "./Connections";
 import FollowButton from "./FollowButton";
+import Link from "next/link";
 
 type ProfileHeaderProps = {
   userProfile: UserProfile;
@@ -21,7 +22,7 @@ const ProfileHeader = ({ userProfile, loggedInUserId }: ProfileHeaderProps) => {
           userProfile={userProfile}
           canEdit={userProfile._id === loggedInUserId}
         />
-        {loggedInUserId && (
+        {loggedInUserId ? (
           <>
             {userProfile._id === loggedInUserId ? (
               <Connections userId={loggedInUserId} />
@@ -32,6 +33,13 @@ const ProfileHeader = ({ userProfile, loggedInUserId }: ProfileHeaderProps) => {
               />
             )}
           </>
+        ) : (
+          <Link
+            className="rounded-button bg-primary mt-4 flex w-full justify-center"
+            href="/signin"
+          >
+            Follow
+          </Link>
         )}
       </div>
 
