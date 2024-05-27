@@ -5,7 +5,7 @@ import FormAndImage from "@/components/FormAndImage";
 import Link from "next/link";
 import { useState } from "react";
 import { SignUp } from "@/common.types";
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster, toast } from "sonner";
 import { errors, regex } from "@/constants";
 import { capitalizeWords } from "@/lib/common";
 
@@ -59,12 +59,9 @@ const SignUpPage = () => {
         setPassword("");
         setConfirmPassword("");
 
-        toast.success(
-          "Account Created Successfully. \nPlease login to use your account.",
-          {
-            duration: 6000,
-          }
-        );
+        toast.success("Account Created Successfully.", {
+          description: "Please login to use your account.",
+        });
       } else if (response.status === 403) {
         setEmailError(errors.emailAlreadyExisis);
       }
@@ -165,7 +162,7 @@ const SignUpPage = () => {
           </Link>
         </p>
       </div>
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster richColors />
     </FormAndImage>
   );
 };

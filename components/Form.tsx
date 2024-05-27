@@ -119,11 +119,11 @@ const Form = ({ type, userId, promptId }: FormProps) => {
           isRequired
         />
 
-        <div className="flex-end mx-3 mb-5 gap-4">
+        <div className="flex mx-3 mb-5 gap-4">
           <button
             type="button"
             onClick={handleCancel}
-            className="rounded-button bg-red-800"
+            className="rounded-button bg-red-800 w-24"
           >
             Cancel
           </button>
@@ -131,13 +131,15 @@ const Form = ({ type, userId, promptId }: FormProps) => {
           <button
             type="submit"
             disabled={submitting}
-            className="rounded-button bg-primary"
+            className="rounded-button bg-primary w-24"
           >
-            {submitting
-              ? type === "Create"
-                ? "Creating..."
-                : `Editing...`
-              : type}
+            {submitting ? (
+              <div className="w-24 flex items-center justify-center">
+                <span className="loader bottom-2.5"></span>
+              </div>
+            ) : (
+              type
+            )}
           </button>
         </div>
       </form>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import FormAndImage from "@/components/FormAndImage";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster, toast } from "sonner";
 import { errors, regex } from "@/constants";
 
 const ForgotPasswordPage = () => {
@@ -37,12 +37,9 @@ const ForgotPasswordPage = () => {
 
     if (response.ok) {
       setEmail("");
-      toast.success(
-        "Email for resetting your password sent. \nPlease check your inbox for further instructions.",
-        {
-          duration: 6000,
-        }
-      );
+      toast.success("Email for resetting your password sent.", {
+        description: "Please check your inbox for further instructions.",
+      });
     } else if (response.status === 400) {
       setEmailError(errors.emailNotExist);
     }
@@ -96,7 +93,7 @@ const ForgotPasswordPage = () => {
             </Link>
           </p>
         </div>
-        <Toaster position="top-center" reverseOrder={false} />
+        <Toaster richColors />
       </>
     </FormAndImage>
   );

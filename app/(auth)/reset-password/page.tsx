@@ -5,7 +5,7 @@ import Link from "next/link";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FormAndImage from "@/components/FormAndImage";
 import { useEffect, useState } from "react";
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster, toast } from "sonner";
 import { errors, regex } from "@/constants";
 
 const ResetPasswordPage = () => {
@@ -48,12 +48,9 @@ const ResetPasswordPage = () => {
         if (response.ok) {
           setPassword("");
           setConfirmPassword("");
-          toast.success(
-            "Your password is updated. \nYou can use your new password for log in.",
-            {
-              duration: 6000,
-            }
-          );
+          toast.success("Your password is updated.", {
+            description: "You can use your new password for log in.",
+          });
         }
       } catch (error: any) {
         console.log(error.message);
@@ -135,7 +132,7 @@ const ResetPasswordPage = () => {
             </Link>
           </p>
         </div>
-        <Toaster position="top-center" reverseOrder={false} />
+        <Toaster richColors />
       </>
     </FormAndImage>
   );
