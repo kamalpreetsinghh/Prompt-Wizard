@@ -3,21 +3,42 @@
 import Link from "next/link";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
-import { Fragment, useState } from "react";
+import {
+  Fragment,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { User } from "@/common.types";
 import UserNameIcon from "../UserNameIcon";
 
 const ProfileMenu = ({ user }: { user: User }) => {
   const [openModal, setOpenModal] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setOpenModal(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const toggleModal: MouseEventHandler<HTMLButtonElement> = () => {
+    setOpenModal(!openModal);
+  };
 
   return (
-    <div className="flex-center z-20 flex-col relative">
+    <div className="flex-center z-20 flex-col relative" ref={menuRef}>
       <Menu as="div">
-        <Menu.Button
-          className="flex-center"
-          onMouseEnter={() => setOpenModal(true)}
-        >
+        <Menu.Button className="flex-center" onClick={toggleModal}>
           {user.image ? (
             <div className="w-10 h-10 relative">
               <Image
@@ -43,11 +64,7 @@ const ProfileMenu = ({ user }: { user: User }) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items
-            static
-            className="flex-start profile_menu-items"
-            onMouseLeave={() => setOpenModal(false)}
-          >
+          <Menu.Items static className="flex-start profile_menu-items">
             <div className="flex flex-col items-center gap-y-4">
               {user.image ? (
                 <div className="w-20 h-20 relative">
