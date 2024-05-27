@@ -27,8 +27,8 @@ const ProfileHeader = ({ userProfile, loggedInUserId }: ProfileHeaderProps) => {
               <Connections userId={loggedInUserId} />
             ) : (
               <FollowButton
-                userId={userProfile._id}
-                followingId={loggedInUserId}
+                userId={loggedInUserId}
+                followingId={userProfile._id}
               />
             )}
           </>
