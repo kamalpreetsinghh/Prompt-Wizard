@@ -1,8 +1,17 @@
-import Feed from "@/components/prompts/Feed";
+"use client";
 
-const PromptsPage = async () => {
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt`);
-  const prompts = await response.json();
+import ErrorBoundary from "@/components/ErrorBoundary";
+import Loader from "@/components/Loader";
+import Feed from "@/components/prompts/Feed";
+import useSWR from "swr";
+import { fetcher } from "@/lib/common";
+
+const PromptsPage = () => {
+  const { data: prompts, error, isLoading } = useSWR("/api/prompt", fetcher);
+
+  if (error) return <ErrorBoundary />;
+
+  if (isLoading) return <Loader />;
 
   return <Feed posts={prompts} />;
 };

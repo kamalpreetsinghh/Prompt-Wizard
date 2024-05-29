@@ -12,15 +12,11 @@ const UserProfilePage = async ({ params: { id } }: Params) => {
   return (
     <>
       <ProfileHeader
-        userProfile={profile.result.userProfile}
+        userProfile={profile}
         loggedInUserId={session && session?.user?.id ? session?.user?.id : null}
       />
       <UserPosts
-        posts={
-          profile.result.prompts && profile.result.prompts.length > 0
-            ? profile.result.prompts
-            : []
-        }
+        userId={id}
         canEdit={session && session?.user?.id === id ? true : false}
       />
     </>

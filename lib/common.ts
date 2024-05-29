@@ -9,3 +9,9 @@ export const capitalizeWords = (inputString: string) => {
 
   return result;
 };
+
+export const fetcher = async (url: string) => {
+  const response = await fetch(url);
+  const responseJson = await response.json();
+  return responseJson;
+};

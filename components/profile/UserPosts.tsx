@@ -1,24 +1,39 @@
 "use client";
 
 import PromptCardList from "../prompts/PromptCardList";
-import { Post } from "@/common.types";
 import { motion } from "framer-motion";
 import { fade } from "@/lib/motion";
 import { pacifico } from "@/app/font";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import useSWR, { mutate } from "swr";
+import { fetcher } from "@/lib/common";
+import Loader from "../Loader";
+import ErrorBoundary from "../ErrorBoundary";
 
 type UserPostsProps = {
-  posts: Post[];
+  userId: string;
   canEdit: boolean;
 };
 
-const UserPosts = ({ posts, canEdit }: UserPostsProps) => {
+const UserPosts = ({ userId, canEdit }: UserPostsProps) => {
   let deletePostId = "";
-  const [userPosts, setUserPosts] = useState(posts);
+  const [userPosts, setUserPosts] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const {
+    data: posts,
+    error,
+    isLoading,
+  } = useSWR(`/api/user/posts/${userId}`, fetcher);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setUserPosts(posts && posts.length > 0 ? posts : []);
+    }
+  }, [posts, isLoading]);
 
   const showModal = (id: string) => {
     deletePostId = id;
@@ -42,7 +57,8 @@ const UserPosts = ({ posts, canEdit }: UserPostsProps) => {
       });
 
       if (response.ok) {
-        setUserPosts(posts.filter((post: Post) => post._id !== deletePostId));
+        await mutate("/api/prompt");
+        await mutate(`/api/user/posts/${userId}`);
         closeModal();
       }
     } catch (error) {
@@ -68,76 +84,87 @@ const UserPosts = ({ posts, canEdit }: UserPostsProps) => {
     });
   }
 
-  return (
-    <section className="w-full flex-col flex-center">
-      {userPosts.length > 0 ? (
-        <>
-          <PromptCardList
-            posts={userPosts}
-            showUserActions={canEdit}
-            showModal={showModal}
-          />
-          <dialog className="rounded-2xl w-full max-w-md  " ref={dialogRef}>
-            <div className="flex-col flex-center">
-              <h1 className="mt-2 mb-2 font-extrabold text-2xl flex-center">
-                Confirm Delete?
-              </h1>
-              <p className="my-2">
-                Are you sure you want to delete this prompt?
-              </p>
+  if (error) return <ErrorBoundary />;
 
-              <div className="flex gap-2 my-4">
-                <button
-                  className="rounded-button bg-red-800 w-24"
-                  onClick={closeModal}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="rounded-button bg-primary w-24"
-                  onClick={handleConfirmDelete}
-                >
-                  {isSubmitting ? (
-                    <div className="w-24 flex items-center justify-center">
-                      <span className="loader bottom-2.5"></span>
-                    </div>
-                  ) : (
-                    <>Delete</>
-                  )}
-                </button>
-              </div>
-            </div>
-          </dialog>
-        </>
+  return (
+    <>
+      {isLoading ? (
+        <Loader />
       ) : (
-        <motion.div className="mt-28 text-xl flex-col items-center" {...fade}>
-          {canEdit ? (
+        <section className="w-full flex-col flex-center">
+          {userPosts.length > 0 ? (
             <>
-              <p
-                className={`${pacifico.className} font-extrabold text-xl lg:text-3xl text-center`}
-              >
-                You have not created any post.
-              </p>
-              <motion.p
-                whileHover={{ scale: 1.1 }}
-                className={`${pacifico.className} text-primary font-extrabold 
-                    text-xl lg:text-3xl text-center mt-6 cursor-pointer`}
-              >
-                <Link href="/create-prompt">
-                  Create and share creative prompts to the community.
-                </Link>
-              </motion.p>
+              <PromptCardList
+                posts={userPosts}
+                showUserActions={canEdit}
+                showModal={showModal}
+              />
+              <dialog className="rounded-2xl w-full max-w-md  " ref={dialogRef}>
+                <div className="flex-col flex-center">
+                  <h1 className="mt-2 mb-2 font-extrabold text-2xl flex-center">
+                    Confirm Delete?
+                  </h1>
+                  <p className="my-2">
+                    Are you sure you want to delete this prompt?
+                  </p>
+
+                  <div className="flex gap-2 my-4">
+                    <button
+                      className="rounded-button bg-red-800 w-24"
+                      onClick={closeModal}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="rounded-button bg-primary w-24"
+                      onClick={handleConfirmDelete}
+                    >
+                      {isSubmitting ? (
+                        <div className="w-24 flex items-center justify-center">
+                          <span className="loader bottom-2.5"></span>
+                        </div>
+                      ) : (
+                        <>Delete</>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </dialog>
             </>
           ) : (
-            <p
-              className={`${pacifico.className} text-primary font-extrabold text-xl lg:text-3xl text-center`}
+            <motion.div
+              className="mt-28 text-xl flex-col items-center"
+              {...fade}
             >
-              User has not shared any posts.
-            </p>
+              {canEdit ? (
+                <>
+                  <p
+                    className={`${pacifico.className} font-extrabold text-xl lg:text-3xl text-center`}
+                  >
+                    You have not created any post.
+                  </p>
+                  <motion.p
+                    whileHover={{ scale: 1.1 }}
+                    className={`${pacifico.className} text-primary font-extrabold 
+                  text-xl lg:text-3xl text-center mt-6 cursor-pointer`}
+                  >
+                    <Link href="/create-prompt">
+                      Create and share creative prompts to the community.
+                    </Link>
+                  </motion.p>
+                </>
+              ) : (
+                <p
+                  className={`${pacifico.className} text-primary font-extrabold text-xl lg:text-3xl text-center`}
+                >
+                  User has not shared any posts.
+                </p>
+              )}
+            </motion.div>
           )}
-        </motion.div>
+        </section>
       )}
-    </section>
+    </>
   );
 };
 

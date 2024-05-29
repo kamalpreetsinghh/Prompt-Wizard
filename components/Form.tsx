@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "./Loader";
 import { motion } from "framer-motion";
+import { mutate } from "swr";
 
 type FormProps = {
   type: "Create" | "Edit";
@@ -61,6 +62,7 @@ const Form = ({ type, userId, promptId }: FormProps) => {
       }
 
       if (response.ok) {
+        mutate("/api/prompt"); // Revalidate SWR cache
         router.back();
       }
     } catch (error) {

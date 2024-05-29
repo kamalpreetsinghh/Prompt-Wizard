@@ -17,12 +17,7 @@ export const GET = async (request: NextRequest, { params: { id } }: Params) => {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const prompts = await getPromptsByUserId(id);
-
-    return NextResponse.json(
-      { result: { userProfile, prompts } },
-      { status: 200 }
-    );
+    return NextResponse.json(userProfile, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
