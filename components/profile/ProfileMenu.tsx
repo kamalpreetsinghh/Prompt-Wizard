@@ -87,12 +87,20 @@ const ProfileMenu = ({ user }: { user: User }) => {
 
             <div className="flex flex-col gap-3 pt-10 items-start w-full">
               <Menu.Item>
-                <Link href={`/profile/${user.id}`} className="text-sm">
-                  Settings
+                <Link
+                  href={`/prompts`}
+                  className="text-sm"
+                  onClick={() => setOpenModal(false)}
+                >
+                  Prompts
                 </Link>
               </Menu.Item>
               <Menu.Item>
-                <Link href={`/profile/${user.id}`} className="text-sm">
+                <Link
+                  href={`/profile/${user.id}`}
+                  className="text-sm"
+                  onClick={() => setOpenModal(false)}
+                >
                   Profile
                 </Link>
               </Menu.Item>

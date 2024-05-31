@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Loader from "../Loader";
 import { capitalizeWords, fetcher } from "@/lib/common";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import ErrorBoundary from "../ErrorBoundary";
 
 type ProfileFormProps = {
@@ -36,7 +36,7 @@ const ProfileForm = ({ userId }: ProfileFormProps) => {
         setBio(userProfile.bio);
       }
     }
-  }, [userProfile]);
+  }, [userProfile, isLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,6 +58,7 @@ const ProfileForm = ({ userId }: ProfileFormProps) => {
       }
 
       if (response.ok) {
+        await fetch(`/api/validate?path=/profile/${userId}`);
         router.back();
       }
     } catch (error) {
@@ -120,11 +121,11 @@ const ProfileForm = ({ userId }: ProfileFormProps) => {
               setState={setBio}
             />
 
-            <div className="flex-end mx-3 mb-5 gap-4">
+            <div className="flex justify-end mx-3 mb-5 gap-4">
               <button
                 type="button"
                 onClick={handleCancel}
-                className="rounded-button bg-red-800"
+                className="rounded-button bg-red-800 w-24"
               >
                 Cancel
               </button>
@@ -132,9 +133,15 @@ const ProfileForm = ({ userId }: ProfileFormProps) => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="rounded-button bg-primary"
+                className="rounded-button bg-primary w-24"
               >
-                {submitting ? `Editing...` : "Edit"}
+                {submitting ? (
+                  <div className="w-24 flex items-center justify-center">
+                    <span className="loader bottom-2.5"></span>
+                  </div>
+                ) : (
+                  "Edit"
+                )}
               </button>
             </div>
           </form>

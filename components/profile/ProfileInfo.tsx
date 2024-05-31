@@ -12,7 +12,10 @@ type ProfileInfoProps = {
 
 const ProfileInfo = ({ userProfile, canEdit }: ProfileInfoProps) => {
   return (
-    <motion.div className="flex flex-col mt-10 max-w-[600px]" {...fadeRight}>
+    <motion.div
+      className="flex flex-col items-center md:items-start mt-10 max-w-[600px]"
+      {...fadeRight}
+    >
       <UploadImage
         userImage={userProfile?.image || null}
         canEdit={canEdit}

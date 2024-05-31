@@ -16,7 +16,7 @@ type ProfileHeaderProps = {
 
 const ProfileHeader = ({ userProfile, loggedInUserId }: ProfileHeaderProps) => {
   return (
-    <div className="w-full sm:max-w-[800px] xl:max-w-[1200px] flex-between">
+    <div className="w-full sm:max-w-[800px] xl:max-w-[1200px] flex justify-center md:justify-between items-center ">
       <div>
         <ProfileInfo
           userProfile={userProfile}
@@ -43,7 +43,7 @@ const ProfileHeader = ({ userProfile, loggedInUserId }: ProfileHeaderProps) => {
         )}
       </div>
 
-      <motion.div className="mt-10 hidden lg:flex gap-10" {...fade}>
+      <motion.div className="mt-10 hidden xl:flex gap-10" {...fade}>
         <Image
           src="/assets/images/ai.png"
           width={200}

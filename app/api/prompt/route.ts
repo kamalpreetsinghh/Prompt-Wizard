@@ -17,10 +17,6 @@ export const POST = async (request: NextRequest) => {
   try {
     const newPrompt = await createPrompt(requestBody);
 
-    // Trigger revalidation
-    const revalidationUrl = `${process.env.NEXTAUTH_URL}/api/revalidate?path=/prompts`;
-    await fetch(revalidationUrl);
-
     return NextResponse.json(newPrompt, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

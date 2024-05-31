@@ -89,7 +89,9 @@ const UserPosts = ({ userId, canEdit }: UserPostsProps) => {
   return (
     <>
       {isLoading ? (
-        <Loader />
+        <div className="mt-32 w-full flex justify-center items-center">
+          <div className="dot-spin">Loader</div>
+        </div>
       ) : (
         <section className="w-full flex-col flex-center">
           {userPosts.length > 0 ? (

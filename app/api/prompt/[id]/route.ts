@@ -51,10 +51,6 @@ export const DELETE = async (
   try {
     await deletePrompt(id);
 
-    // Trigger revalidation
-    const revalidationUrl = `${process.env.NEXTAUTH_URL}/api/revalidate?path=/prompts`;
-    await fetch(revalidationUrl);
-
     return NextResponse.json(
       { message: "Prompt deleted successfully", success: true },
       { status: 200 }

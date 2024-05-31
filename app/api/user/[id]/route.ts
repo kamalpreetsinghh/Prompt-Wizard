@@ -46,6 +46,10 @@ export const PATCH = async (
 
     await updateUserProfile(id, { username, name, bio });
 
+    // Trigger revalidation
+    // const revalidationUrl = `${process.env.NEXTAUTH_URL}/api/revalidate?path=/profile/${id}`;
+    // await fetch(revalidationUrl);
+
     return NextResponse.json(
       { message: "User Profile Updated successfully", success: true },
       { status: 200 }
