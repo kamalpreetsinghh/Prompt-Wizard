@@ -14,8 +14,8 @@ const Home = () => {
           </span>
         </h1>
         <p className="mb-4 description text-center mx-auto">
-          Prompt Wizard is an open-source AI prompting tool for the modern world
-          to discover, create and share creative prompts.
+          Empowering creativity and collaboration through the seamless
+          discovery, creation, and sharing of open-source AI prompts.
         </p>
       </div>
 

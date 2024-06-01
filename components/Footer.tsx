@@ -39,8 +39,8 @@ const Footer = () => {
                 alt="Prompt Wizard"
               />
               <p className="text-start text-sm font-normal mt-5 max-w-sm">
-                Prompt Wizard is an open-source AI prompting tool to discover,
-                create and share creative prompts.
+                Empowering creativity and collaboration through the seamless
+                discovery, creation, and sharing of open-source AI prompts.
               </p>
             </div>
             <div className="flex flex-wrap gap-12">
@@ -83,7 +83,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="flex-between footer_copyright">
-            <p>@ 2023 Prompt Wizard. All rights reserved</p>
+            <p>@ 2024 Prompt Wizard. All rights reserved</p>
           </div>
         </footer>
       )}
