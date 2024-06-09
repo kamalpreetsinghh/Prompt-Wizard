@@ -11,7 +11,7 @@ const Navbar = async () => {
     <nav className="flex-between w-full py-4 gap-4 px-6 sm:px-24">
       <Link href="/prompts">
         <Image
-          src="/assets/icons/logo.svg"
+          src="/icons/logo.svg"
           alt="logo"
           priority={true}
           width={150}

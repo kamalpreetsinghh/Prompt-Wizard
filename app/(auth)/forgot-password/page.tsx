@@ -47,7 +47,7 @@ const ForgotPasswordPage = () => {
 
   return (
     <FormAndImage
-      image="/assets/images/forgotpassword.png"
+      image="/icons/forgotpassword.svg"
       imageDesc="Forgot Password Image"
     >
       <>

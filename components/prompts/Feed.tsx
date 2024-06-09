@@ -113,7 +113,7 @@ const Feed = ({ posts }: FeedProps) => {
         }}
       >
         <input
-          className="form_field-input max-w-[800px]"
+          className="form-field-input max-w-[800px]"
           type="text"
           placeholder="Search for a tag or a username"
           value={searchText}

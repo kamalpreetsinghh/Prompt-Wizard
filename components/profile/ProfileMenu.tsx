@@ -64,7 +64,7 @@ const ProfileMenu = ({ user }: { user: User }) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items static className="flex-start profile_menu-items">
+          <Menu.Items static className="flex-start profile-menu-items">
             <div className="flex flex-col items-center gap-y-4">
               {user.image ? (
                 <div className="w-20 h-20 relative">

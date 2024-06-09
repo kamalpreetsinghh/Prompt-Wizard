@@ -14,7 +14,7 @@ type DefaultPromptProps = {
 
 const DefaultPromptList = ({ posts }: DefaultPromptListProps) => (
   <motion.div
-    className="prompt_layout"
+    className="prompt-layout"
     variants={container}
     initial="hidden"
     animate="visible"
@@ -31,7 +31,7 @@ const DefaultPrompt = ({ post }: DefaultPromptProps) => {
   };
   return (
     <motion.div
-      className="prompt_card"
+      className="prompt-card"
       variants={item}
       whileHover={{ scale: 1.03 }}
     >

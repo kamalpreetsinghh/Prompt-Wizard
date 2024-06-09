@@ -76,7 +76,7 @@ const ResetPasswordPage = () => {
 
   return (
     <FormAndImage
-      image="/assets/images/resetpassword.png"
+      image="/icons/resetpassword.svg"
       imageDesc="Reset Password Image"
     >
       <>

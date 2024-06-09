@@ -20,7 +20,7 @@ const PromptCardList = ({
 }: PromptCardListProps) => {
   return (
     <motion.div
-      className="prompt_layout mt-4"
+      className="prompt-layout mt-4"
       variants={container}
       initial="hidden"
       animate="visible"

@@ -32,7 +32,7 @@ const PromptCard = ({
 
   return (
     <motion.div
-      className="prompt_card"
+      className="prompt-card"
       variants={item}
       whileHover={{ scale: 1.03 }}
     >

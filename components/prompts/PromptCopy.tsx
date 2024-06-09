@@ -19,7 +19,7 @@ const PromptCopy = ({ onCopy }: PromptCopyProps) => {
   return (
     <div className="copy_btn cursor-pointer" onClick={handleCopy}>
       <Image
-        src={showCopyIcon ? "/assets/icons/tick.svg" : "/assets/icons/copy.svg"}
+        src={showCopyIcon ? "/icons/tick.svg" : "/icons/copy.svg"}
         alt={showCopyIcon ? "tick_icon" : "copy_icon"}
         width={20}
         height={20}

@@ -45,14 +45,14 @@ const ProfileHeader = ({ userProfile, loggedInUserId }: ProfileHeaderProps) => {
 
       <motion.div className="mt-10 hidden xl:flex gap-10" {...fade}>
         <Image
-          src="/assets/images/ai.png"
+          src="/images/ai.png"
           width={200}
           height={200}
           alt="AI Image"
           priority={true}
         />
         <Image
-          src="/assets/images/prompt.png"
+          src="/images/prompt.png"
           width={190}
           height={190}
           alt="Prompt Image"

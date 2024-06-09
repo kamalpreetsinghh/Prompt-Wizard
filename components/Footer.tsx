@@ -33,7 +33,7 @@ const Footer = () => {
           <div className="flex flex-col gap-12 w-full ">
             <div className="flex flex-col items-start">
               <Image
-                src="/assets/icons/logo.svg"
+                src="/icons/logo.svg"
                 width={150}
                 height={40}
                 alt="Prompt Wizard"
@@ -82,7 +82,7 @@ const Footer = () => {
               />
             </div>
           </div>
-          <div className="flex-between footer_copyright">
+          <div className="flex-between footer-copyright">
             <p>@ 2024 Prompt Wizard. All rights reserved</p>
           </div>
         </footer>

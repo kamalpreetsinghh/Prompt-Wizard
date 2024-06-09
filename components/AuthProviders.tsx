@@ -102,7 +102,7 @@ const AuthProviders = () => {
         >
           <Image
             className="mx-2"
-            src="/assets/icons/google.svg"
+            src="/icons/google.svg"
             width={20}
             height={20}
             alt="Google"

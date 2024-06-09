@@ -95,7 +95,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <FormAndImage image="/assets/images/signup.png" imageDesc="Sign Up Image">
+    <FormAndImage image="/icons/signup.svg" imageDesc="Sign Up Image">
       <div className="w-full max-w-lg mx-auto flex flex-col items-center">
         <h1 className="heading orange-gradient mt-8 mb-2">Hi there!</h1>
         <p className="description max-w-md mb-6">Welcome to Prompt Wizard</p>

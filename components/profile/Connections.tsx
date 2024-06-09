@@ -108,10 +108,8 @@ const Connections = ({ userId }: { userId: string }) => {
             />
           </div>
 
-          <div
-            className="border-t divider-color w-full 
-              h-96 overflow-y-scroll overflow-x-scroll"
-          >
+          <div className="w-full h-96 overflow-y-scroll overflow-x-scroll">
+            <hr className="divider-color mx-4" />
             {isFollowersLoading ? (
               <div className="flex justify-center items-center h-full">
                 <div className="half-circle-spinner">

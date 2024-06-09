@@ -39,7 +39,7 @@ const FormField = ({
           placeholder={placeholder}
           required={isRequired}
           value={state}
-          className="form_field-input"
+          className="form-field-input"
           rows={5}
           onChange={(e) => setState(e.target.value)}
         />
@@ -53,7 +53,7 @@ const FormField = ({
                 required={isRequired}
                 value={state}
                 autoCapitalize={autocapitalize ? "words" : "off"}
-                className={`form_field-input`}
+                className={`form-field-input`}
                 onChange={(e) => setState(e.target.value)}
               />
               <button
@@ -74,7 +74,7 @@ const FormField = ({
               required={isRequired}
               value={state}
               autoCapitalize={autocapitalize ? "words" : "off"}
-              className={`form_field-input ${autocapitalize && "capitalize"}`}
+              className={`form-field-input ${autocapitalize && "capitalize"}`}
               onChange={(e) => setState(e.target.value)}
             />
           )}

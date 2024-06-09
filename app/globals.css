@@ -183,7 +183,7 @@ body {
 }
 
 /* Profile Menu */
-.profile_menu-items {
+.profile-menu-items {
   @apply flex-col absolute right-full sm:right-1/2 translate-x-1/2 mt-3 
   p-7 sm:min-w-[300px] min-w-max rounded-xl border;
   border-color: var(--divider-color);
@@ -196,22 +196,22 @@ body {
 }
 
 /* Form Field */
-.form_field-input {
+.form-field-input {
   @apply w-full border outline-0 rounded-xl p-4;
   background-color: var(--form-background-color);
   border-color: var(--divider-color);
 }
 
-.form_field-input:focus {
+.form-field-input:focus {
   border-color: var(--text-grey-color);
 }
 
-.prompt_layout {
+.prompt-layout {
   @apply space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3;
 }
 
 /* PromptCard Component */
-.prompt_card {
+.prompt-card {
   @apply flex-1 break-inside-avoid rounded-lg border bg-clip-padding p-6 pb-4 
   backdrop-blur-lg backdrop-filter md:w-[380px] w-full h-fit;
   background-color: var(--card-color);
@@ -224,59 +224,8 @@ body {
   background-color: var(--footer-background-color);
 }
 
-.footer_copyright {
+.footer-copyright {
   @apply max-sm:flex-col w-full text-sm font-normal;
-}
-
-/* Toggle Slider */
-input[type="checkbox"].toggle {
-  opacity: 0;
-  position: absolute;
-  left: -9000px;
-  top: -9000px;
-}
-
-input[type="checkbox"].toggle + label {
-  position: relative;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-input[type="checkbox"].toggle + label::before {
-  content: "";
-  width: 2em;
-  height: 1em;
-  background-color: hsl(36, 100%, 77%);
-  border-radius: 1em;
-  transition: background-color 200ms ease-in-out;
-}
-
-input[type="checkbox"].toggle + label::after {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  content: "";
-  font-size: 0.5em;
-  height: 0.9em;
-  left: 0.2em;
-  width: 1.8em;
-  height: 1.8em;
-  background-color: black;
-  color: white;
-  border-radius: 1em;
-  transition: background-color 200ms ease-in-out, transform 200ms ease-in-out;
-}
-
-input[type="checkbox"].toggle:checked + label::before {
-  background-color: hsl(36, 100%, 77%);
-}
-
-input[type="checkbox"].toggle:checked + label::after {
-  content: "";
-  transform: translateX(100%);
-  background-color: var(--primary-color);
 }
 
 .text-grey-color {
@@ -301,8 +250,12 @@ input[type="checkbox"].toggle:checked + label::after {
   opacity: 0.5;
 }
 
-.form_image-input {
+.form-image-input {
   @apply absolute z-30 w-full opacity-0 h-full cursor-pointer;
+}
+
+.divider-color {
+  color: var(--divider-color);
 }
 
 /* Modal */
