@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {},
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const { email, password } = credentials as {
           email: string;
           password: string;
@@ -74,11 +74,10 @@ export const authOptions: NextAuthOptions = {
 
       return session;
     },
-    async signIn({ account, profile, user, credentials }) {
+    async signIn({ profile, user }) {
       try {
         if (profile?.email) {
           const userExists = await getUserByEmail(profile.email);
-          console.log(user);
 
           if (userExists && user?.image && !userExists.image) {
             await updateProfileImage(userExists._id, user.image);
