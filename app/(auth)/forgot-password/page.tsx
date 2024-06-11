@@ -70,7 +70,6 @@ const ForgotPasswordPage = () => {
               placeholder="explore@mountains.com"
               setState={handleEmailChange}
               errorMessage={emailError}
-              isRequired
             />
             <button
               className="form-button mt-4 mb-6"

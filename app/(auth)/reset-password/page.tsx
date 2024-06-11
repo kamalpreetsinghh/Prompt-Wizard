@@ -97,7 +97,6 @@ const ResetPasswordPage = () => {
               placeholder="no0neCanGuessIt"
               setState={handlePasswordChange}
               errorMessage={passwordError}
-              isRequired
               type="password"
             />
 
@@ -107,7 +106,6 @@ const ResetPasswordPage = () => {
               placeholder="no0neCanGuessIt"
               setState={handleConfirmPasswordChange}
               errorMessage={confirmPasswordError}
-              isRequired
               type="password"
             />
 

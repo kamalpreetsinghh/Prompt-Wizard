@@ -109,7 +109,6 @@ const SignUpPage = () => {
             placeholder="Bruce Wayne"
             setState={handleNameChange}
             errorMessage={nameError}
-            isRequired
             autocapitalize={true}
           />
 
@@ -119,7 +118,6 @@ const SignUpPage = () => {
             placeholder="explore@mountains.com"
             setState={handleEmailChange}
             errorMessage={emailError}
-            isRequired
           />
 
           <FormField
@@ -128,7 +126,6 @@ const SignUpPage = () => {
             placeholder="no0neCanGuessIt"
             setState={handlePasswordChange}
             errorMessage={passwordError}
-            isRequired
             type="password"
           />
 
@@ -138,7 +135,6 @@ const SignUpPage = () => {
             placeholder="no0neCanGuessIt"
             setState={handleConfirmPasswordChange}
             errorMessage={confirmPasswordError}
-            isRequired
             type="password"
           />
           <button
